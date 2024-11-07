@@ -2,7 +2,7 @@ import React from 'react';
 
 const Header = () => {
     return (
-        <div className="container mt-4" >
+        <div className="bg-primary bg-gradient" >
             Header
         </div>
     );
