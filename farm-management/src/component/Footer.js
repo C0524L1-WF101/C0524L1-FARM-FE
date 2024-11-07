@@ -2,8 +2,8 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <div className="container mt-4" >
-            Footer
+        <div className="bg-primary bg-gradient" >
+            <p>Footer</p>
         </div>
     );
 };

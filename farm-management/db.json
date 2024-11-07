@@ -1,0 +1,47 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "username": "admin",
+      "password": "admin123",
+      "role": "admin"
+    },
+    {
+      "id": "2",
+      "username": "employee1",
+      "password": "emp123",
+      "role": "employee"
+    }
+  ],
+  "news": [
+    {
+      "id": "1",
+      "title": "Tin tức số 1",
+      "content": "Nội dung tin tức số 1",
+      "createdAt": "2023-11-01"
+    }
+  ],
+  "pigs": [
+    {
+      "id": "1",
+      "name": "Lợn giống 1",
+      "weight": 100,
+      "age": 2,
+      "farmLocation": "Trang trại 1"
+    },
+    {
+      "id": "26e8",
+      "name": "Lon hong",
+      "weight": "110",
+      "age": "10",
+      "farmLocation": "nam dinh"
+    },
+    {
+      "id": "99ac",
+      "name": "lon xanh",
+      "weight": "120",
+      "age": "30",
+      "farmLocation": "hung yen"
+    }
+  ]
+}

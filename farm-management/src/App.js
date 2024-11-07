@@ -4,34 +4,36 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Layout from './component/Layout';
-import ProtectedRoute from './component/ProtectedRoute';
+import NewsManagement from './component/NewsManagement';
 
 const App = () => {
     return (
         <Router>
             <Routes>
                 <Route path="/login" element={<Login />} />
-                <Route 
-                    path="/home" 
+                <Route
+                    path="/home"
                     element={
-                        <ProtectedRoute>
-                            <Layout>
-                                <Home />
-                            </Layout>
-                        </ProtectedRoute>
-                    } 
+                        <Home />
+                    }
                 />
-                <Route 
-                    path="/profile" 
+                <Route
+                    path="/profile"
                     element={
-                        <ProtectedRoute>
-                            <Layout>
-                                <Profile />
-                            </Layout>
-                        </ProtectedRoute>
-                    } 
+                        <Layout>
+                            <Profile />
+                        </Layout>
+                    }
                 />
-                <Route path="*" element={<Navigate to="/login" />} />
+                <Route
+                    path="/news"
+                    element={
+                        <Layout>
+                            <NewsManagement />
+                        </Layout>
+                    }
+                />
+                <Route path="*" element={<Navigate to="/home" />} />
             </Routes>
         </Router>
     );
