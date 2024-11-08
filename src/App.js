@@ -4,7 +4,11 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Layout from './component/Layout';
-import NewsManagement from './component/NewsManagement';
+import News from './pages/News';
+import Barn from './pages/Barn';
+import Staff from './pages/Staff';
+import Individual from './pages/Individual';
+
 
 const App = () => {
     return (
@@ -29,7 +33,31 @@ const App = () => {
                     path="/news"
                     element={
                         <Layout>
-                            <NewsManagement />
+                            <News />
+                        </Layout>
+                    }
+                />
+                <Route
+                    path="/barn"
+                    element={
+                        <Layout>
+                            <Barn/>
+                        </Layout>
+                    }
+                />
+                 <Route
+                    path="/staff"
+                    element={
+                        <Layout>
+                            <Staff/>
+                        </Layout>
+                    }
+                />
+                 <Route
+                    path="/individual"
+                    element={
+                        <Layout>
+                            <Individual/>
                         </Layout>
                     }
                 />

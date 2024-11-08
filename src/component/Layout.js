@@ -5,15 +5,15 @@ import Sidebar from './Sidebar';
 
 const Layout = ({ children }) => {
     return (
-        <div className="d-flex">
-            <Sidebar />
-            <div className="flex-grow-1 d-flex flex-column">
-                <Header />
+        <div className="d-flex flex-column min-vh-100">
+            <Header />
+            <div className="d-flex flex-grow-1">
+                <Sidebar/>
                 <main className="flex-grow-1 p-4">
                     {children}
                 </main>
-                <Footer />
             </div>
+            <Footer />
         </div>
     );
 };
