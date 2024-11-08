@@ -23,18 +23,28 @@
   ],
   "pigs": [
     {
-      "id": "26e8",
-      "name": "Lon hong",
-      "weight": "110",
-      "age": "10",
-      "farmLocation": "nam dinh"
+      "id": "L001",
+      "name": "C01",
+      "date1": "",
+      "date2": "",
+      "feel": "Khỏe mạnh",
+      "weight": "45kg"
     },
     {
-      "id": "1ac5",
-      "name": "1",
-      "weight": "1",
-      "age": "1",
-      "farmLocation": "1"
+      "id": "L002",
+      "name": "C02",
+      "date1": "",
+      "date2": "",
+      "feel": "Bệnh Tật",
+      "weight": "31kg"
+    },
+    {
+      "id": "L003",
+      "name": "C03",
+      "date1": "",
+      "date2": "",
+      "feel": "Cần chăm sóc",
+      "weight": "72kg"
     }
   ]
 }
