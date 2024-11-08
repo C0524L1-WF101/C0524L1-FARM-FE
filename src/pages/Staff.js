@@ -33,6 +33,7 @@ const Staff = () => {
     gender: "",
     idNumber: "",
   });
+  const [isAdding, setIsAdding] = useState(false);
   const filteredStaff = staff.filter((staff) =>
     staff.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -47,6 +48,7 @@ const Staff = () => {
       gender: "",
       idNumber: "",
     });
+    setIsAdding(true); 
     setSelectedStaff(null); 
   };
 
@@ -64,10 +66,10 @@ const Staff = () => {
       );
       setSelectedStaff(null);
     } else {
-   
+      
       setStaff([...staff, formData]);
     }
-
+    setIsAdding(false); 
     setFormData({
       id: "",
       name: "",
@@ -82,10 +84,13 @@ const Staff = () => {
   return (
     <div>
       <h2>Quản Lý nhân viên</h2>
+      {!isAdding ? (
+        <>
       <div>
+     
         <input
           type="text"
-          placeholder="Tìm kiếm"
+          placeholder="Tìm Kiếm"
           value={searchTerm}
           onChange={handleSearch}
           style={{
@@ -99,6 +104,7 @@ const Staff = () => {
         <button
           onClick={handleAdd}
           style={{
+            width:'150px',
             padding: "8px 12px",
             marginLeft: "10px",
             backgroundColor: " #1e90ff",
@@ -108,7 +114,7 @@ const Staff = () => {
             cursor: "pointer",
           }}
         >
-          Tìm Kiếm
+          Thêm
         </button>
 
         <table
@@ -116,7 +122,7 @@ const Staff = () => {
           style={{
             marginTop: "20px",
             marginBottom: "30px",
-            width: "75%",
+            width: "80%",
             height: "100px",
           }}
         >
@@ -214,6 +220,7 @@ const Staff = () => {
               </td>
             </tr>
           </thead>
+
           <tbody>
             {filteredStaff.map((item) => (
               <tr>
@@ -257,6 +264,9 @@ const Staff = () => {
           </tbody>
         </table>
       </div>
+     
+      </>
+      ) : (
 
       <div
         style={{
@@ -401,8 +411,10 @@ const Staff = () => {
           </button>
         </form>
       </div>
+       )}
     </div>
   );
+
 };
 
 export default Staff;
