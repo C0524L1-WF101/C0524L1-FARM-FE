@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './pages/Login';
-import Home from './pages/Home';
-import Profile from './pages/Profile';
+import Login from './pages/login/Login';
+import Home from './pages/home/Home';
+import Profile from './pages/profile/Profile';
 import Layout from './component/Layout';
 import News from './pages/News';
 import Barn from './pages/Barn';
@@ -22,10 +22,10 @@ const App = () => {
                     }
                 />
                 <Route
-                    path="/profile"
+                    path="/profile/:userId"
                     element={
                         <Layout>
-                            <Profile />
+                            <Profile /> 
                         </Layout>
                     }
                 />
@@ -41,23 +41,23 @@ const App = () => {
                     path="/barn"
                     element={
                         <Layout>
-                            <Barn/>
+                            <Barn />
                         </Layout>
                     }
                 />
-                 <Route
+                <Route
                     path="/staff"
                     element={
                         <Layout>
-                            <Staff/>
+                            <Staff />
                         </Layout>
                     }
                 />
-                 <Route
+                <Route
                     path="/individual"
                     element={
                         <Layout>
-                            <Individual/>
+                            <Individual />
                         </Layout>
                     }
                 />
