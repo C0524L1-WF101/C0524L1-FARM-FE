@@ -18,23 +18,59 @@
       "id": "1",
       "title": "Tin tức số 1",
       "content": "Nội dung tin tức số 1",
-      "createdAt": "2023-11-01"
+      "createdAt": "2023-11-01",
+      "img": "àdasdasd"
     }
   ],
   "pigs": [
     {
-      "id": "26e8",
-      "name": "Lon hong",
-      "weight": "110",
-      "age": "10",
-      "farmLocation": "nam dinh"
+      "id": "65d4",
+      "name": "11",
+      "weight": "11",
+      "age": "11",
+      "farmLocation": "111"
+    }
+  ],
+  "barn": [
+    {
+      "id": "1",
+      "name": "C01",
+      "empoly": "NV001",
+      "createdAt": "08-11-2024",
+      "closeAt": "",
+      "quantity": "20"
     },
     {
-      "id": "1ac5",
-      "name": "1",
-      "weight": "1",
-      "age": "1",
-      "farmLocation": "1"
+      "id": "2",
+      "name": "C02",
+      "empoly": "NV0033",
+      "createdAt": "08-11-2024",
+      "closeAt": "",
+      "quantity": "24"
+    },
+    {
+      "id": "f8bea082-8d12-4e66-8b32-72175f663e50",
+      "name": "C03",
+      "empoly": "NV001",
+      "createdAt": "2024-11-09",
+      "closeAt": "",
+      "quantity": 12
+    },
+    {
+      "id": "1535ad04-6101-4626-852f-13a2fcf84a0c",
+      "name": "C04",
+      "empoly": "NV001",
+      "createdAt": "2024-11-09",
+      "closeAt": "",
+      "quantity": 12
+    },
+    {
+      "id": "134b4410-187c-452e-be0b-e4c7abccb87a",
+      "name": "C06",
+      "empoly": "NV002",
+      "createdAt": "2024-11-09",
+      "closeAt": "2024-11-10",
+      "quantity": 12
     }
   ]
 }
