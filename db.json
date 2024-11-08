@@ -23,13 +23,6 @@
   ],
   "pigs": [
     {
-      "id": "1",
-      "name": "Lợn giống 1",
-      "weight": 100,
-      "age": 2,
-      "farmLocation": "Trang trại 1"
-    },
-    {
       "id": "26e8",
       "name": "Lon hong",
       "weight": "110",
@@ -37,11 +30,11 @@
       "farmLocation": "nam dinh"
     },
     {
-      "id": "99ac",
-      "name": "lon xanh",
-      "weight": "120",
-      "age": "30",
-      "farmLocation": "hung yen"
+      "id": "1ac5",
+      "name": "1",
+      "weight": "1",
+      "age": "1",
+      "farmLocation": "1"
     }
   ]
 }
