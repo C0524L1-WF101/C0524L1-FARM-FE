@@ -117,7 +117,7 @@ const Staff = () => {
           className="btn-add-staff"
           onClick={handleAdd}
           style={{
-            width:'150px',
+            width:'200px',
             padding: "8px 12px",
             marginLeft: "10px",
             backgroundColor: '#ff8c00',
@@ -129,169 +129,64 @@ const Staff = () => {
           }}
        
         >
-          Thêm
+          Thêm Nhân Viên Mới
         </button>
 
-        <table
-      
-          style={{
-            marginTop: "20px",
-            marginBottom: "30px",
-            width: "80%",
-            height: "100px",
-           backgroundColor:'#dcdcdc',
-           borderCollapse:'collapse',
-          }}
-        >
-          <thead>
-            <tr style={{ textAlign: "center" }}>
-              <td
-                style={{
-                  padding: "8px",
-                  backgroundColor: '#ff8c00',
-                  color: "white",
-                  border:'1px solid white',
-                }}
-              >
-                Mã
-              </td>
-              <td
-                style={{
-                  padding: "8px",
-                  backgroundColor: '#ff8c00',
-                  color: "white",
-                  border:'1px solid white',
-                }}
-              >
-                Họ và tên
-              </td>
-              <td
-                style={{
-                  padding: "8px",
-                  backgroundColor: '#ff8c00',
-                  color: "white",
-                  border:'1px solid white',
-                }}
-              >
-                Ảnh đại diện
-              </td>
-              <td
-                style={{
-                  padding: "8px",
-                  backgroundColor: '#ff8c00',
-                  color: "white",
-                  border:'1px solid white',
-                }}
-              >
-                Tên tài khoản
-              </td>
-              <td
-                style={{
-                  padding: "8px",
-                  backgroundColor: '#ff8c00',
-                  color: "white",
-                  border:'1px solid white',
-                }}
-              >
-                Email
-              </td>
-              <td
-                style={{
-                  padding: "8px",
-                  backgroundColor: '#ff8c00',
-                  color: "white",
-                  border:'1px solid white',
-                }}
-              >
-                Ngày sinh
-              </td>
-              <td
-                style={{
-                  padding: "8px",
-                  backgroundColor: '#ff8c00',
-                  color: "white",
-                  border:'1px solid white',
-                }}
-              >
-                Giới tính
-              </td>
-              <td
-                style={{
-                  padding: "8px",
-                  backgroundColor:'#ff8c00',
-                  color: "white",
-                border:'1px solid white',
-                }}
-              >
-                Số CMND
-              </td>
-              <td
-                style={{
-                  padding: "8px",
-                  backgroundColor: '#ff8c00',
-                  color: "white",
-                  border:'1px solid white',
-                }}
-              >
-                Chỉnh sửa
-              </td>
-              <td
-                style={{
-                  padding: "8px",
-                  backgroundColor: '#ff8c00',
-                  color: "white",
-                  border:'1px solid white',
-                }}
-              >
-                Xóa
-              </td>
-            </tr>
-          </thead>
-
-          <tbody>
-            {filteredStaff.map((item) => (
-              <tr>
-                <td style={{textAlign:'center',  border:'1px solid white',}}>{item.id}</td>
-                <td style={{textAlign:'center',  border:'1px solid white',}}>{item.name}</td>
-                <td style={{textAlign:'center',  border:'1px solid white',}}><img src={item.avatar } width={100} height={100}/></td>
-                <td style={{textAlign:'center',  border:'1px solid white',}}>{item.username}</td>
-                <td style={{textAlign:'center',  border:'1px solid white',}}>{item.email}</td>
-                <td style={{textAlign:'center',  border:'1px solid white',}}>{item.dob}</td>
-                <td style={{textAlign:'center',  border:'1px solid white',}}>{item.gender}</td>
-                <td style={{textAlign:'center',  border:'1px solid white',}}>{item.idNumber}</td>
-                <td style={{textAlign:'center',  border:'1px solid white',}}>
-                  <button
-                    style={{
-                      border: "none",
-                      padding: "8px",
-                      backgroundColor: '#ff8c00',
-                      color: "white",
-                      borderRadius: "10px",
-                      width:  "80%",
-                    }}
-                  >
-                    Chỉnh sửa
-                  </button>
-                </td> 
-                <td style={{textAlign:'center',  border:'1px solid white',}}>
-                  <button
-                    style={{
-                      border: "none",
-                      padding: "8px",
-                      backgroundColor: '#ff8c00',
-                      color: "white",
-                      borderRadius: "10px",
-                      width:  "80%",
-                    }}
-                    onClick={()=>handleDelete(item.id)}
-                  >
-                    Xóa
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', marginTop: '20px',marginLeft:'5px' }}>
+        {filteredStaff.map((item) => (
+          <div  style={{
+            width: '300px', 
+            border: '1px solid #ddd', 
+            borderRadius: '8px', 
+            padding: '20px', 
+            boxShadow: '0px 4px 8px rgba(0,0,0,0.1)', 
+            textAlign: 'center', 
+            backgroundColor: '#ffffff',
+            marginRight:'20px',
+          }}>
+         
+            <img 
+              src={item.avatar} 
+              alt={`${item.name}'s Avatar`} 
+              style={{ width: '150px', height: '150px', borderRadius: '50%', marginBottom: '15px' }}
+            />
+            <h3 style={{ fontSize: '18px', margin: '10px 0 10px' }}>{item.name}</h3>
+            <p style={{ fontSize: '14px', color: '#666', margin: '8px 0' }}>Mã NV: {item.id}</p>
+            <p style={{ fontSize: '14px', color: '#666', margin: '8px 0' }}>UserName: {item.username}</p>
+            <p style={{ fontSize: '14px', color: '#666', margin: '8px 0' }}>Email: {item.email}</p>
+            <p style={{ fontSize: '14px', color: '#666', margin: '8px 0' }}>DoB: {item.dob}</p>
+            <p style={{ fontSize: '14px', color: '#666', margin: '8px 0' }}>Giới tính: {item.gender}</p>
+            <p style={{ fontSize: '14px', color: '#666', margin: '8px 0' }}>CMND: {item.idNumber}</p>
+            <button 
+             
+              style={{ 
+                padding: '5px 15px', 
+                marginRight: '10px', 
+                backgroundColor: '#ff8c00', 
+                color: 'white', 
+                border: 'none', 
+                borderRadius: '4px', 
+                cursor: 'pointer' 
+              }}
+            >
+              Chỉnh sửa
+            </button>
+            <button 
+              onClick={() => handleDelete(item.id)} 
+              style={{ 
+                padding: '5px 15px', 
+                backgroundColor: '#f44336', 
+                color: 'white', 
+                border: 'none', 
+                borderRadius: '4px', 
+                cursor: 'pointer' 
+              }}
+            >
+              Xóa
+            </button>
+          </div>
+        ))}
+      </div>
       </div>
      
       </>
