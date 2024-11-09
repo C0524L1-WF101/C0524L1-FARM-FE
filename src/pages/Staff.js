@@ -86,6 +86,12 @@ const Staff = () => {
       idNumber: "",
     });
   };
+  
+  const handleCancel = () => {
+    setIsAdding(false);
+    setFormData({ id:'', name: '',avatar:'', username: '', email: '', dob: '', gender:  '', idNumber: '' });
+    setSelectedStaff(null);
+  };
 
   const handleDelete = (id) => {
     const confirmDelete = window.confirm('Bạn có chắc chắn muốn xóa nhân viên này?');
@@ -341,12 +347,22 @@ const Staff = () => {
               backgroundColor:'#ff8c00',
               color: "white",
               borderRadius: "10px",
-              width: "500px",
-              marginLeft: "200px",
+              width: "200px",
+              marginLeft: "150px",
             }}
           >
             {selectedStaff ? "Lưu" : "Thêm"}
           </button>
+          <button onClick={handleCancel}
+           type="submit"
+           style={{
+             border: "none",
+             padding: "8px",
+             backgroundColor:'#ff8c00',
+             color: "white",
+             borderRadius: "10px",
+             width: "200px",
+             marginLeft: "200px",}}>Hủy</button>
         </form>
       </div>
        )}
