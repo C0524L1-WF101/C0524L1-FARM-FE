@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { userAPI } from "../services/api.js";
-
+import { Formik, Field, Form, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import ToastNotification from '../component/ToastNotification.js';
 const Staff = () => {
   const [staff, setStaff] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedStaff, setSelectedStaff] = useState(null);
-  const [formData, setFormData] = useState({
-    id: "",
-    name: "",
-    avatar: "",
-    username: "",
-    email: "",
-    dob: "",
-    gender: "",
-    avatar: "",
-    idNumber: "",
-  });
+  const [isAdding, setIsAdding] = useState(false);
+  const [toast, setToast] = useState({ message: '', type: '', show: false });
+  const showToast = (message, type) => {
+    setToast({ message, type, show: true });
+  };
+  const handleCloseToast = () => {
+    setToast({ ...toast, show: false });
+  };
   useEffect(() => {
     fetchStaff();
   }, []);
+
   const fetchStaff = async () => {
     try {
       const users = await userAPI.getAllUsers();
@@ -28,68 +28,76 @@ const Staff = () => {
     }
   };
 
-  const [isAdding, setIsAdding] = useState(false);
-
   const handleAdd = () => {
-    setFormData({
-      id: "",
-      name: "",
-      avatar: "",
-      username: "",
-      email: "",
-      dob: "",
-      gender: "",
-      idNumber: "",
-    });
     setIsAdding(true);
     setSelectedStaff(null);
+    
   };
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
-  const filteredUsers = staff.filter(staff =>
-    staff.name && staff.name.toLowerCase().includes(searchTerm.toLowerCase())
+
+  const filteredUsers = staff.filter(
+    (staff) =>
+      staff.name && staff.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
-  const handleSave = async () => {
+
+  const validationSchema = Yup.object({
+    id: Yup.string()
+      .required("Mã nhân viên là bắt buộc.")
+      .matches(/^NV\d{3}$/, "Mã Nhân Viên phải có dạng NV001, NV002,..."),
+      
+    name: Yup.string()
+      .required("Tên là bắt buộc.")
+      .test("name", "Tên nhân viên đã tồn tại.", (value) => {
+        if (!value) return true; // Skip validation if value is empty (shouldn't happen with .required())
+
+        // Kiểm tra staff là mảng hợp lệ trước khi sử dụng .some()
+        if (!Array.isArray(staff)) {
+          return true; // Nếu staff không phải là mảng hợp lệ, bỏ qua kiểm tra
+        }
+
+        return !staff.some(
+          (staffMember) =>
+            staffMember.name && // Đảm bảo staff member có tên
+            staffMember.name.toLowerCase() === value.toLowerCase() &&
+            (!selectedStaff || staffMember.id !== selectedStaff.id) // Loại trừ staff đang được chọn (trong trường hợp chỉnh sửa)
+        );
+      }),
+    avatar: Yup.string().required("Ảnh đại diện là bắt buộc."),
+    username: Yup.string().required("Tên tài khoản là bắt buộc."),
+    email: Yup.string()
+      .email("Email không hợp lệ.")
+      .required("Email là bắt buộc."),
+    dob: Yup.date().required("Ngày sinh là bắt buộc."),
+    gender: Yup.string().required("Giới tính là bắt buộc."),
+    idNumber: Yup.string().required("Số CMND là bắt buộc."),
+  });
+
+  const handleSubmit = async (values) => {
     try {
       if (selectedStaff) {
-        await userAPI.updateUser(setSelectedStaff.id, formData);
+        await userAPI.updateUser(selectedStaff.id, values);
+        showToast("Cập Nhật Thành Công", "success");
       } else {
-        await userAPI.createUser(formData);
+        await userAPI.createUser(values);
+        showToast("Khởi tạo Thành Công", "success");
+       
       }
-      setIsAdding(false);
       fetchStaff();
+      setIsAdding(false);
       setSelectedStaff(null);
-      setFormData({
-        id: "",
-        name: "",
-        avatar: "",
-        username: "",
-        email: "",
-        dob: "",
-        gender: "",
-        idNumber: "",
-      });
+      
     } catch (error) {
-      console.error("Lỗi khi lưu người dùng:", error);
+      showToast("Lỗi khi lưu người dùng", "error");
     }
   };
-  
 
   const handleCancel = () => {
     setIsAdding(false);
-    setFormData({
-      id: "",
-      name: "",
-      avatar: "",
-      username: "",
-      email: "",
-      dob: "",
-      gender: "",
-      idNumber: "",
-    });
     setSelectedStaff(null);
+  
   };
 
   const handleDelete = async (id) => {
@@ -99,13 +107,19 @@ const Staff = () => {
     if (confirmDelete) {
       try {
         await userAPI.deleteUser(id);
+        showToast("Xóa Thành Công", "success");
         fetchStaff();
       } catch (error) {
         console.error("Lỗi khi xóa người dùng:", error);
+        
       }
     }
   };
- 
+
+  const handleEdit = (data) => {
+    setSelectedStaff(data);
+    setIsAdding(true);
+  };
 
   return (
     <div>
@@ -154,6 +168,7 @@ const Staff = () => {
             >
               {filteredUsers.map((item) => (
                 <div
+                  key={item.id}
                   style={{
                     width: "300px",
                     border: "1px solid #ddd",
@@ -209,7 +224,7 @@ const Staff = () => {
                     CMND: {item.idNumber}
                   </p>
                   <button
-                     
+                    onClick={() => handleEdit(item)}
                     style={{
                       padding: "5px 15px",
                       marginRight: "10px",
@@ -254,173 +269,212 @@ const Staff = () => {
           <h3 style={{ marginBottom: "20px", color: "#ff8c00" }}>
             {selectedStaff ? "Chỉnh sửa Nhân Viên" : "Thêm Nhân Viên Mới"}
           </h3>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleSave();
+          <Formik
+            initialValues={{
+              id: selectedStaff ? selectedStaff.id : "",
+              name: selectedStaff ? selectedStaff.name : "",
+              avatar: selectedStaff ? selectedStaff.avatar : "",
+              username: selectedStaff ? selectedStaff.username : "",
+              email: selectedStaff ? selectedStaff.email : "",
+              dob: selectedStaff ? selectedStaff.dob : "",
+              gender: selectedStaff ? selectedStaff.gender : "",
+              idNumber: selectedStaff ? selectedStaff.idNumber : "",
             }}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
           >
-            <input
-              style={{
-                padding: "8px",
-                width: "900px",
-                marginBottom: "25px",
-                borderRadius: "5px",
-                border: "1px solid #ddd",
-              }}
-              type="text"
-              placeholder="Mã"
-              value={formData.id}
-              onChange={(e) => setFormData({ ...formData, id: e.target.value })}
-              required
-            />
-            <input
-              style={{
-                padding: "8px",
-                width: "900px",
-                marginBottom: "25px",
-                borderRadius: "5px",
-                border: "1px solid #ddd",
-              }}
-              type="text"
-              placeholder="Họ và tên"
-              value={formData.name}
-              onChange={(e) =>
-                setFormData({ ...formData, name: e.target.value })
-              }
-              required
-            />
-            <input
-              style={{
-                padding: "8px",
-                width: "900px",
-                marginBottom: "25px",
-                borderRadius: "5px",
-                border: "1px solid #ddd",
-              }}
-              type="text"
-              placeholder="Ảnh đại diện"
-              value={formData.avatar}
-              onChange={(e) =>
-                setFormData({ ...formData, avatar: e.target.value })
-              }
-              required
-            />
-            <input
-              style={{
-                padding: "8px",
-                width: "900px",
-                marginBottom: "25px",
-                borderRadius: "5px",
-                border: "1px solid #ddd",
-              }}
-              type="text"
-              placeholder="Tên tài khoản"
-              value={formData.username}
-              onChange={(e) =>
-                setFormData({ ...formData, username: e.target.value })
-              }
-              required
-            />
-            <input
-              style={{
-                padding: "8px",
-                width: "900px",
-                marginBottom: "25px",
-                borderRadius: "5px",
-                border: "1px solid #ddd",
-              }}
-              type="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
-              }
-              required
-            />
-            <input
-              style={{
-                padding: "8px",
-                width: "900px",
-                marginBottom: "25px",
-                borderRadius: "5px",
-                border: "1px solid #ddd",
-              }}
-              type="date"
-              placeholder="Ngày sinh"
-              value={formData.dob}
-              onChange={(e) =>
-                setFormData({ ...formData, dob: e.target.value })
-              }
-              required
-            />
-            <select
-              style={{
-                padding: "8px",
-                width: "900px",
-                marginBottom: "25px",
-                borderRadius: "5px",
-                border: "1px solid #ddd",
-              }}
-              value={formData.gender}
-              onChange={(e) =>
-                setFormData({ ...formData, gender: e.target.value })
-              }
-              required
-            >
-              <option value="">Giới tính</option>
-              <option value="Nam">Nam</option>
-              <option value="Nu">Nữ</option>
-            </select>
-            <input
-              style={{
-                padding: "8px",
-                width: "900px",
-                marginBottom: "25px",
-                borderRadius: "5px",
-                border: "1px solid #ddd",
-              }}
-              type="text"
-              placeholder="Số CMND"
-              value={formData.idNumber}
-              onChange={(e) =>
-                setFormData({ ...formData, idNumber: e.target.value })
-              }
-              required
-            />
-            <button
-              type="submit"
-              style={{
-                border: "none",
-                padding: "8px",
-                backgroundColor: "#ff8c00",
-                color: "white",
-                borderRadius: "10px",
-                width: "200px",
-                marginLeft: "150px",
-              }}
-            >
-              {selectedStaff ? "Lưu" : "Thêm"}
-              
-            </button>
-            <button
-              onClick={handleCancel}
-              type="submit"
-              style={{
-                border: "none",
-                padding: "8px",
-                backgroundColor: "#ff8c00",
-                color: "white",
-                borderRadius: "10px",
-                width: "200px",
-                marginLeft: "200px",
-              }}
-            >
-              Hủy
-            </button>
-          </form>
+            {({ errors, touched }) => (
+              <Form>
+                <Field
+                  type="text"
+                  name="id"
+                  placeholder="Mã"
+                  style={{
+                    padding: "8px",
+                    width: "900px",
+                    marginBottom: "25px",
+                    borderRadius: "5px",
+                    border: "1px solid #ddd",
+                  }}
+                />
+                <ErrorMessage
+                  name="id"
+                  component="div"
+                  style={{ color: "red" }}
+                />
+
+                <Field
+                  type="text"
+                  name="name"
+                  placeholder="Họ và tên"
+                  style={{
+                    padding: "8px",
+                    width: "900px",
+                    marginBottom: "25px",
+                    borderRadius: "5px",
+                    border: "1px solid #ddd",
+                  }}
+                />
+                <ErrorMessage
+                  name="name"
+                  component="div"
+                  style={{ color: "red" }}
+                />
+
+                <Field
+                  type="text"
+                  name="avatar"
+                  placeholder="Ảnh đại diện"
+                  style={{
+                    padding: "8px",
+                    width: "900px",
+                    marginBottom: "25px",
+                    borderRadius: "5px",
+                    border: "1px solid #ddd",
+                  }}
+                />
+                <ErrorMessage
+                  name="avatar"
+                  component="div"
+                  style={{ color: "red" }}
+                />
+
+                <Field
+                  type="text"
+                  name="username"
+                  placeholder="Tên tài khoản"
+                  style={{
+                    padding: "8px",
+                    width: "900px",
+                    marginBottom: "25px",
+                    borderRadius: "5px",
+                    border: "1px solid #ddd",
+                  }}
+                />
+                <ErrorMessage
+                  name="username"
+                  component="div"
+                  style={{ color: "red" }}
+                />
+
+                <Field
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  style={{
+                    padding: "8px",
+                    width: "900px",
+                    marginBottom: "25px",
+                    borderRadius: "5px",
+                    border: "1px solid #ddd",
+                  }}
+                />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  style={{ color: "red" }}
+                />
+
+                <Field
+                  type="date"
+                  name="dob"
+                  placeholder="Ngày sinh"
+                  style={{
+                    padding: "8px",
+                    width: "900px",
+                    marginBottom: "25px",
+                    borderRadius: "5px",
+                    border: "1px solid #ddd",
+                  }}
+                />
+                <ErrorMessage
+                  name="dob"
+                  component="div"
+                  style={{ color: "red" }}
+                />
+
+                <Field
+                  as="select"
+                  name="gender"
+                  style={{
+                    padding: "8px",
+                    width: "900px",
+                    marginBottom: "25px",
+                    borderRadius: "5px",
+                    border: "1px solid #ddd",
+                  }}
+                >
+                  <option value="">Chọn giới tính</option>
+                  <option value="male">Nam</option>
+                  <option value="female">Nữ</option>
+                </Field>
+
+                <ErrorMessage
+                  name="gender"
+                  component="div"
+                  style={{ color: "red" }}
+                />
+
+                <Field
+                  type="text"
+                  name="idNumber"
+                  placeholder="Số CMND"
+                  style={{
+                    padding: "8px",
+                    width: "900px",
+                    marginBottom: "25px",
+                    borderRadius: "5px",
+                    border: "1px solid #ddd",
+                  }}
+                />
+                <ErrorMessage
+                  name="idNumber"
+                  component="div"
+                  style={{ color: "red" }}
+                />
+
+                <button
+                  type="submit"
+                  style={{
+                    padding: "8px 15px",
+                    marginTop: "10px",
+                    backgroundColor: "#ff8c00",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                  }}
+                >
+                  {selectedStaff ? "Cập nhật" : "Thêm mới"}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleCancel}
+                  style={{
+                    padding: "8px 15px",
+                    marginTop: "10px",
+                    marginLeft: "10px",
+                    backgroundColor: "#f44336",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                  }}
+                >
+                  Hủy
+                </button>
+              </Form>
+            )}
+          </Formik>
         </div>
       )}
+       <ToastNotification
+                message={toast.message}
+                type={toast.type}
+                show={toast.show}
+                onClose={handleCloseToast}
+            />
     </div>
   );
 };
