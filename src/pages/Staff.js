@@ -46,23 +46,33 @@ const Staff = () => {
   const validationSchema = Yup.object({
     id: Yup.string()
       .required("Mã nhân viên là bắt buộc.")
-      .matches(/^NV\d{3}$/, "Mã Nhân Viên phải có dạng NV001, NV002,..."),
-      
+      .matches(/^NV\d{3}$/, "Mã Nhân Viên phải có dạng NV001, NV002,...")
+      .test("id","Mã nhân viên đã tồn tại " ,(value)=>{
+        if(!value )return true;
+        if(!Array.isArray(staff)){
+          return true;
+        }
+        return !staff.some(
+          (staffMember) =>
+            staffMember.id && 
+            staffMember.id.toLowerCase() === value.toLowerCase() &&
+            (!selectedStaff || staffMember.id !== selectedStaff.id) 
+        );
+      }),
+
     name: Yup.string()
       .required("Tên là bắt buộc.")
       .test("name", "Tên nhân viên đã tồn tại.", (value) => {
-        if (!value) return true; // Skip validation if value is empty (shouldn't happen with .required())
-
-        // Kiểm tra staff là mảng hợp lệ trước khi sử dụng .some()
+        if (!value) return true; 
         if (!Array.isArray(staff)) {
-          return true; // Nếu staff không phải là mảng hợp lệ, bỏ qua kiểm tra
+          return true; 
         }
 
         return !staff.some(
           (staffMember) =>
-            staffMember.name && // Đảm bảo staff member có tên
+            staffMember.name &&
             staffMember.name.toLowerCase() === value.toLowerCase() &&
-            (!selectedStaff || staffMember.id !== selectedStaff.id) // Loại trừ staff đang được chọn (trong trường hợp chỉnh sửa)
+            (!selectedStaff || staffMember.id !== selectedStaff.id) 
         );
       }),
     avatar: Yup.string().required("Ảnh đại diện là bắt buộc."),
@@ -123,12 +133,13 @@ const Staff = () => {
 
   return (
     <div>
-      <h1 style={{ color: "#ff8c00", fontSize: "30px" }}>Quản Lý nhân viên</h1>
+      <h1 style={{ color: "#ff8c00", fontSize: "42px" ,   textShadow: "0px 4px 8px rgba(0,0,0,0.2)", marginBottom:'30px'}}>Quản Lý nhân viên</h1>
       {!isAdding ? (
         <>
           <div>
             <input
               type="text"
+              
               placeholder="Tìm Kiếm"
               value={searchTerm}
               onChange={handleSearch}
@@ -138,6 +149,7 @@ const Staff = () => {
                 marginBottom: "10px",
                 borderRadius: "4px",
                 border: "1px solid #ddd",
+                
               }}
             />
             <button
@@ -174,7 +186,7 @@ const Staff = () => {
                     border: "1px solid #ddd",
                     borderRadius: "8px",
                     padding: "20px",
-                    boxShadow: "0px 4px 8px rgba(0,0,0,0.1)",
+                    boxShadow: "0px 4px 8px rgba(0,0,0,0.4)",
                     textAlign: "center",
                     backgroundColor: "#ffffff",
                     marginRight: "20px",
@@ -283,7 +295,7 @@ const Staff = () => {
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
           >
-            {({ errors, touched }) => (
+            
               <Form>
                 <Field
                   type="text"
@@ -405,8 +417,8 @@ const Staff = () => {
                   }}
                 >
                   <option value="">Chọn giới tính</option>
-                  <option value="male">Nam</option>
-                  <option value="female">Nữ</option>
+                  <option value="Nam">Nam</option>
+                  <option value="Nữ">Nữ</option>
                 </Field>
 
                 <ErrorMessage
@@ -465,7 +477,7 @@ const Staff = () => {
                   Hủy
                 </button>
               </Form>
-            )}
+            
           </Formik>
         </div>
       )}
