@@ -1,0 +1,15 @@
+*{
+  margin: 0;
+}
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: rgb(255, 207, 157);
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    font-size: 14px;
+    color: black;
+  }
+  
