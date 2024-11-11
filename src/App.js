@@ -41,23 +41,24 @@ const App = () => {
                     path="/barn"
                     element={
                         <Layout>
-                            <Barn/>
+                            <Barn />
                         </Layout>
                     }
                 />
-                 <Route
+                <Route
                     path="/staff"
                     element={
                         <Layout>
-                            <Staff/>
+                            <Staff />
                         </Layout>
                     }
                 />
-                 <Route
+                <Route
                     path="/individual"
                     element={
+                        
                         <Layout>
-                            <Individual/>
+                            <Individual />
                         </Layout>
                     }
                 />
@@ -66,5 +67,6 @@ const App = () => {
         </Router>
     );
 };
+
 
 export default App;
