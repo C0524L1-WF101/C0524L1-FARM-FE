@@ -1,11 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Collapse } from 'react-bootstrap';
-import { FaUserCog, FaBell, FaPiggyBank, FaHome, FaTh} from 'react-icons/fa';
+import { FaUserCog, FaBell, FaPiggyBank, FaHome, FaTh } from 'react-icons/fa';
 
 const Sidebar = () => {
   const [openSystem, setOpenSystem] = useState(false);
   const [openHerd, setOpenHerd] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Kiểm tra xem có username trong localStorage không
+    const username = localStorage.getItem('username');
+    setIsLoggedIn(!!username); // Chuyển isLoggedIn thành true nếu có username
+  }, []);
+
+  if (!isLoggedIn) {
+    return null; // Không render Sidebar nếu chưa đăng nhập
+  }
 
   return (
     <div className="sidebar p-3 shadow-sm" style={{ width: '300px', backgroundColor: '#f8f9fa' }}>
@@ -24,7 +35,7 @@ const Sidebar = () => {
           </button>
           <Collapse in={openSystem}>
             <ul id="system-management" className="list-unstyled ps-3 mt-2">
-            <li className="mb-2">
+              <li className="mb-2">
                 <NavLink
                   to="/news"
                   className={({ isActive }) =>
@@ -35,7 +46,7 @@ const Sidebar = () => {
                   <FaBell className="me-2" /> Quản lý thông báo
                 </NavLink>
               </li>
-              <li >
+              <li>
                 <NavLink
                   to="/staff"
                   className={({ isActive }) =>
