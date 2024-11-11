@@ -1,0 +1,152 @@
+.user-profile {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #f4f4f9;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 20px auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-profile .avatar-container {
+  text-align: center;
+}
+
+.user-profile .avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.user-profile h1 {
+  text-align: center;
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.user-profile .info {
+  margin-bottom: 20px;
+  text-align: center; 
+}
+
+.user-profile .info p {
+  font-size: 16px;
+  margin: 5px 0;
+  color: #666;
+}
+
+.user-profile .info strong {
+  font-weight: bold;
+  color: #333;
+}
+
+.user-profile button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+  margin: 10px;
+}
+
+.user-profile button:hover {
+  background-color: #0056b3;
+}
+
+.user-profile .avatar-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.user-profile .avatar-upload input[type="file"] {
+  margin-bottom: 10px;
+}
+
+.user-profile .save-profile,
+.user-profile .avatar-upload button {
+  margin-top: 10px;
+}
+
+.user-profile .delete-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.user-profile .avatar-upload button:nth-of-type(2) {
+  background-color: #dc3545;
+}
+
+.user-profile .avatar-upload button:nth-of-type(2):hover {
+  background-color: #c82333;
+}
+
+.user-profile .save-profile button {
+  background-color: #28a745;
+}
+
+.user-profile .save-profile button:hover {
+  background-color: #218838;
+}
+
+.user-profile .info, 
+.user-profile .avatar-upload {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  flex-direction: column;
+}
+
+.user-profile .save-profile,
+.user-profile .avatar-upload {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.user-profile .save-profile button,
+.user-profile .avatar-upload button {
+  margin: 10px;
+  width: 200px;
+}
+
+.user-profile button {
+  display: block; 
+  margin: 10px auto;
+}
+
+@media (max-width: 768px) {
+  .user-profile {
+    padding: 15px;
+  }
+
+  .user-profile h1 {
+    font-size: 20px;
+  }
+
+  .user-profile .info p {
+    font-size: 14px;
+  }
+
+  .user-profile .avatar {
+    width: 120px;
+    height: 120px;
+  }
+
+  .user-profile .save-profile button,
+  .user-profile .avatar-upload button,
+  .user-profile button {
+    width: 100%;
+  }
+}
