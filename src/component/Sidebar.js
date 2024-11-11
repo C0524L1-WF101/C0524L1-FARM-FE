@@ -24,7 +24,18 @@ const Sidebar = () => {
           </button>
           <Collapse in={openSystem}>
             <ul id="system-management" className="list-unstyled ps-3 mt-2">
-              <li className="mb-2">
+            <li className="mb-2">
+                <NavLink
+                  to="/news"
+                  className={({ isActive }) =>
+                    isActive ? 'active-link' : 'inactive-link'
+                  }
+                  style={{ textDecoration: 'none' }}
+                >
+                  <FaBell className="me-2" /> Quản lý thông báo
+                </NavLink>
+              </li>
+              <li >
                 <NavLink
                   to="/staff"
                   className={({ isActive }) =>
@@ -33,17 +44,6 @@ const Sidebar = () => {
                   style={{ textDecoration: 'none' }}
                 >
                   <FaUserCog className="me-2" /> Quản lý nhân viên
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/news"
-                  className={({ isActive }) =>
-                    isActive ? 'active-link' : 'inactive-link'
-                  }
-                  style={{ textDecoration: 'none' }}
-                >
-                  <FaBell className="me-2" /> Đăng thông báo
                 </NavLink>
               </li>
             </ul>

@@ -149,7 +149,7 @@ const Barn = () => {
 
     return (
         <div className="container my-4">
-            <h2 className="mb-3">Quản Lý Chuồng Nuôi</h2>
+            <h2 className="mb-3 title-container">Quản Lý Chuồng Nuôi</h2>
 
             <div className="input-group mb-3">
                 <input

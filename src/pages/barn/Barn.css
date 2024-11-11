@@ -1,3 +1,8 @@
+.title-container{
+    text-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px;
+    color: rgb(255, 140, 0);
+}
+
 .custom-table tbody tr {
     transition: background-color 0.3s ease;
 }

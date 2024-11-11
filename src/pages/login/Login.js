@@ -28,6 +28,7 @@ function Login() {
         // Lưu thông tin người dùng vào localStorage
         localStorage.setItem('userId', user.id);
         localStorage.setItem('username', user.username);
+        localStorage.setItem('role', user.role);
         
         setToastMessage('Đăng nhập thành công!');
         setToastType('success');

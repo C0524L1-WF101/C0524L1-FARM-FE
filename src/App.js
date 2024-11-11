@@ -63,6 +63,12 @@ const App = () => {
                         </Layout>
                     }
                 />
+                <Route
+                    path="/home"
+                    element={
+                            <Home/>
+                    }
+                />
                 <Route path="*" element={<Navigate to="/home" />} />
             </Routes>
         </Router>
