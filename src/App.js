@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './pages/Login';
-import Home from './pages/Home';
-import Profile from './pages/Profile';
+import Login from './pages/login/Login';
+import Home from './pages/home/Home';
+import Profile from './pages/profile/Profile';
 import Layout from './component/Layout';
 import News from './pages/News';
-import Barn from './pages/Barn';
+import Barn from './pages/barn/Barn';
 import Staff from './pages/Staff';
 import Individual from './pages/Individual';
 
@@ -16,13 +16,15 @@ const App = () => {
             <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route
-                    path="/home"
+                    path="/news"
                     element={
-                        <Home />
+                        <Layout>
+                            <News />
+                        </Layout>
                     }
                 />
                 <Route
-                    path="/profile"
+                    path="/profile/:userId"
                     element={
                         <Layout>
                             <Profile />
@@ -62,11 +64,18 @@ const App = () => {
                         </Layout>
                     }
                 />
+                <Route
+                    path="/home"
+                    element={
+                        <Layout>
+                            <Home />
+                        </Layout>
+                    }
+                />
                 <Route path="*" element={<Navigate to="/home" />} />
             </Routes>
         </Router>
     );
 };
-
 
 export default App;

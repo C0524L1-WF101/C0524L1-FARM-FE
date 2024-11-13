@@ -1,0 +1,127 @@
+*{
+    margin: 0;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: 70px;
+    background-color: rgb(255, 207, 157);
+    color: #fff;
+    position: relative;
+}
+
+.header__logo img {
+    height: 44px;
+    margin-left: 20px
+}
+
+.header__user-avatar {
+    position: relative;
+    cursor: pointer;
+    height: 60px;
+}
+
+.header__user-avatar img {
+    height: 100%;
+    width: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.header__dropdown-menu {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-width: 170px;
+    z-index: 1000;
+}
+
+/* Mục trong menu dropdown */
+.header__dropdown-item {
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.header__dropdown-item.logout {
+    color: red;
+}
+
+.header__dropdown-item.logout:hover {
+    background-color: #f2dede;
+    color: #a94442;
+}
+
+
+.header__dropdown-item:hover {
+    background-color: #f0f0f0;
+}
+
+/* Modal xác nhận đăng xuất */
+.logout-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.logout-modal__content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: black;
+}
+
+.logout-modal__content p {
+    margin-bottom: 20px;
+}
+
+.logout-modal__content button {
+    margin: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
+
+/* .logout-modal__content button:hover {
+    background-color: white;
+} */
+
+.modal-btn {
+  margin: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.modal-btn.confirm.green {
+  background-color: #28a745;
+  color: white;
+}
+
+.modal-btn.cancel.red {
+  background-color: #dc3545;
+  color: white;
+}
+
+.modal-btn:hover {
+  opacity: 0.8;
+}

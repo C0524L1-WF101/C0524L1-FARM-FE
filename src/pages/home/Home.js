@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from "react";
-import { newsAPI, pigAPI } from '../services/api.js';
-import ToastNotification from '../component/ToastNotification.js'
+import { newsAPI, pigAPI } from '../../services/api.js';
+import ToastNotification from '../../component/ToastNotification.js'
 
 const Home = () => {
     const [showToast, setShowToast] = useState(false);

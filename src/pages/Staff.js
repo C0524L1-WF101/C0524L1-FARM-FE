@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { userAPI } from "../services/api.js";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import ToastNotification from '../component/ToastNotification.js';
+import ToastNotification from "../component/ToastNotification.js";
 const Staff = () => {
   const [staff, setStaff] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedStaff, setSelectedStaff] = useState(null);
   const [isAdding, setIsAdding] = useState(false);
-  const [toast, setToast] = useState({ message: '', type: '', show: false });
+  const [toast, setToast] = useState({ message: "", type: "", show: false });
   const showToast = (message, type) => {
     setToast({ message, type, show: true });
   };
@@ -31,7 +31,6 @@ const Staff = () => {
   const handleAdd = () => {
     setIsAdding(true);
     setSelectedStaff(null);
-    
   };
 
   const handleSearch = (event) => {
@@ -47,32 +46,32 @@ const Staff = () => {
     id: Yup.string()
       .required("Mã nhân viên là bắt buộc.")
       .matches(/^NV\d{3}$/, "Mã Nhân Viên phải có dạng NV001, NV002,...")
-      .test("id","Mã nhân viên đã tồn tại " ,(value)=>{
-        if(!value )return true;
-        if(!Array.isArray(staff)){
+      .test("id", "Mã nhân viên đã tồn tại ", (value) => {
+        if (!value) return true;
+        if (!Array.isArray(staff)) {
           return true;
         }
         return !staff.some(
           (staffMember) =>
-            staffMember.id && 
+            staffMember.id &&
             staffMember.id.toLowerCase() === value.toLowerCase() &&
-            (!selectedStaff || staffMember.id !== selectedStaff.id) 
+            (!selectedStaff || staffMember.id !== selectedStaff.id)
         );
       }),
 
     name: Yup.string()
       .required("Tên là bắt buộc.")
       .test("name", "Tên nhân viên đã tồn tại.", (value) => {
-        if (!value) return true; 
+        if (!value) return true;
         if (!Array.isArray(staff)) {
-          return true; 
+          return true;
         }
 
         return !staff.some(
           (staffMember) =>
             staffMember.name &&
             staffMember.name.toLowerCase() === value.toLowerCase() &&
-            (!selectedStaff || staffMember.id !== selectedStaff.id) 
+            (!selectedStaff || staffMember.id !== selectedStaff.id)
         );
       }),
     avatar: Yup.string().required("Ảnh đại diện là bắt buộc."),
@@ -93,12 +92,10 @@ const Staff = () => {
       } else {
         await userAPI.createUser(values);
         showToast("Khởi tạo Thành Công", "success");
-       
       }
       fetchStaff();
       setIsAdding(false);
       setSelectedStaff(null);
-      
     } catch (error) {
       showToast("Lỗi khi lưu người dùng", "error");
     }
@@ -107,7 +104,6 @@ const Staff = () => {
   const handleCancel = () => {
     setIsAdding(false);
     setSelectedStaff(null);
-  
   };
 
   const handleDelete = async (id) => {
@@ -121,7 +117,6 @@ const Staff = () => {
         fetchStaff();
       } catch (error) {
         console.error("Lỗi khi xóa người dùng:", error);
-        
       }
     }
   };
@@ -133,13 +128,21 @@ const Staff = () => {
 
   return (
     <div>
-      <h1 style={{ color: "#ff8c00", fontSize: "42px" ,   textShadow: "0px 4px 8px rgba(0,0,0,0.2)", marginBottom:'30px'}}>Staff</h1>
+      <h1
+        style={{
+          color: "#ff8c00",
+          fontSize: "42px",
+          textShadow: "0px 4px 8px rgba(0,0,0,0.2)",
+          marginBottom: "30px",
+        }}
+      >
+        Staff
+      </h1>
       {!isAdding ? (
         <>
           <div>
             <input
               type="text"
-              
               placeholder="Tìm Kiếm"
               value={searchTerm}
               onChange={handleSearch}
@@ -149,7 +152,6 @@ const Staff = () => {
                 marginBottom: "10px",
                 borderRadius: "4px",
                 border: "1px solid #ddd",
-                
               }}
             />
             <button
@@ -202,39 +204,50 @@ const Staff = () => {
                       marginBottom: "15px",
                     }}
                   />
-                  <h3 style={{ fontSize: "18px", margin: "10px 0 10px" }}>
+                  <h1 style={{ fontSize: "18px", margin: "10px 0 10px" }}>
                     {item.name}
-                  </h3>
-                  <p
-                    style={{ fontSize: "14px", color: "#666", margin: "8px 0" }}
+                  </h1>
+                  <h2
+                    style={{ fontSize: "14px", color: "#666", margin: "8px 0 20px " }}
+                  >
+                    Vai Trò : {item.role}
+                  </h2>
+                  <h2
+                    style={{ fontSize: "14px", color: "#666", margin: "8px 0  20px" }}
                   >
                     Mã NV: {item.id}
-                  </p>
-                  <p
-                    style={{ fontSize: "14px", color: "#666", margin: "8px 0" }}
+                  </h2>
+                  <h2
+                    style={{ fontSize: "14px", color: "#666", margin: "8px 0  20px" }}
                   >
                     UserName: {item.username}
-                  </p>
-                  <p
-                    style={{ fontSize: "14px", color: "#666", margin: "8px 0" }}
+                  </h2>
+                  <h2
+                    style={{ fontSize: "14px", color: "#666", margin: "8px 0 20px" }}
                   >
                     Email: {item.email}
-                  </p>
-                  <p
-                    style={{ fontSize: "14px", color: "#666", margin: "8px 0" }}
+                  </h2>
+                  <h2
+                    style={{ fontSize: "14px", color: "#666", margin: "8px 0  20px" }}
                   >
                     DoB: {item.dob}
-                  </p>
-                  <p
-                    style={{ fontSize: "14px", color: "#666", margin: "8px 0" }}
+                  </h2>
+                  <h2
+                    style={{ fontSize: "14px", color: "#666", margin: "8px 0  20px" }}
                   >
                     Giới tính: {item.gender}
-                  </p>
-                  <p
-                    style={{ fontSize: "14px", color: "#666", margin: "8px 0" }}
+                  </h2>
+                  <h2
+                    style={{ fontSize: "14px", color: "#666", margin: "8px 0  20px" }}
                   >
                     CMND: {item.idNumber}
-                  </p>
+                  </h2>
+                  <h2
+                    style={{ fontSize: "14px", color: "#666", margin: "8px 0  20px" }}
+                  >
+                    password: {item.password}
+                  </h2>
+                  
                   <button
                     onClick={() => handleEdit(item)}
                     style={{
@@ -283,20 +296,23 @@ const Staff = () => {
           </h3>
           <Formik
             initialValues={{
-              id: selectedStaff ? selectedStaff.id : "",
-              name: selectedStaff ? selectedStaff.name : "",
-              avatar: selectedStaff ? selectedStaff.avatar : "",
-              username: selectedStaff ? selectedStaff.username : "",
-              email: selectedStaff ? selectedStaff.email : "",
-              dob: selectedStaff ? selectedStaff.dob : "",
-              gender: selectedStaff ? selectedStaff.gender : "",
-              idNumber: selectedStaff ? selectedStaff.idNumber : "",
+              id: selectedStaff?.id || "",
+              name: selectedStaff?.name || "",
+              avatar: selectedStaff?.avatar || "",
+              username: selectedStaff?.username || "",
+              email: selectedStaff?.email || "",
+              dob: selectedStaff?.dob || "",
+              gender: selectedStaff?.gender || "",
+              idNumber: selectedStaff?.idNumber || "",
+              password: "admin123", // Default password for new users
+              role: selectedStaff?.role || "employee", // Default role is "employee"
             }}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
           >
-            
-              <Form>
+            <Form>
+              <div>
+                <label style={{marginBottom:'5px'}}>Mã nhân viên</label>
                 <Field
                   type="text"
                   name="id"
@@ -309,16 +325,14 @@ const Staff = () => {
                     border: "1px solid #ddd",
                   }}
                 />
-                <ErrorMessage
-                  name="id"
-                  component="div"
-                  style={{ color: "red" }}
-                />
-
+                <ErrorMessage name="id" component="div" />
+              </div>
+              <div>
+              <label style={{marginBottom:'5px'}}>Tên nhân viên</label>
                 <Field
                   type="text"
                   name="name"
-                  placeholder="Họ và tên"
+                  placeholder="Tên"
                   style={{
                     padding: "8px",
                     width: "900px",
@@ -327,16 +341,14 @@ const Staff = () => {
                     border: "1px solid #ddd",
                   }}
                 />
-                <ErrorMessage
-                  name="name"
-                  component="div"
-                  style={{ color: "red" }}
-                />
-
+                <ErrorMessage name="name" component="div" />
+              </div>
+              <div>
+                <label  style={{marginBottom:'5px'}}>Ảnh đại diện</label>
                 <Field
                   type="text"
                   name="avatar"
-                  placeholder="Ảnh đại diện"
+                  placeholder="URL Ảnh"
                   style={{
                     padding: "8px",
                     width: "900px",
@@ -345,12 +357,10 @@ const Staff = () => {
                     border: "1px solid #ddd",
                   }}
                 />
-                <ErrorMessage
-                  name="avatar"
-                  component="div"
-                  style={{ color: "red" }}
-                />
-
+                <ErrorMessage name="avatar" component="div" />
+              </div>
+              <div>
+                <label  style={{marginBottom:'5px'}}>Tên tài khoản</label>
                 <Field
                   type="text"
                   name="username"
@@ -363,14 +373,12 @@ const Staff = () => {
                     border: "1px solid #ddd",
                   }}
                 />
-                <ErrorMessage
-                  name="username"
-                  component="div"
-                  style={{ color: "red" }}
-                />
-
+                <ErrorMessage name="username" component="div" />
+              </div>
+              <div>
+                <label  style={{marginBottom:'5px'}}>Email</label>
                 <Field
-                  type="email"
+                  type="text"
                   name="email"
                   placeholder="Email"
                   style={{
@@ -381,16 +389,13 @@ const Staff = () => {
                     border: "1px solid #ddd",
                   }}
                 />
-                <ErrorMessage
-                  name="email"
-                  component="div"
-                  style={{ color: "red" }}
-                />
-
+                <ErrorMessage name="email" component="div" />
+              </div>
+              <div>
+                <label  style={{marginBottom:'5px'}}>Ngày sinh</label>
                 <Field
                   type="date"
                   name="dob"
-                  placeholder="Ngày sinh"
                   style={{
                     padding: "8px",
                     width: "900px",
@@ -399,12 +404,10 @@ const Staff = () => {
                     border: "1px solid #ddd",
                   }}
                 />
-                <ErrorMessage
-                  name="dob"
-                  component="div"
-                  style={{ color: "red" }}
-                />
-
+                <ErrorMessage name="dob" component="div" />
+              </div>
+              <div>
+                <label  style={{marginBottom:'5px'}}>Giới tính</label>
                 <Field
                   as="select"
                   name="gender"
@@ -426,7 +429,9 @@ const Staff = () => {
                   component="div"
                   style={{ color: "red" }}
                 />
-
+              </div>
+              <div>
+                <label  style={{marginBottom:'5px'}}>Số CMND</label>
                 <Field
                   type="text"
                   name="idNumber"
@@ -439,13 +444,44 @@ const Staff = () => {
                     border: "1px solid #ddd",
                   }}
                 />
-                <ErrorMessage
-                  name="idNumber"
-                  component="div"
-                  style={{ color: "red" }}
+                <ErrorMessage name="idNumber" component="div" />
+              </div>
+              <div>
+                <label  style={{marginBottom:'5px'}}>Mật khẩu</label>
+                <Field
+                  type="password"
+                  name="password"
+                  placeholder="Mật khẩu"
+                  style={{
+                    padding: "8px",
+                    width: "900px",
+                    marginBottom: "25px",
+                    borderRadius: "5px",
+                    border: "1px solid #ddd",
+                  }}
                 />
-
-                <button
+                <ErrorMessage name="password" component="div" />
+              </div>
+              <div>
+                <label  style={{marginBottom:'5px'}}>Vai trò</label>
+                <Field
+                  as="select"
+                  name="role"
+                  style={{
+                    padding: "8px",
+                    width: "900px",
+                    marginBottom: "25px",
+                    borderRadius: "5px",
+                    border: "1px solid #ddd",
+                  }}
+                >
+                  <option value="employee">Nhân viên</option>
+                  <option value="admin">Quản trị viên</option>
+                </Field>
+                <ErrorMessage name="role" component="div" />
+              </div>
+              <div>
+              <button
                   type="submit"
                   style={{
                     padding: "8px 15px",
@@ -476,17 +512,17 @@ const Staff = () => {
                 >
                   Hủy
                 </button>
-              </Form>
-            
+              </div>
+            </Form>
           </Formik>
         </div>
       )}
-       <ToastNotification
-                message={toast.message}
-                type={toast.type}
-                show={toast.show}
-                onClose={handleCloseToast}
-            />
+      <ToastNotification
+        message={toast.message}
+        type={toast.type}
+        show={toast.show}
+        onClose={handleCloseToast}
+      />
     </div>
   );
 };

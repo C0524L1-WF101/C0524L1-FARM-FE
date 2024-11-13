@@ -127,3 +127,42 @@ export const pigAPI = {
     }
   },
 };
+
+// Các API liên quan đến chuồng nuôi
+export const barnAPI = {
+  getAllBarns: async () => {
+    try {
+      const response = await api.get("/barn");
+      return response.data;
+    } catch (error) {
+      console.error("Lỗi khi lấy danh sách chuồng nuôi:", error);
+      throw error;
+    }
+  },
+  createBarn: async (data) => {
+    try {
+      const response = await api.post("/barn", data);
+      return response.data;
+    } catch (error) {
+      console.error("Lỗi khi thêm chuồng nuôi:", error);
+      throw error;
+    }
+  },
+  updateBarn: async (id, data) => {
+    try {
+      const response = await api.put(`/barn/${id}`, data);
+      return response.data;
+    } catch (error) {
+      console.error("Lỗi khi cập nhật thông tin chuồng nuôi:", error);
+      throw error;
+    }
+  },
+  deleteBarn: async (id) => {
+    try {
+      await api.delete(`/barn/${id}`);
+    } catch (error) {
+      console.error("Lỗi khi xóa chuồng nuôi:", error);
+      throw error;
+    }
+  },
+};
