@@ -58,6 +58,7 @@ const App = () => {
                 <Route
                     path="/individual"
                     element={
+                        
                         <Layout>
                             <Individual />
                         </Layout>
