@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { barnAPI } from '../../services/api';
+import { barnAPI, userAPI } from '../../services/api';
 import { Modal, Button, Form } from 'react-bootstrap';
 import ToastNotification from '../../component/ToastNotification';
 import '../barn/Barn.css';
@@ -9,23 +9,34 @@ import * as Yup from 'yup';
 
 const Barn = () => {
     const [barns, setBarns] = useState([]);
-    const [filteredBarns, setFilteredBarns] = useState([]); 
-    const [searchTerm, setSearchTerm] = useState(''); 
+    const [filteredBarns, setFilteredBarns] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [editMode, setEditMode] = useState(false);
     const [toast, setToast] = useState({ message: '', type: '', show: false });
     const [deleteModal, setDeleteModal] = useState({ show: false, id: null });
-    const [selectedBarn, setSelectedBarn] = useState(null); 
+    const [selectedBarn, setSelectedBarn] = useState(null);
+    const [users, setUsers] = useState([]);
 
     useEffect(() => {
         fetchBarns();
+        fetchUser();
     }, []);
+    const fetchUser = async () => {
+        try {
+            const data = await userAPI.getAllUsers();
+            const employees = data.filter((user) => user.role === "employee");
+            setUsers(employees);
+        } catch (error) {
+            showToast("Lỗi khi lấy danh sách người dùng", "error");
+        }
+    };
 
     const fetchBarns = async () => {
         try {
             const data = await barnAPI.getAllBarns();
             setBarns(data);
-            setFilteredBarns(data); 
+            setFilteredBarns(data);
         } catch (error) {
             showToast("Lỗi khi lấy danh sách chuồng nuôi", "error");
         }
@@ -69,11 +80,11 @@ const Barn = () => {
     const handleCloseModal = () => {
         setShowModal(false);
         formik.resetForm();
-        setSelectedBarn(null); 
+        setSelectedBarn(null);
     };
 
     const handleRowClick = (barn) => {
-        setSelectedBarn(barn); 
+        setSelectedBarn(barn);
     };
 
     const handleShowDeleteModal = () => {
@@ -149,16 +160,17 @@ const Barn = () => {
 
     return (
         <div className="container my-4">
-            <h2 className="mb-3 title-container">Quản Lý Chuồng Nuôi</h2>
-
-            <div className="input-group mb-3">
-                <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Tìm kiếm theo Mã Chuồng Nuôi hoặc Mã Nhân Viên"
-                    value={searchTerm}
-                    onChange={handleSearchInputChange}
-                />
+            <div className="d-flex justify-content-between align-items-center mb-3">
+                <h2 className="title-container">Quản Lý Chuồng Nuôi</h2>
+                <div className="input-group" style={{ maxWidth: '300px' }}>
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Tìm kiếm theo mã chuồng nuôi"
+                        value={searchTerm}
+                        onChange={handleSearchInputChange}
+                    />
+                </div>
             </div>
 
             <div className="table-responsive shadow">
@@ -174,15 +186,15 @@ const Barn = () => {
                     </thead>
                     <tbody>
                         {filteredBarns.map((barn) => (
-                            <tr 
-                                key={barn.id} 
+                            <tr
+                                key={barn.id}
                                 className={`table-row ${selectedBarn?.id === barn.id ? 'table-active' : ''}`}
                                 onClick={() => handleRowClick(barn)}
                                 style={{ cursor: 'pointer' }}
                             >
                                 <td>{barn.name}</td>
                                 <td>{barn.empoly}</td>
-                                <td>{barn.createdAt}</td>
+                                <td>{new Date(barn.createdAt).toLocaleDateString('vi-VN')}</td>
                                 <td>{barn.closeAt || 'Đang hoạt động'}</td>
                                 <td>{barn.quantity}</td>
                             </tr>
@@ -223,14 +235,22 @@ const Barn = () => {
                         <Form.Group controlId="formEmpoly">
                             <Form.Label>Mã Nhân Viên</Form.Label>
                             <Form.Control
-                                type="text"
+                                as="select"
                                 name="empoly"
                                 value={formik.values.empoly}
                                 onChange={formik.handleChange}
                                 isInvalid={formik.touched.empoly && formik.errors.empoly}
-                            />
+                            >
+                                <option value="">Chọn Mã Nhân Viên</option>
+                                {users.map((user) => (
+                                    <option key={user.id} value={user.id}>
+                                        {user.id}
+                                    </option>
+                                ))}
+                            </Form.Control>
                             <Form.Control.Feedback type="invalid">{formik.errors.empoly}</Form.Control.Feedback>
                         </Form.Group>
+
                         <Form.Group controlId="formCreatedAt">
                             <Form.Label>Ngày Tạo Chuồng</Form.Label>
                             <Form.Control
