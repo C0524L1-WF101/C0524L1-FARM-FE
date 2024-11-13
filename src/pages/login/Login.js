@@ -50,6 +50,10 @@ function Login() {
     setIsVisible(false);
   };
 
+  const handleBackToHome = () => {
+    navigate('/home')
+  };
+
   const handleShowLoginBox = () => {
     setIsVisible(true);
   };
@@ -92,6 +96,11 @@ function Login() {
             <button type="submit" className="button">
               Đăng nhập
             </button>
+
+            <button type="text" className="button" onClick={handleBackToHome} style={{backgroundColor: "rgb(255,128,0)", marginTop: "6px"}}>
+              Quay lại trang chủ
+            </button>
+            
           </form>
         </div>
       )}
