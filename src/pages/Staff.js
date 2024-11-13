@@ -133,7 +133,7 @@ const Staff = () => {
 
   return (
     <div>
-      <h1 style={{ color: "#ff8c00", fontSize: "42px" ,   textShadow: "0px 4px 8px rgba(0,0,0,0.2)", marginBottom:'30px'}}>Quản Lý nhân viên</h1>
+      <h1 style={{ color: "#ff8c00", fontSize: "42px" ,   textShadow: "0px 4px 8px rgba(0,0,0,0.2)", marginBottom:'30px'}}>Staff</h1>
       {!isAdding ? (
         <>
           <div>
