@@ -2,31 +2,53 @@ import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Collapse } from 'react-bootstrap';
 import { FaUserCog, FaBell, FaPiggyBank, FaHome, FaTh } from 'react-icons/fa';
+import './Sidebar.css';
 
 const Sidebar = () => {
-  const [openSystem, setOpenSystem] = useState(false);
-  const [openHerd, setOpenHerd] = useState(false);
+  const [openSystem, setOpenSystem] = useState(() => {
+    return JSON.parse(localStorage.getItem('openSystem')) || false;
+  });
+  const [openHerd, setOpenHerd] = useState(() => {
+    return JSON.parse(localStorage.getItem('openHerd')) || false;
+  });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [role, setRole] = useState(null);
 
   useEffect(() => {
-    // Kiểm tra xem có username trong localStorage không
     const username = localStorage.getItem('username');
-    setIsLoggedIn(!!username); // Chuyển isLoggedIn thành true nếu có username
+    const userRole = localStorage.getItem('role'); 
+    setRole(userRole);
+    setIsLoggedIn(!!username); 
   }, []);
 
+  const handleToggleSystem = () => {
+    setOpenSystem((prev) => {
+      const newState = !prev;
+      localStorage.setItem('openSystem', JSON.stringify(newState));
+      return newState;
+    });
+  };
+
+  const handleToggleHerd = () => {
+    setOpenHerd((prev) => {
+      const newState = !prev;
+      localStorage.setItem('openHerd', JSON.stringify(newState));
+      return newState;
+    });
+  };
+
   if (!isLoggedIn) {
-    return null; // Không render Sidebar nếu chưa đăng nhập
+    return null; 
   }
 
   return (
     <div className="sidebar p-3 shadow-sm" style={{ width: '300px', backgroundColor: '#f8f9fa' }}>
       <ul className="list-unstyled">
-        {/* Quản lý hệ thống */}
         <li className="mb-3">
           <button
             className="btn btn-link text-start w-100 d-flex align-items-center justify-content-between text-decoration-none"
             style={{ color: '#5a5a5a', fontSize: '16px' }}
-            onClick={() => setOpenSystem(!openSystem)}
+            onClick={handleToggleSystem}
             aria-controls="system-management"
             aria-expanded={openSystem}
           >
@@ -46,27 +68,28 @@ const Sidebar = () => {
                   <FaBell className="me-2" /> Quản lý thông báo
                 </NavLink>
               </li>
-              <li>
-                <NavLink
-                  to="/staff"
-                  className={({ isActive }) =>
-                    isActive ? 'active-link' : 'inactive-link'
-                  }
-                  style={{ textDecoration: 'none' }}
-                >
-                  <FaUserCog className="me-2" /> Quản lý nhân viên
-                </NavLink>
-              </li>
+              {role === 'admin' && (
+                <li>
+                  <NavLink
+                    to="/staff"
+                    className={({ isActive }) =>
+                      isActive ? 'active-link' : 'inactive-link'
+                    }
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <FaUserCog className="me-2" /> Quản lý nhân viên
+                  </NavLink>
+                </li>
+              )}
             </ul>
           </Collapse>
         </li>
 
-        {/* Quản lý đàn */}
         <li>
           <button
             className="btn btn-link text-start w-100 d-flex align-items-center justify-content-between text-decoration-none"
             style={{ color: '#5a5a5a', fontSize: '16px' }}
-            onClick={() => setOpenHerd(!openHerd)}
+            onClick={handleToggleHerd}
             aria-controls="herd-management"
             aria-expanded={openHerd}
           >
@@ -101,34 +124,6 @@ const Sidebar = () => {
           </Collapse>
         </li>
       </ul>
-
-      {/* Styles for active and inactive links */}
-      <style jsx>{`
-        .text-orange {
-          color: #ff8c00;
-        }
-
-        .active-link {
-          color: #ff8c00;
-          font-weight: bold;
-          background-color: #ffe5cc;
-          padding: 8px 12px;
-          border-radius: 5px;
-          display: block;
-        }
-
-        .inactive-link {
-          color: #5a5a5a;
-          padding: 8px 12px;
-          display: block;
-        }
-
-        .active-link:hover, .inactive-link:hover {
-          background-color: #fff5e6;
-          color: #ff8c00;
-          transition: background-color 0.2s;
-        }
-      `}</style>
     </div>
   );
 };
