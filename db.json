@@ -14,41 +14,16 @@
       "username": "nguyen van a",
       "email": "A@gmail.com",
       "dob": "1999-01-01",
-
-      "gender": "Nữ",
-      "idNumber": "123456789",
-      "password": "admin12323",
-      "role": "employee"
-    },
-    {
-      "id": "ffa2"
-    },
-    {
-      "id": "d200"
-    },
-    {
-      "id": "4825"
-    },
-    {
-      "id": "e5af"
-
       "gender": "Nam",
       "idNumber": "123456789",
       "role": "employee"
-
     },
     {
       "id": "NV004",
-      "name": "Bánh mì 2",
+      "name": "Bánh mì",
       "avatar": "data:image/jpeg;base64,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",
       "username": "Admin",
       "email": "tungnguyen2112003@gmai.com",
-
-      "dob": "1999-02-01",
-      "gender": "Nam",
-      "idNumber": "123456789",
-      "password": "admin123",
-
       "dob": "1999-02-02",
       "gender": "male",
       "idNumber": "123456789",
@@ -74,7 +49,6 @@
       "dob": "1980-02-02",
       "gender": "Nữ",
       "idNumber": "123456789",
-
       "role": "employee"
     }
   ],
@@ -97,29 +71,6 @@
     }
   ],
   "barn": [
-    {
-      "id": "1ac5",
-      "name": "1",
-      "weight": "1",
-      "age": "1",
-      "farmLocation": "1"
-    },
-    {
-      "id": "L002",
-      "name": "C02",
-      "date1": "",
-      "date2": "",
-      "feel": "Bệnh Tật",
-      "weight": "31kg"
-    },
-    {
-      "id": "L003",
-      "name": "C03",
-      "date1": "",
-      "date2": "",
-      "feel": "Cần chăm sóc",
-      "weight": "72kg"
-    },
     {
       "id": "f8bea082-8d12-4e66-8b32-72175f663e50",
       "name": "C03",
