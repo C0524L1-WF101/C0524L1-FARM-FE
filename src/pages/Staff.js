@@ -231,15 +231,6 @@ const Staff = () => {
                     style={{
                       fontSize: "14px",
                       color: "#666",
-                      margin: "8px 0  20px",
-                    }}
-                  >
-                    UserName: {item.username}
-                  </h2>
-                  <h2
-                    style={{
-                      fontSize: "14px",
-                      color: "#666",
                       margin: "8px 0 20px",
                     }}
                   >
@@ -252,7 +243,7 @@ const Staff = () => {
                       margin: "8px 0  20px",
                     }}
                   >
-                    DoB: {item.dob}
+                    Ngày sinh: {new Date(item.dob).toLocaleDateString('vi-VN')}
                   </h2>
                   <h2
                     style={{
@@ -279,7 +270,16 @@ const Staff = () => {
                       margin: "8px 0  20px",
                     }}
                   >
-                    password: {item.password}
+                    Tên đăng nhập: {item.username}
+                  </h2>
+                  <h2
+                    style={{
+                      fontSize: "14px",
+                      color: "#666",
+                      margin: "8px 0  20px",
+                    }}
+                  >
+                    Mật khẩu: {item.password}
                   </h2>
                   <h2
                     style={{

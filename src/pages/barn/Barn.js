@@ -166,7 +166,7 @@ const Barn = () => {
                     <input
                         type="text"
                         className="form-control"
-                        placeholder="Tìm kiếm theo mã chuồng nuôi"
+                        placeholder="Tìm kiếm theo chuồng nuôi, nhân viên"
                         value={searchTerm}
                         onChange={handleSearchInputChange}
                     />
