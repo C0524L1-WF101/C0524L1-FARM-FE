@@ -82,6 +82,8 @@ const Staff = () => {
     dob: Yup.date().required("Ngày sinh là bắt buộc."),
     gender: Yup.string().required("Giới tính là bắt buộc."),
     idNumber: Yup.string().required("Số CMND là bắt buộc."),
+    password: Yup.string().required("Mật Khẩu là bắt buộc."),
+    wage: Yup.string().required("Nhập Lương là bắt buộc."),
   });
 
   const handleSubmit = async (values) => {
@@ -136,7 +138,7 @@ const Staff = () => {
           marginBottom: "30px",
         }}
       >
-       Quản Lý Nhân Viên
+        Quản Lý Nhân Viên
       </h1>
       {!isAdding ? (
         <>
@@ -208,46 +210,87 @@ const Staff = () => {
                     {item.name}
                   </h1>
                   <h2
-                    style={{ fontSize: "14px", color: "#666", margin: "8px 0 20px " }}
+                    style={{
+                      fontSize: "14px",
+                      color: "#666",
+                      margin: "8px 0 20px ",
+                    }}
                   >
                     Vai Trò : {item.role}
                   </h2>
                   <h2
-                    style={{ fontSize: "14px", color: "#666", margin: "8px 0  20px" }}
+                    style={{
+                      fontSize: "14px",
+                      color: "#666",
+                      margin: "8px 0  20px",
+                    }}
                   >
                     Mã NV: {item.id}
                   </h2>
                   <h2
-                    style={{ fontSize: "14px", color: "#666", margin: "8px 0  20px" }}
+                    style={{
+                      fontSize: "14px",
+                      color: "#666",
+                      margin: "8px 0  20px",
+                    }}
                   >
                     UserName: {item.username}
                   </h2>
                   <h2
-                    style={{ fontSize: "14px", color: "#666", margin: "8px 0 20px" }}
+                    style={{
+                      fontSize: "14px",
+                      color: "#666",
+                      margin: "8px 0 20px",
+                    }}
                   >
                     Email: {item.email}
                   </h2>
                   <h2
-                    style={{ fontSize: "14px", color: "#666", margin: "8px 0  20px" }}
+                    style={{
+                      fontSize: "14px",
+                      color: "#666",
+                      margin: "8px 0  20px",
+                    }}
                   >
                     DoB: {item.dob}
                   </h2>
                   <h2
-                    style={{ fontSize: "14px", color: "#666", margin: "8px 0  20px" }}
+                    style={{
+                      fontSize: "14px",
+                      color: "#666",
+                      margin: "8px 0  20px",
+                    }}
                   >
                     Giới tính: {item.gender}
                   </h2>
                   <h2
-                    style={{ fontSize: "14px", color: "#666", margin: "8px 0  20px" }}
+                    style={{
+                      fontSize: "14px",
+                      color: "#666",
+                      margin: "8px 0  20px",
+                    }}
                   >
                     CMND: {item.idNumber}
                   </h2>
                   <h2
-                    style={{ fontSize: "14px", color: "#666", margin: "8px 0  20px" }}
+                    style={{
+                      fontSize: "14px",
+                      color: "#666",
+                      margin: "8px 0  20px",
+                    }}
                   >
                     password: {item.password}
                   </h2>
-                  
+                  <h2
+                    style={{
+                      fontSize: "14px",
+                      color: "#666",
+                      margin: "8px 0  20px",
+                    }}
+                  >
+                    Lương: {item.wage} VNĐ
+                  </h2>
+
                   <button
                     onClick={() => handleEdit(item)}
                     style={{
@@ -304,15 +347,16 @@ const Staff = () => {
               dob: selectedStaff?.dob || "",
               gender: selectedStaff?.gender || "",
               idNumber: selectedStaff?.idNumber || "",
-              password: "admin123", 
-              role: selectedStaff?.role || "employee", 
+              password: "admin123",
+              wage: selectedStaff?.wage || "",
+              role: selectedStaff?.role || "employee",
             }}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
           >
             <Form>
               <div>
-                <label style={{marginBottom:'5px'}}>Mã nhân viên</label>
+                <label style={{ marginBottom: "5px" }}>Mã nhân viên</label>
                 <Field
                   type="text"
                   name="id"
@@ -320,15 +364,21 @@ const Staff = () => {
                   style={{
                     padding: "8px",
                     width: "900px",
-                    marginBottom: "25px",
+                    marginBottom: "15px",
                     borderRadius: "5px",
                     border: "1px solid #ddd",
                   }}
                 />
-                <ErrorMessage name="id" component="div" />
+                <ErrorMessage
+                  name="id"
+                  component="div"
+                  style={{ color: "red" }}
+                />
               </div>
               <div>
-              <label style={{marginBottom:'5px'}}>Tên nhân viên</label>
+                <label style={{ marginBottom: "5px", marginTop: "15px" }}>
+                  Tên nhân viên
+                </label>
                 <Field
                   type="text"
                   name="name"
@@ -336,15 +386,21 @@ const Staff = () => {
                   style={{
                     padding: "8px",
                     width: "900px",
-                    marginBottom: "25px",
+                    marginBottom: "15px",
                     borderRadius: "5px",
                     border: "1px solid #ddd",
                   }}
                 />
-                <ErrorMessage name="name" component="div" />
+                <ErrorMessage
+                  name="name"
+                  component="div"
+                  style={{ color: "red" }}
+                />
               </div>
               <div>
-                <label  style={{marginBottom:'5px'}}>Ảnh đại diện</label>
+                <label style={{ marginBottom: "5px", marginTop: "15px" }}>
+                  Ảnh đại diện
+                </label>
                 <Field
                   type="text"
                   name="avatar"
@@ -352,15 +408,21 @@ const Staff = () => {
                   style={{
                     padding: "8px",
                     width: "900px",
-                    marginBottom: "25px",
+                    marginBottom: "15px",
                     borderRadius: "5px",
                     border: "1px solid #ddd",
                   }}
                 />
-                <ErrorMessage name="avatar" component="div" />
+                <ErrorMessage
+                  name="avatar"
+                  component="div"
+                  style={{ color: "red" }}
+                />
               </div>
               <div>
-                <label  style={{marginBottom:'5px'}}>Tên tài khoản</label>
+                <label style={{ marginBottom: "5px", marginTop: "15px" }}>
+                  Tên tài khoản
+                </label>
                 <Field
                   type="text"
                   name="username"
@@ -368,15 +430,21 @@ const Staff = () => {
                   style={{
                     padding: "8px",
                     width: "900px",
-                    marginBottom: "25px",
+                    marginBottom: "15px",
                     borderRadius: "5px",
                     border: "1px solid #ddd",
                   }}
                 />
-                <ErrorMessage name="username" component="div" />
+                <ErrorMessage
+                  name="username"
+                  component="div"
+                  style={{ color: "red" }}
+                />
               </div>
               <div>
-                <label  style={{marginBottom:'5px'}}>Email</label>
+                <label style={{ marginBottom: "5px", marginTop: "15px" }}>
+                  Email
+                </label>
                 <Field
                   type="text"
                   name="email"
@@ -384,37 +452,49 @@ const Staff = () => {
                   style={{
                     padding: "8px",
                     width: "900px",
-                    marginBottom: "25px",
+                    marginBottom: "15px",
                     borderRadius: "5px",
                     border: "1px solid #ddd",
                   }}
                 />
-                <ErrorMessage name="email" component="div" />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  style={{ color: "red" }}
+                />
               </div>
               <div>
-                <label  style={{marginBottom:'5px'}}>Ngày sinh</label>
+                <label style={{ marginBottom: "5px", marginTop: "15px" }}>
+                  Ngày sinh
+                </label>
                 <Field
                   type="date"
                   name="dob"
                   style={{
                     padding: "8px",
                     width: "900px",
-                    marginBottom: "25px",
+                    marginBottom: "15px",
                     borderRadius: "5px",
                     border: "1px solid #ddd",
                   }}
                 />
-                <ErrorMessage name="dob" component="div" />
+                <ErrorMessage
+                  name="dob"
+                  component="div"
+                  style={{ color: "red" }}
+                />
               </div>
               <div>
-                <label  style={{marginBottom:'5px'}}>Giới tính</label>
+                <label style={{ marginBottom: "5px", marginTop: "15px" }}>
+                  Giới tính
+                </label>
                 <Field
                   as="select"
                   name="gender"
                   style={{
                     padding: "8px",
                     width: "900px",
-                    marginBottom: "25px",
+                    marginBottom: "15px",
                     borderRadius: "5px",
                     border: "1px solid #ddd",
                   }}
@@ -431,7 +511,9 @@ const Staff = () => {
                 />
               </div>
               <div>
-                <label  style={{marginBottom:'5px'}}>Số CMND</label>
+                <label style={{ marginBottom: "5px", marginTop: "15px" }}>
+                  Số CMND
+                </label>
                 <Field
                   type="text"
                   name="idNumber"
@@ -439,15 +521,21 @@ const Staff = () => {
                   style={{
                     padding: "8px",
                     width: "900px",
-                    marginBottom: "25px",
+                    marginBottom: "15px",
                     borderRadius: "5px",
                     border: "1px solid #ddd",
                   }}
                 />
-                <ErrorMessage name="idNumber" component="div" />
+                <ErrorMessage
+                  name="idNumber"
+                  component="div"
+                  style={{ color: "red" }}
+                />
               </div>
               <div>
-                <label  style={{marginBottom:'5px'}}>Mật khẩu</label>
+                <label style={{ marginBottom: "5px", marginTop: "15px" }}>
+                  Mật khẩu
+                </label>
                 <Field
                   type="password"
                   name="password"
@@ -455,22 +543,52 @@ const Staff = () => {
                   style={{
                     padding: "8px",
                     width: "900px",
-                    marginBottom: "25px",
+                    marginBottom: "15px",
                     borderRadius: "5px",
                     border: "1px solid #ddd",
                   }}
                 />
-                <ErrorMessage name="password" component="div" />
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  style={{ color: "red" }}
+                />
               </div>
+
               <div>
-                <label  style={{marginBottom:'5px'}}>Vai trò</label>
+                <label style={{ marginBottom: "5px", marginTop: "15px" }}>
+                  Lương
+                </label>
+                <Field
+                  type="wage"
+                  name="wage"
+                  placeholder="Lương"
+                  style={{
+                    padding: "8px",
+                    width: "900px",
+                    marginBottom: "15px",
+                    borderRadius: "5px",
+                    border: "1px solid #ddd",
+                  }}
+                />
+                <ErrorMessage
+                  name="wage"
+                  component="div"
+                  style={{ color: "red" }}
+                />
+              </div>
+
+              <div>
+                <label style={{ marginBottom: "5px", marginTop: "15px" }}>
+                  Vai trò
+                </label>
                 <Field
                   as="select"
                   name="role"
                   style={{
                     padding: "8px",
                     width: "900px",
-                    marginBottom: "25px",
+                    marginBottom: "15px",
                     borderRadius: "5px",
                     border: "1px solid #ddd",
                   }}
@@ -481,7 +599,7 @@ const Staff = () => {
                 <ErrorMessage name="role" component="div" />
               </div>
               <div>
-              <button
+                <button
                   type="submit"
                   style={{
                     padding: "8px 15px",
