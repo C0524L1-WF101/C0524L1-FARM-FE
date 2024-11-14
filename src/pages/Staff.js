@@ -136,7 +136,7 @@ const Staff = () => {
           marginBottom: "30px",
         }}
       >
-        Staff
+       Quản Lý Nhân Viên
       </h1>
       {!isAdding ? (
         <>
@@ -304,8 +304,8 @@ const Staff = () => {
               dob: selectedStaff?.dob || "",
               gender: selectedStaff?.gender || "",
               idNumber: selectedStaff?.idNumber || "",
-              password: "admin123", // Default password for new users
-              role: selectedStaff?.role || "employee", // Default role is "employee"
+              password: "admin123", 
+              role: selectedStaff?.role || "employee", 
             }}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
