@@ -106,6 +106,7 @@ const Staff = () => {
       formData.append("idNumber", values.idNumber);
       formData.append("password", values.password);
       formData.append("wage", values.wage);
+      formData.append("role", values.role);
 
       if (selectedStaff) {
         await userAPI.updateUser(selectedStaff.id, formData);
@@ -252,7 +253,7 @@ const Staff = () => {
                       margin: "8px 0 20px ",
                     }}
                   >
-                    {item.role}
+                    Vai Trò : {item.role}
                   </h2>
                   <h2
                     style={{
@@ -361,16 +362,17 @@ const Staff = () => {
       ) : (
         <Formik
           initialValues={{
-            id: selectedStaff ? selectedStaff.id : "",
-            name: selectedStaff ? selectedStaff.name : "",
-            username: selectedStaff ? selectedStaff.username : "",
-            email: selectedStaff ? selectedStaff.email : "",
-            dob: selectedStaff ? selectedStaff.dob : "",
-            gender: selectedStaff ? selectedStaff.gender : "",
-            idNumber: selectedStaff ? selectedStaff.idNumber : "",
-            password: selectedStaff ? selectedStaff.password : "",
-            wage: selectedStaff ? selectedStaff.wage : "",
-            role: selectedStaff?.role || "employee",
+            id: selectedStaff?.id || "",
+              name: selectedStaff?.name || "",
+              avatar: selectedStaff?.avatar || "",
+              username: selectedStaff?.username || "",
+              email: selectedStaff?.email || "",
+              dob: selectedStaff?.dob || "",
+              gender: selectedStaff?.gender || "",
+              idNumber: selectedStaff?.idNumber || "",
+              password: "admin123",
+              wage: selectedStaff?.wage || "",
+              role: selectedStaff?.role || "employee",
           }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
@@ -470,8 +472,8 @@ const Staff = () => {
               }}
             >
               <option value="">Giới tính</option>
-              <option value="male">Nam</option>
-              <option value="female">Nữ</option>
+              <option value="Nam">Nam</option>
+              <option value="Nữ">Nữ</option>
             </Field>
             <ErrorMessage
               name="gender"
@@ -496,24 +498,6 @@ const Staff = () => {
               component="div"
               style={{ color: "red" }}
             />
-
-            <div>
-              <Field
-                as="select"
-                name="role"
-                style={{
-                  padding: "8px",
-                  width: "100%",
-                  marginBottom: "15px",
-                  borderRadius: "5px",
-                  border: "1px solid #ddd",
-                }}
-              >
-                <option value="employee">Nhân viên</option>
-                <option value="admin">Quản trị viên</option>
-              </Field>
-              <ErrorMessage name="role" component="div" />
-            </div>
 
             <Field
               type="password"
@@ -561,7 +545,23 @@ const Staff = () => {
                 />
               )}
             </div>
-
+            <div>
+              <Field
+                as="select"
+                name="role"
+                style={{
+                  padding: "8px",
+                  width: "100%",
+                  marginBottom: "15px",
+                  borderRadius: "5px",
+                  border: "1px solid #ddd",
+                }}
+              >
+                <option value="employee">Nhân viên</option>
+                <option value="admin">Quản trị viên</option>
+              </Field>
+              <ErrorMessage name="role" component="div" />
+            </div>
             <div>
               <button
                 type="submit"
