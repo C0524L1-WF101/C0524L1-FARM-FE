@@ -7,7 +7,7 @@ import Layout from './component/Layout';
 import News from './pages/News';
 import Barn from './pages/barn/Barn';
 import Staff from './pages/Staff';
-import Individual from './pages/Individual';
+import Individual from './pages/individual/Individual';
 
 
 const App = () => {

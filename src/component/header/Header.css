@@ -12,7 +12,7 @@
   
   /* Phần logo và avatar có nền trắng */
   .header__top {
-    background-color: rgb(245, 247, 248);
+    background-color: rgb(248 207 155);
     height: 65px;
     width: 100%;
     display: flex;
@@ -65,15 +65,13 @@
     background-color: transparent;
     border: none;
     padding: 5px 15px; /* Giảm padding của các nút để thanh header thấp lại */
-    font-size: 14px; /* Kích thước chữ nhỏ hơn */
+    font-size: 18px; /* Kích thước chữ nhỏ hơn */
     cursor: pointer;
-    position: relative;
     text-decoration: none;
     transition: color 0.3s ease;
     margin: 0 10px; /* Giảm khoảng cách giữa các nút (10px) */
   }
   
-  /* Hiệu ứng hover (dòng gạch trắng dưới nút) */
   .header__nav-button::after {
     content: '';
     position: absolute;
@@ -87,20 +85,17 @@
     transition: transform 0.3s ease;
   }
   
-  /* Khi hover vào nút, dòng gạch sẽ xuất hiện */
   .header__nav-button:hover::after {
     transform: scaleX(1);
     transform-origin: bottom left;
   }
   
-  /* Khi nút có lớp 'active', dòng gạch sẽ luôn hiển thị */
   .header__nav-button.active::after {
     transform: scaleX(1);
     transform-origin: bottom left;
     transition: transform 0s;
   }
   
-  /* Loại bỏ underline khi focus hoặc hover */
   .header__nav-button:focus,
   .header__nav-button:hover {
     outline: none;
@@ -108,7 +103,6 @@
   }
   
   
-  /* Menu dropdown khi hover avatar */
   .header__dropdown-menu {
     position: absolute;
     top: 70px;

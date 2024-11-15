@@ -129,17 +129,16 @@ const Staff = () => {
   };
 
   return (
-    <div>
-      <h1
+    <div className="container">
+      <h2
         style={{
           color: "#ff8c00",
-          fontSize: "42px",
           textShadow: "0px 4px 8px rgba(0,0,0,0.2)",
           marginBottom: "30px",
         }}
       >
         Quản Lý Nhân Viên
-      </h1>
+      </h2>
       {!isAdding ? (
         <>
           <div>
@@ -150,7 +149,7 @@ const Staff = () => {
               onChange={handleSearch}
               style={{
                 padding: "8px",
-                width: "70%",
+                width: "64%",
                 marginBottom: "10px",
                 borderRadius: "4px",
                 border: "1px solid #ddd",
@@ -186,7 +185,7 @@ const Staff = () => {
                 <div
                   key={item.id}
                   style={{
-                    width: "300px",
+                    width: "500px",
                     border: "1px solid #ddd",
                     borderRadius: "8px",
                     padding: "20px",
