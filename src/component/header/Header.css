@@ -1,37 +1,115 @@
-*{
+/* Reset margin cho tất cả phần tử */
+* {
     margin: 0;
-}
-
-.header {
+    padding: 0;
+  }
+  
+  .header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Phần logo và avatar có nền trắng */
+  .header__top {
+    background-color: rgb(245, 247, 248);
+    height: 65px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* Căn chỉnh logo và avatar ở hai đầu */
+    align-items: center;
+  }
+  
+  /* Phần logo */
+  .header__logo img {
+    height: 44px;
+    margin-left: 20px; /* Thêm khoảng cách với cạnh trái */
+  }
+  
+  /* Phần avatar */
+  .header__user-avatar {
+    position: relative;
+    cursor: pointer;
+    height: 50px;
+    margin-right: 20px; /* Khoảng cách với cạnh phải */
+  }
+  
+  .header__user-avatar img {
+    height: 100%;
+    width: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  /* Phần dưới có nền xanh lá */
+  .header__bottom {
+    background-color: rgb(5, 146, 18); /* Màu xanh lá */
+    color: white;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
-    height: 70px;
-    background-color: rgb(255, 207, 157);
+  }
+  
+/* Thanh header dưới */
+.header__bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px; /* Giảm chiều cao phần chứa các nút xuống 40px */
+  }
+  
+  /* Các nút điều hướng (Trang chủ, Giới thiệu, Tin tức & Sự kiện, Liên hệ) */
+  .header__nav-button {
     color: #fff;
-    position: relative;
-}
-
-.header__logo img {
-    height: 44px;
-    margin-left: 20px
-}
-
-.header__user-avatar {
-    position: relative;
+    background-color: transparent;
+    border: none;
+    padding: 5px 15px; /* Giảm padding của các nút để thanh header thấp lại */
+    font-size: 14px; /* Kích thước chữ nhỏ hơn */
     cursor: pointer;
-    height: 60px;
-}
-
-.header__user-avatar img {
-    height: 100%;
-    width: 60px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.header__dropdown-menu {
+    position: relative;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    margin: 0 10px; /* Giảm khoảng cách giữa các nút (10px) */
+  }
+  
+  /* Hiệu ứng hover (dòng gạch trắng dưới nút) */
+  .header__nav-button::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #fff;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Khi hover vào nút, dòng gạch sẽ xuất hiện */
+  .header__nav-button:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+  
+  /* Khi nút có lớp 'active', dòng gạch sẽ luôn hiển thị */
+  .header__nav-button.active::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+    transition: transform 0s;
+  }
+  
+  /* Loại bỏ underline khi focus hoặc hover */
+  .header__nav-button:focus,
+  .header__nav-button:hover {
+    outline: none;
+    text-decoration: none;
+  }
+  
+  
+  /* Menu dropdown khi hover avatar */
+  .header__dropdown-menu {
     position: absolute;
     top: 70px;
     right: 0;
@@ -42,30 +120,28 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     min-width: 170px;
     z-index: 1000;
-}
-
-/* Mục trong menu dropdown */
-.header__dropdown-item {
+  }
+  
+  .header__dropdown-item {
     padding: 10px 15px;
     cursor: pointer;
-}
-
-.header__dropdown-item.logout {
+  }
+  
+  .header__dropdown-item.logout {
     color: red;
-}
-
-.header__dropdown-item.logout:hover {
+  }
+  
+  .header__dropdown-item.logout:hover {
     background-color: #f2dede;
     color: #a94442;
-}
-
-
-.header__dropdown-item:hover {
+  }
+  
+  .header__dropdown-item:hover {
     background-color: #f0f0f0;
-}
-
-/* Modal xác nhận đăng xuất */
-.logout-modal {
+  }
+  
+  /* Modal xác nhận đăng xuất */
+  .logout-modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -76,52 +152,49 @@
     align-items: center;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
-}
-
-.logout-modal__content {
+  }
+  
+  .logout-modal__content {
     background-color: white;
     padding: 20px;
     border-radius: 8px;
     text-align: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     color: black;
-}
-
-.logout-modal__content p {
+  }
+  
+  .logout-modal__content p {
     margin-bottom: 20px;
-}
-
-.logout-modal__content button {
+  }
+  
+  .logout-modal__content button {
     margin: 5px;
     padding: 10px 20px;
     cursor: pointer;
     border: none;
     border-radius: 5px;
-}
-
-/* .logout-modal__content button:hover {
-    background-color: white;
-} */
-
-.modal-btn {
-  margin: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
-  border: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.modal-btn.confirm.green {
-  background-color: #28a745;
-  color: white;
-}
-
-.modal-btn.cancel.red {
-  background-color: #dc3545;
-  color: white;
-}
-
-.modal-btn:hover {
-  opacity: 0.8;
-}
+  }
+  
+  .modal-btn {
+    margin: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .modal-btn.confirm.green {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .modal-btn.cancel.red {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .modal-btn:hover {
+    opacity: 0.8;
+  }
+  
