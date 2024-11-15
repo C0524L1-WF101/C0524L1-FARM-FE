@@ -9,7 +9,6 @@ import Barn from './pages/barn/Barn';
 import Staff from './pages/Staff';
 import Individual from './pages/individual/Individual';
 
-
 const App = () => {
     return (
         <Router>

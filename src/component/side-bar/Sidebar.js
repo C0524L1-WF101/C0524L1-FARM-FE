@@ -42,7 +42,7 @@ const Sidebar = () => {
   }
 
   return (
-    <div className="sidebar p-3 shadow-sm" style={{ width: '300px', backgroundColor: '#f8f9fa' }}>
+    <div className="sidebar p-3 shadow" style={{ width: '300px', backgroundColor: '#f8f9fa' }}>
       <ul className="list-unstyled">
         <li className="mb-3">
           <button
