@@ -263,15 +263,7 @@ const Staff = () => {
                   >
                     Mã NV: {item.id}
                   </h2>
-                  <h2
-                    style={{
-                      fontSize: "14px",
-                      color: "#666",
-                      margin: "8px 0  20px",
-                    }}
-                  >
-                    UserName: {item.username}
-                  </h2>
+
                   <h2
                     style={{
                       fontSize: "14px",
@@ -315,8 +307,18 @@ const Staff = () => {
                       margin: "8px 0  20px",
                     }}
                   >
-                    password: {item.password}
+                    UserName: {item.username}
                   </h2>
+                  <h2
+                    style={{
+                      fontSize: "14px",
+                      color: "#666",
+                      margin: "8px 0 20px",
+                    }}
+                  >
+                    password: {item.password.replace(/./g, '*')}
+                  </h2>
+
                   <h2
                     style={{
                       fontSize: "14px",
@@ -362,16 +364,16 @@ const Staff = () => {
         <Formik
           initialValues={{
             id: selectedStaff?.id || "",
-              name: selectedStaff?.name || "",
-              avatar: selectedStaff?.avatar || "",
-              username: selectedStaff?.username || "",
-              email: selectedStaff?.email || "",
-              dob: selectedStaff?.dob || "",
-              gender: selectedStaff?.gender || "",
-              idNumber: selectedStaff?.idNumber || "",
-              password: "admin123",
-              wage: selectedStaff?.wage || "",
-              role: selectedStaff?.role || "employee",
+            name: selectedStaff?.name || "",
+            avatar: selectedStaff?.avatar || "",
+            username: selectedStaff?.username || "",
+            email: selectedStaff?.email || "",
+            dob: selectedStaff?.dob || "",
+            gender: selectedStaff?.gender || "",
+            idNumber: selectedStaff?.idNumber || "",
+            password: "admin123",
+            wage: selectedStaff?.wage || "",
+            role: selectedStaff?.role || "employee",
           }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
