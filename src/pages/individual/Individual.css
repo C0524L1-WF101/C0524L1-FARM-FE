@@ -1,0 +1,51 @@
+.title-container{
+    text-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px;
+    color: rgb(255, 140, 0);
+}
+
+.custom-table tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+.custom-table tbody tr:hover {
+    background-color: #ffe5cc; 
+    color: #333; 
+}
+
+.custom-table th {
+    background-color: #FFB266; 
+    color: #333; 
+    font-weight: bold;
+}
+
+h2 {
+    color: #FF8000;
+    font-weight: bold;
+}
+
+.custom-table th,
+.custom-table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.custom-table-header {
+    background-color : #fff5e6;
+}
+
+.table-responsive {
+    boder-radius: 10px
+}
+
+.no-border-header .modal-header {
+    border-bottom: none;
+}
+
+.no-border-header .modal-body {
+    border-bottom: none;
+}
+
+.custom-table {
+    margin-bottom: 0px
+}
+

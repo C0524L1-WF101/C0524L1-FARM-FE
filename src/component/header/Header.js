@@ -104,9 +104,25 @@ const Header = () => {
 
   return (
     <header className="header">
-      <div className="header__top p-3 d-flex justify-content-between align-items-center">
+      <div className="header__top p-3 align-items-center">
         <div className="header__logo" onClick={handleLogoClick} style={{ cursor: 'pointer' }}>
           <img src="https://images.vexels.com/content/227456/preview/cute-pig-flat-b98ea3.png" alt="Logo" width="50" />
+        </div>
+        <div className="header__nav ">
+          {navItems.map(item => (
+            <button
+              key={item.path}
+              className={`header__nav-button ${location.pathname === item.path ? 'active' : ''}`}
+              onClick={() => item.path === '/contact' ? handleShowContactModal() : navigate(item.path)}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+        <div>
+          {!isLoggedIn && (
+            <button className="btn btn-primary" onClick={handleLoginClick}>Đăng nhập</button>
+          )}
         </div>
 
         {isLoggedIn && (
@@ -128,25 +144,7 @@ const Header = () => {
         )}
       </div>
 
-      <div className="header__bottom d-flex justify-content-between align-items-center p-3">
-        <div className="header__nav">
-          {navItems.map(item => (
-            <button
-              key={item.path}
-              className={`header__nav-button ${location.pathname === item.path ? 'active' : ''}`}
-              onClick={() => item.path === '/contact' ? handleShowContactModal() : navigate(item.path)}
-            >
-              {item.label}
-            </button>
-          ))}
-        </div>
-        <div>
-          {!isLoggedIn && (
-            <button className="btn btn-primary" onClick={handleLoginClick}>Đăng nhập</button>
-          )}
-        </div>
-      </div>
-
+     
       {/* Modal xác nhận đăng xuất */}
       {isLogoutModalOpen && (
         <div className="logout-modal">
@@ -168,8 +166,7 @@ const Header = () => {
         </div>
       )}
 
-      {/* Modal Liên hệ */}
-      <Modal show={showContactModal} onHide={handleCloseContactModal}>
+      <Modal show={showContactModal} onHide={handleCloseContactModal} centered>
         <Modal.Header closeButton>
           <Modal.Title>Liên hệ với chúng tôi</Modal.Title>
         </Modal.Header>
