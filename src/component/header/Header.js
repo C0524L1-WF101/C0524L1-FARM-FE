@@ -1,25 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Header.css';
+import { Modal, Button, Form } from 'react-bootstrap'; // Import các component của Bootstrap
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [avatar, setAvatar] = useState(null);
-  const navigate = useNavigate();
-  const [buttonColor, setButtonColor] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [buttonColor, setButtonColor] = useState('');
+  const [showContactModal, setShowContactModal] = useState(false); // Modal Liên hệ
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    phoneNumber: '',
+    address: '',
+    message: ''
+  });
+  const navigate = useNavigate();
+  const location = useLocation();
 
   // Lấy userId và username từ localStorage
   const userId = localStorage.getItem('userId');
   const username = localStorage.getItem('username');
 
   useEffect(() => {
-    // Kiểm tra đăng nhập
     setIsLoggedIn(!!username);
-
-    // Nếu đã đăng nhập, fetch thông tin người dùng để lấy avatar
     if (userId) {
       fetch(`http://localhost:3000/users/${userId}`)
         .then((response) => response.json())
@@ -72,14 +79,37 @@ const Header = () => {
     navigate('/login');
   };
 
-  return (
-    <header className="header d-flex justify-content-between align-items-center p-3 shadow">
-      <div className="header__logo" onClick={handleLogoClick} style={{ cursor: 'pointer' }}>
-        <img src="https://images.vexels.com/content/227456/preview/cute-pig-flat-b98ea3.png" alt="Logo" width="50" />
-      </div>
+  const navItems = [
+    { path: '/home', label: 'Trang chủ' },
+    { path: '/contact', label: 'Liên hệ' }
+  ];
 
-      <div>
-        {isLoggedIn ? (
+  const handleShowContactModal = () => setShowContactModal(true);
+
+  const handleCloseContactModal = () => setShowContactModal(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Form data submitted:', formData);
+    setShowContactModal(false);
+  };
+
+  return (
+    <header className="header">
+      <div className="header__top p-3 d-flex justify-content-between align-items-center">
+        <div className="header__logo" onClick={handleLogoClick} style={{ cursor: 'pointer' }}>
+          <img src="https://images.vexels.com/content/227456/preview/cute-pig-flat-b98ea3.png" alt="Logo" width="50" />
+        </div>
+
+        {isLoggedIn && (
           <div className="header__user-avatar" onClick={handleAvatarClick} style={{ cursor: 'pointer' }}>
             <img
               src={avatar || "https://www.svgrepo.com/show/343494/profile-user-account.svg"}
@@ -90,22 +120,34 @@ const Header = () => {
             />
             {isMenuOpen && (
               <div className="header__dropdown-menu shadow">
-                <div className="header__dropdown-item" onClick={handlePersonalInfo}>
-                  Thông tin cá nhân
-                </div>
-                <div className="header__dropdown-item logout text-danger" onClick={handleLogoutClick}>
-                  Đăng xuất
-                </div>
+                <div className="header__dropdown-item" onClick={handlePersonalInfo}>Thông tin cá nhân</div>
+                <div className="header__dropdown-item logout text-danger" onClick={handleLogoutClick}>Đăng xuất</div>
               </div>
             )}
           </div>
-        ) : (
-          <button className="btn btn-primary" onClick={handleLoginClick}>
-            Đăng nhập
-          </button>
         )}
       </div>
 
+      <div className="header__bottom d-flex justify-content-between align-items-center p-3">
+        <div className="header__nav">
+          {navItems.map(item => (
+            <button
+              key={item.path}
+              className={`header__nav-button ${location.pathname === item.path ? 'active' : ''}`}
+              onClick={() => item.path === '/contact' ? handleShowContactModal() : navigate(item.path)}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+        <div>
+          {!isLoggedIn && (
+            <button className="btn btn-primary" onClick={handleLoginClick}>Đăng nhập</button>
+          )}
+        </div>
+      </div>
+
+      {/* Modal xác nhận đăng xuất */}
       {isLogoutModalOpen && (
         <div className="logout-modal">
           <div className="logout-modal__content">
@@ -125,6 +167,79 @@ const Header = () => {
           </div>
         </div>
       )}
+
+      {/* Modal Liên hệ */}
+      <Modal show={showContactModal} onHide={handleCloseContactModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Liên hệ với chúng tôi</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3">
+              <Form.Label>Họ và tên</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Nhập họ và tên"
+                name="fullName"
+                value={formData.fullName}
+                onChange={handleChange}
+                required
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Nhập email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Số điện thoại</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Nhập số điện thoại"
+                name="phoneNumber"
+                value={formData.phoneNumber}
+                onChange={handleChange}
+                required
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Địa chỉ</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Nhập địa chỉ"
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                required
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Nội dung tin nhắn</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                placeholder="Nhập nội dung tin nhắn"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                required
+              />
+            </Form.Group>
+
+            <Button variant="primary" type="submit">Gửi</Button>
+          </Form>
+        </Modal.Body>
+      </Modal>
     </header>
   );
 };
