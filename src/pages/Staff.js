@@ -649,6 +649,7 @@ const Staff = () => {
       <Modal
         show={deleteModal.show}
         onHide={() => setDeleteModal({ show: false, id: null })}
+        centered
       >
         <Modal.Header closeButton>
           <Modal.Title>Xác nhận xóa</Modal.Title>

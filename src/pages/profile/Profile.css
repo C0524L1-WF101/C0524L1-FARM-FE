@@ -40,3 +40,22 @@
 .user-info p strong {
   color: #000;
 }
+.password-input-container {
+  display: flex;
+  align-items: center;
+}
+
+.password-input-container .form-control {
+  flex: 1;
+}
+
+.password-input-container .toggle-password {
+  margin-left: 10px;
+}
+
+.avatar-edit {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}

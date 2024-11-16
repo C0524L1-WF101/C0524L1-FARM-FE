@@ -3,14 +3,13 @@
     {
       "id": "1",
       "username": "admin",
-      "password": "admin123",
+      "password": "123",
       "avatar": "https://hoanghamobile.com/tin-tuc/wp-content/webp-express/webp-images/uploads/2024/04/anh-meo-ngau-6.jpg.webp",
       "role": "admin",
-      "email": "admin@gmai.com"
+      "email": "admin@gmai.com",
+      "dob": "2024-11-17"
     },
     {
-
-
       "id": "ffa2"
     },
     {
