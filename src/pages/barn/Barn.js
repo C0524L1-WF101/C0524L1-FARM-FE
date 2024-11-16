@@ -209,7 +209,7 @@ const Barn = () => {
                                 style={{ cursor: 'pointer' }}
                             >
                                 <td>{barn.name}</td>
-                                <td>{barn.empoly}</td>
+                                <td>{barn.empoly}a</td>
                                 <td>{new Date(barn.createdAt).toLocaleDateString('vi-VN')}</td>
                                 <td>{barn.closeAt ? new Intl.DateTimeFormat('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' }).format(new Date(barn.closeAt)) : 'Đang hoạt động'}</td>
                                 <td>{barn.quantity}</td>

@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { Collapse } from 'react-bootstrap';
 import { FaUserCog, FaBell, FaPiggyBank, FaHome, FaTh } from 'react-icons/fa';
 import './Sidebar.css';
+import { BsChatDots } from "react-icons/bs";
 
 const Sidebar = () => {
   const [openSystem, setOpenSystem] = useState(() => {
@@ -68,7 +69,21 @@ const Sidebar = () => {
                   <FaBell className="me-2" /> Quản lý thông báo
                 </NavLink>
               </li>
+              
               {role === 'admin' && (
+                <li>
+                  <NavLink
+                    to="/newshome"
+                    className={({ isActive }) =>
+                      isActive ? 'active-link' : 'inactive-link'
+                    }
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <BsChatDots className="me-2" /> Quản lý trang chủ
+                  </NavLink>
+                </li>
+              )}
+               {role === 'admin' && (
                 <li>
                   <NavLink
                     to="/staff"
