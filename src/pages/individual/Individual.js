@@ -41,7 +41,12 @@ const Individual = () => {
   const fetchPigs = async () => {
     try {
       const data = await pigAPI.getAllPigs();
-      setPigs(data);
+      const sortedPigs = data.sort((a, b) => {
+        const numA = parseInt(a.name.match(/\d+/)[0]);
+        const numB = parseInt(b.name.match(/\d+/)[0]); 
+        return numA - numB; 
+      });
+      setPigs(sortedPigs);
     } catch (error) {
       console.error("Lỗi khi lấy danh sách lợn:", error);
     }
@@ -50,17 +55,17 @@ const Individual = () => {
   const handleShowModal = (pig = null) => {
     if (pig) {
       setEditingPig(pig);
-      setFormData(pig);
+      formik.setValues({
+        name: pig.name || "",
+        nameBarn: pig.nameBarn || "",
+        createdAt: pig.createdAt || "",
+        closeAt: pig.closeAt || "",
+        status: pig.status || "",
+        weight: pig.weight || "",
+      });
     } else {
       setEditingPig(null);
-      setFormData({
-        name: "",
-        nameBarn: "",
-        createdAt: "",
-        closeAt: "",
-        status: "",
-        weight: "",
-      });
+      formik.resetForm(); // Reset form về giá trị ban đầu
     }
     setShowModal(true);
   };
@@ -94,7 +99,11 @@ const Individual = () => {
     (pig) =>
       pig.name.toLowerCase().includes(search.toLowerCase()) ||
       pig.nameBarn.toLowerCase().includes(search.toLowerCase())
-  );
+  ).sort((a, b) => {
+    const numA = parseInt(a.name.match(/\d+/)[0]);
+    const numB = parseInt(b.name.match(/\d+/)[0]);
+    return numA - numB;
+  });
 
   const handleSubmit = async () => {
     try {
@@ -135,7 +144,16 @@ const Individual = () => {
       setToast({ show: true, message: "Bạn chưa chọn cá thể nào", type: "error" });
       return;
     }
-    handleShowModal(selectedPig);
+    formik.setValues({
+      name: selectedPig.name || "",
+      nameBarn: selectedPig.nameBarn || "",
+      createdAt: selectedPig.createdAt || "",
+      closeAt: selectedPig.closeAt || "",
+      status: selectedPig.status || "",
+      weight: selectedPig.weight || "",
+    });
+    setEditingPig(selectedPig);
+    setShowModal(true);
   };
 
   const handleRowClick = (pig) => {
@@ -147,23 +165,30 @@ const Individual = () => {
   };
 
   const validationSchema = Yup.object({
-    name: Yup.string()
-      .matches(/^L\d{3}$/, "Tên phải theo định dạng L001, L002, ...")
-      .required("Tên là bắt buộc")
-      .test(
-        "unique-name",
-        "Tên đã tồn tại, vui lòng nhập tên khác",
-        (value) => !pigs.some((pig) => pig.name === value)
-      ),
-    nameBarn: Yup.string().required("Chuồng là bắt buộc"),
-    createdAt: Yup.date().required("Ngày nuôi là bắt buộc"),
-    closeAt: Yup.date(),
-    status: Yup.string().required("Trạng thái là bắt buộc"),
-    weight: Yup.number()
-      .typeError("Cân nặng phải là số")
-      .positive("Cân nặng phải lớn hơn 0")
-      .required("Cân nặng là bắt buộc"),
-  });
+  name: Yup.string()
+    .matches(/^L\d{3}$/, "Tên phải theo định dạng L001, L002, ...")
+    .required("Tên là bắt buộc")
+    .test(
+      "unique-name",
+      "Tên đã tồn tại, vui lòng nhập tên khác",
+      function (value) {
+        if (editingPig && editingPig.name === value) {
+          // Không kiểm tra nếu tên không thay đổi
+          return true;
+        }
+        return !pigs.some((pig) => pig.name === value);
+      }
+    ),
+  nameBarn: Yup.string().required("Chuồng là bắt buộc"),
+  createdAt: Yup.date().required("Ngày nuôi là bắt buộc"),
+  closeAt: Yup.date(),
+  status: Yup.string().required("Trạng thái là bắt buộc"),
+  weight: Yup.number()
+    .typeError("Cân nặng phải là số")
+    .positive("Cân nặng phải lớn hơn 0")
+    .required("Cân nặng là bắt buộc"),
+});
+
   
   const formik = useFormik({
     initialValues: {
@@ -210,13 +235,12 @@ const Individual = () => {
         <table className="table table-bordered table-hover custom-table">
           <thead>
             <tr>
-              <th>#</th>
               <th>Tên</th>
               <th>Chuồng</th>
               <th>Ngày nhập chuồng</th>
               <th>Ngày xuất chuồng</th>
               <th>Trạng thái</th>
-              <th>Cân nặng</th>
+              <th>Cân nặng (Kg)</th>
             </tr>
           </thead>
           <tbody>
@@ -229,11 +253,10 @@ const Individual = () => {
                   cursor: "pointer",
                 }}
               >
-                <td>{index + 1}</td>
                 <td>{pig.name}</td>
                 <td>{pig.nameBarn}</td>
-                <td>{pig.createdAt}</td>
-                <td>{pig.closeAt || "Đang trong chuồng"}</td>
+                <td>{new Date(pig.createdAt).toLocaleDateString('vi-VN')}</td>
+                <td>{pig.closeAt ? new Intl.DateTimeFormat('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' }).format(new Date(pig.closeAt)) : 'Đang trong chuồng'}</td>
                 <td>{pig.status}</td>
                 <td>{pig.weight}</td>
               </tr>
