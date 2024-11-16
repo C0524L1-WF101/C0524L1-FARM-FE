@@ -279,6 +279,7 @@ const Staff = () => {
                     }}
                   >
                     Mã NV: {item.id}
+
                   </h1>
                 </div>
                 <div style={{ flex: "1" }}>
@@ -292,6 +293,7 @@ const Staff = () => {
                   >
                     UserName: {item.username}
                   </h2>
+
                   <h2
                     style={{
                       fontSize: "14px",
@@ -334,6 +336,26 @@ const Staff = () => {
                       fontSize: "14px",
                       color: "#666",
                       margin: "8px 0  ",
+                      margin: "8px 0  20px",
+                    }}
+                  >
+                    UserName: {item.username}
+                  </h2>
+                  <h2
+                    style={{
+                      fontSize: "14px",
+                      color: "#666",
+                      margin: "8px 0 20px",
+                    }}
+                  >
+                    password: {item.password.replace(/./g, '*')}
+                  </h2>
+
+                  <h2
+                    style={{
+                      fontSize: "14px",
+                      color: "#666",
+                      margin: "8px 0  20px",
                     }}
                   >
                     Lương: {item.wage} VNĐ
@@ -381,24 +403,192 @@ const Staff = () => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Formik
-            initialValues={{
-              id: selectedStaff?.id || "",
-              name: selectedStaff?.name || "",
-              avatar: selectedStaff?.avatar || "",
-              username: selectedStaff?.username || "",
-              email: selectedStaff?.email || "",
-              dob: selectedStaff?.dob || "",
-              gender: selectedStaff?.gender || "",
-              idNumber: selectedStaff?.idNumber || "",
-              password: "admin123",
-              wage: selectedStaff?.wage || "",
-              role: selectedStaff?.role || "employee",
-            }}
-            validationSchema={validationSchema}
-            onSubmit={handleSubmit}
-          >
-            <Form>
+        <Formik
+          initialValues={{
+            id: selectedStaff?.id || "",
+            name: selectedStaff?.name || "",
+            avatar: selectedStaff?.avatar || "",
+            username: selectedStaff?.username || "",
+            email: selectedStaff?.email || "",
+            dob: selectedStaff?.dob || "",
+            gender: selectedStaff?.gender || "",
+            idNumber: selectedStaff?.idNumber || "",
+            password: "admin123",
+            wage: selectedStaff?.wage || "",
+            role: selectedStaff?.role || "employee",
+          }}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          <Form>
+            <Field
+              type="text"
+              name="id"
+              placeholder="Mã nhân viên"
+              style={{
+                padding: "10px",
+                width: "100%",
+                borderRadius: "5px",
+                border: "1px solid #ddd",
+                marginBottom: "10px",
+              }}
+            />
+            <ErrorMessage name="id" component="div" style={{ color: "red" }} />
+
+            <Field
+              type="text"
+              name="name"
+              placeholder="Tên"
+              style={{
+                padding: "10px",
+                width: "100%",
+                borderRadius: "5px",
+                border: "1px solid #ddd",
+                marginBottom: "10px",
+              }}
+            />
+            <ErrorMessage
+              name="name"
+              component="div"
+              style={{ color: "red" }}
+            />
+
+            <Field
+              type="text"
+              name="username"
+              placeholder="Tên tài khoản"
+              style={{
+                padding: "10px",
+                width: "100%",
+                borderRadius: "5px",
+                border: "1px solid #ddd",
+                marginBottom: "10px",
+              }}
+            />
+            <ErrorMessage
+              name="username"
+              component="div"
+              style={{ color: "red" }}
+            />
+
+            <Field
+              type="email"
+              name="email"
+              placeholder="Email"
+              style={{
+                padding: "10px",
+                width: "100%",
+                borderRadius: "5px",
+                border: "1px solid #ddd",
+                marginBottom: "10px",
+              }}
+            />
+            <ErrorMessage
+              name="email"
+              component="div"
+              style={{ color: "red" }}
+            />
+
+            <Field
+              type="date"
+              name="dob"
+              placeholder="Ngày sinh"
+              style={{
+                padding: "10px",
+                width: "100%",
+                borderRadius: "5px",
+                border: "1px solid #ddd",
+                marginBottom: "10px",
+              }}
+            />
+            <ErrorMessage name="dob" component="div" style={{ color: "red" }} />
+
+            <Field
+              as="select"
+              name="gender"
+              style={{
+                padding: "10px",
+                width: "100%",
+                borderRadius: "5px",
+                border: "1px solid #ddd",
+                marginBottom: "10px",
+              }}
+            >
+              <option value="">Giới tính</option>
+              <option value="Nam">Nam</option>
+              <option value="Nữ">Nữ</option>
+            </Field>
+            <ErrorMessage
+              name="gender"
+              component="div"
+              style={{ color: "red" }}
+            />
+
+            <Field
+              type="text"
+              name="idNumber"
+              placeholder="Số CMND"
+              style={{
+                padding: "10px",
+                width: "100%",
+                borderRadius: "5px",
+                border: "1px solid #ddd",
+                marginBottom: "10px",
+              }}
+            />
+            <ErrorMessage
+              name="idNumber"
+              component="div"
+              style={{ color: "red" }}
+            />
+
+            <Field
+              type="password"
+              name="password"
+              placeholder="Mật khẩu"
+              style={{
+                padding: "10px",
+                width: "100%",
+                borderRadius: "5px",
+                border: "1px solid #ddd",
+                marginBottom: "10px",
+              }}
+            />
+            <ErrorMessage
+              name="password"
+              component="div"
+              style={{ color: "red" }}
+            />
+
+            <Field
+              type="text"
+              name="wage"
+              placeholder="Lương"
+              style={{
+                padding: "10px",
+                width: "100%",
+                borderRadius: "5px",
+                border: "1px solid #ddd",
+                marginBottom: "10px",
+              }}
+            />
+            <ErrorMessage
+              name="wage"
+              component="div"
+              style={{ color: "red" }}
+            />
+
+            <div className="avatar-input">
+              <input type="file" name="avatar" onChange={handleFileChange} />
+              {newAvatar && (
+                <img
+                  src={newAvatar}
+                  alt="Avatar Preview"
+                  style={{ width: "100px", height: "100px" }}
+                />
+              )}
+            </div>
+            
               <Field
                 type="text"
                 name="id"
