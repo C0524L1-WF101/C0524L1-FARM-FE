@@ -27,7 +27,7 @@
       "dob": "1999-02-02",
       "gender": "male",
       "idNumber": "123456789",
-       "role": "employee"
+      "role": "employee"
     },
     {
       "id": "NV005",
@@ -63,11 +63,12 @@
   ],
   "pigs": [
     {
-      "id": "65d4",
-      "name": "11",
-      "weight": "11",
-      "age": "11",
-      "farmLocation": "111"
+      "id": "L01",
+      "name": "P04",
+      "createdAt": "2024-11-15",
+      "closeAt":"",
+      "feel": "Healthy",
+      "weight": 2323
     }
   ],
   "barn": [
@@ -94,6 +95,22 @@
       "createdAt": "2024-11-09",
       "closeAt": "2024-11-10",
       "quantity": 12
+    },
+    {
+      "id": "6f9e0134-7310-4d22-854d-e79813abfb47",
+      "name": "C02",
+      "empoly": "NV003",
+      "createdAt": "2024-11-07",
+      "closeAt": "2024-11-26",
+      "quantity": 12
+    },
+    {
+      "id": "2e7786a2-bdbf-4c14-8a60-a272da0e5ce6",
+      "name": "C08",
+      "empoly": "NV006",
+      "createdAt": "2024-11-02",
+      "closeAt": "2024-12-01",
+      "quantity": 7689
     }
   ]
 }
