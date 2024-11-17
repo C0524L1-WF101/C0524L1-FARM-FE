@@ -168,37 +168,39 @@ const Staff = () => {
 
   return (
     <div className="container">
-      <h2
+      <div
         style={{
           color: "#ff8c00",
-          textShadow: "0px 4px 8px rgba(0,0,0,0.4)",
-          marginBottom: "30px",
+          textShadow: "0px 4px 8px rgba(0,0,0,0.2)",
+          marginBottom: "10px",
         }}
       >
-        Quản Lý Nhân Viên
-      </h2>
-      <>
-        <div>
-          <input
+       <b style={{fontSize:'35px',marginRight:'50%'}}> Quản Lý Nhân Viên</b>
+       <input
             type="text"
             placeholder="Tìm Kiếm"
             value={searchTerm}
             onChange={handleSearch}
             style={{
               padding: "8px",
-              width: "35%",
-              marginBottom: "10px",
+              width: "23%",
+              color:"black",
               borderRadius: "4px",
               border: "1px solid #ddd",
+              height:'35px'
             }}
           />
+      </div>
+      
+      <>
+        <div>
+         
           <button
             className="btn-add-staff"
             onClick={handleAdd}
             style={{
               width: "200px",
-              padding: "8px 12px",
-              marginLeft: "10px",
+              padding: "8px 10px",
               backgroundColor: "#ff8c00",
               color: "white",
               border: "none",
@@ -268,7 +270,7 @@ const Staff = () => {
                       marginTop: "10px",
                     }}
                   >
-                    Vai Trò : {item.role}
+                    <b style={{ color: "black" }}> Vai Trò: </b> {item.role}
                   </h1>
                   <h1
                     style={{
@@ -278,7 +280,7 @@ const Staff = () => {
                       marginTop: "10px",
                     }}
                   >
-                    Mã NV: {item.id}
+                    <b style={{ color: "black" }}> Mã NV: </b> {item.id}
                   </h1>
                 </div>
                 <div style={{ flex: "1" }}>
@@ -290,7 +292,8 @@ const Staff = () => {
                       width: "240px",
                     }}
                   >
-                    UserName: {item.username}
+                    <b style={{ color: "black" }}> Username: </b>{" "}
+                    {item.username}
                   </h2>
 
                   <h2
@@ -300,7 +303,7 @@ const Staff = () => {
                       margin: "8px 0 ",
                     }}
                   >
-                    Email: {item.email}
+                    <b style={{ color: "black" }}> Email: </b> {item.email}
                   </h2>
                   <h2
                     style={{
@@ -309,7 +312,7 @@ const Staff = () => {
                       margin: "8px 0  ",
                     }}
                   >
-                    DoB: {item.dob}
+                    <b style={{ color: "black" }}> Dob: </b> {item.dob}
                   </h2>
                   <h2
                     style={{
@@ -318,7 +321,7 @@ const Staff = () => {
                       margin: "8px 0 ",
                     }}
                   >
-                    Giới tính: {item.gender}
+                    <b style={{ color: "black" }}> Giới Tính: </b> {item.gender}
                   </h2>
                   <h2
                     style={{
@@ -327,28 +330,8 @@ const Staff = () => {
                       margin: "8px 0  ",
                     }}
                   >
-                    CMND: {item.idNumber}
+                    <b style={{ color: "black" }}> CMND: </b> {item.idNumber}
                   </h2>
-
-                  <h2
-                    style={{
-                      fontSize: "14px",
-                      color: "#666",
-                      margin: "8px 0  ",
-                    }}
-                  >
-                    UserName: {item.username}
-                  </h2>
-                  <h2
-                    style={{
-                      fontSize: "14px",
-                      color: "#666",
-                      margin: "8px 0 20px",
-                    }}
-                  >
-                    password: {item.password}
-                  </h2>
-
                   <h2
                     style={{
                       fontSize: "14px",
@@ -356,7 +339,7 @@ const Staff = () => {
                       margin: "8px 0  20px",
                     }}
                   >
-                    Lương: {item.wage} VNĐ
+                    <b style={{ color: "black" }}> Lương: </b> {item.wage} VNĐ
                   </h2>
                   <div style={{ marginTop: "10px" }}>
                     <button
