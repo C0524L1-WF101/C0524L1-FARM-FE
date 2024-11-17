@@ -1,49 +1,34 @@
-import React from 'react';
-import { useState, useEffect } from "react";
-import { newsAPI, pigAPI } from '../../services/api.js';
-import ToastNotification from '../../component/ToastNotification.js'
+import React, { useState, useEffect } from "react";
+import ToastNotification from '../../component/ToastNotification.js';
 
 const Home = () => {
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState('');
     const [toastType, setToastType] = useState('success');
-
-
     const [news, setNews] = useState([]);
-    const [pigs, setPigs] = useState([]);
-    const [newPig, setNewPig] = useState({
-        name: "",
-        weight: "",
-        age: "",
-        farmLocation: "",
-    });
-    const [editingPigId, setEditingPigId] = useState(null);
+    const [loading, setLoading] = useState(true); // Biến trạng thái cho việc tải tin tức
+    const [error, setError] = useState(null); // Biến trạng thái để lưu lỗi nếu có
 
-    useEffect(() => {
-        const fetchPigs = async () => {
-            try {
-                const pigData = await pigAPI.getAllPigs();
-                setPigs(pigData);
-            } catch (error) {
-                console.error("Lỗi tải danh sách lợn:", error);
-            }
-        };
-
-        fetchPigs();
-    }, []);
-
+    // Lấy tin tức từ API hoặc json-server mà không cần xác thực
     useEffect(() => {
         const fetchNews = async () => {
             try {
-                const newsData = await newsAPI.getAllNews();
-                setNews(newsData);
+                const response = await fetch('http://localhost:3000/news'); // Đảm bảo URL chính xác
+                if (!response.ok) {
+                    throw new Error('Không thể tải tin tức'); // Kiểm tra xem có lỗi không
+                }
+                const newsData = await response.json();
+                setNews(newsData);  // Lưu tin tức vào state
+                setLoading(false); // Đặt trạng thái là không còn loading
             } catch (error) {
                 console.error("Lỗi tải tin tức:", error);
+                setError(error.message); // Lưu lỗi vào state
+                setLoading(false); // Đặt trạng thái là không còn loading
             }
         };
 
         fetchNews();
-    }, []);
+    }, []);  // Fetch khi component mount (không cần đăng nhập)
 
     const showToastMessage = (message, type) => {
         setToastMessage(message);
@@ -51,124 +36,77 @@ const Home = () => {
         setShowToast(true);
     };
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setNewPig({
-            ...newPig,
-            [name]: value,
-        });
-    };
+    // Nếu đang tải dữ liệu
+    if (loading) {
+        return <div>Đang tải tin tức...</div>;
+    }
 
-    const handleAddOrUpdatePig = async () => {
-        try {
-            if (editingPigId) {
-                // Cập nhật lợn
-                const updatedPig = await pigAPI.updatePig(editingPigId, newPig);
-                setPigs(pigs.map(pig => (pig.id === editingPigId ? updatedPig : pig)));
-                showToastMessage('Cập nhật lợn thành công!', 'success');
-            } else {
-                // Thêm lợn mới
-                const addedPig = await pigAPI.createPig(newPig);
-                setPigs([...pigs, addedPig]);
-                showToastMessage(' Thêm lợn mới!', 'success');
-            }
-
-            // Reset form và trạng thái chỉnh sửa
-            setNewPig({ name: "", weight: "", age: "", farmLocation: "" });
-            setEditingPigId(null);
-        } catch (error) {
-            console.error("Lỗi khi thêm hoặc cập nhật lợn:", error);
-            showToastMessage('Failed to delete post. Please try again.', 'error');
-        }
-    };
-
-    const handleEditPig = (pig) => {
-        setNewPig(pig);
-        setEditingPigId(pig.id);
-    };
-
-    const handleDeletePig = async (id) => {
-        try {
-            await pigAPI.deletePig(id);
-            setPigs(pigs.filter(pig => pig.id !== id));
-            showToastMessage(' Xóa thành công', 'success');
-        } catch (error) {
-            console.error("Lỗi khi xóa lợn:", error);
-            showToastMessage('Failed to delete post. Please try again.', 'error');
-        }
-    };
+    // Nếu có lỗi
+    if (error) {
+        return <div>Lỗi: {error}</div>;
+    }
 
     return (
         <div className="container mt-2">
             <h1>Tin tức</h1>
-            <ul>
-                {news.map((item) => (
-                    <li key={item.id}>
-                        {item.title} - {item.createdAt}
-                    </li>
-                ))}
-            </ul>
+            <div className="row">
+                <div className="col-md-8">
+                    {/* Tin tức đáng chú ý */}
+                    <div className="mb-4">
+                        <h4>Tin tức đáng chú ý</h4>
+                        {news.filter(item => item.id.startsWith('News')).map((item) => (
+                            <div className="card mb-3" key={item.id}>
+                                <div className="row g-0">
+                                    <div className="col-md-4">
+                                        {item.imageUrl ? (
+                                            <img src={item.imageUrl} className="img-fluid rounded-start" alt={item.title} style={{ height: '300px', objectFit: 'cover' }} />
+                                        ) : (
+                                            <div className="d-flex justify-content-center align-items-center" style={{ height: '300px', backgroundColor: '#f8f9fa' }}>
+                                                <span className="text-muted">Không có ảnh</span>
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className="col-md-8">
+                                        <div className="card-body">
+                                            <h5 className="card-title">{item.title}</h5>
+                                            <p className="card-text">{item.description}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
 
-            <h1>Danh sách lợn</h1>
-            <ul>
-                {pigs.map((pig) => (
-                    <li key={pig.id}>
-                        <p>Vị trí trang trại: {pig.farmLocation}</p>
-                        <p>Tên: {pig.name}</p>
-                        <p>Tuổi: {pig.age}</p>
-                        <p>Cân nặng: {pig.weight}</p>
-                        <button onClick={() => handleEditPig(pig)}>Sửa</button>
-                        <button onClick={() => handleDeletePig(pig.id)}>Xóa</button>
-                    </li>
-                ))}
-            </ul>
+                    {/* Các chủ đề tin tức */}
+                    <div className="row">
+                        {['Tin tức & Sự kiện', 'Thị trường', 'Hoạt động doanh nghiệp', 'Khoa học kĩ thuật', 'Nhà nông làm giàu'].map((category) => (
+                            <div className="col-md-12 mb-4" key={category}>
+                                <h4>{category}</h4>
+                                <div className="list-group">
+                                    {news.filter(item => item.category === category && item.id.startsWith('new')).map(item => (
+                                        <a href="#" className="list-group-item list-group-item-action" key={item.id}>
+                                            <h5>{item.title}</h5>
+                                            <p>{item.description}</p>
+                                        </a>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
 
-            <h2>{editingPigId ? "Cập nhật Lợn" : "Thêm Lợn Mới"}</h2>
-            <form onSubmit={(e) => e.preventDefault()}>
-                <label>
-                    Tên lợn:
-                    <input
-                        type="text"
-                        name="name"
-                        value={newPig.name}
-                        onChange={handleChange}
-                    />
-                </label>
-                <br />
-                <label>
-                    Cân nặng (kg):
-                    <input
-                        type="number"
-                        name="weight"
-                        value={newPig.weight}
-                        onChange={handleChange}
-                    />
-                </label>
-                <br />
-                <label>
-                    Tuổi:
-                    <input
-                        type="number"
-                        name="age"
-                        value={newPig.age}
-                        onChange={handleChange}
-                    />
-                </label>
-                <br />
-                <label>
-                    Vị trí trang trại:
-                    <input
-                        type="text"
-                        name="farmLocation"
-                        value={newPig.farmLocation}
-                        onChange={handleChange}
-                    />
-                </label>
-                <br />
-                <button onClick={handleAddOrUpdatePig}>
-                    {editingPigId ? "Cập nhật" : "Thêm Lợn"}
-                </button>
-            </form>
+                <div className="col-md-4">
+                    <div className="card mb-3">
+                        <div className="card-body">
+                            <h5 className="card-title">Quảng cáo</h5>
+                            <p className="card-text">Đây là không gian quảng cáo.</p>
+                            <img src="https://via.placeholder.com/300x500" alt="ads" className="img-fluid" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Toast Notification */}
             <ToastNotification
                 message={toastMessage}
                 type={toastType}

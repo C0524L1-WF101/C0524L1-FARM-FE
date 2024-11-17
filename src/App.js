@@ -7,8 +7,8 @@ import Layout from './component/Layout';
 import News from './pages/News';
 import Barn from './pages/barn/Barn';
 import Staff from './pages/Staff';
-import Individual from './pages/Individual';
-
+import Individual from './pages/individual/Individual';
+import NewsHome from './pages/noti-home/NewsHome'
 
 const App = () => {
     return (
@@ -52,6 +52,14 @@ const App = () => {
                     element={
                         <Layout>
                             <Staff />
+                        </Layout>
+                    }
+                />
+                 <Route
+                    path="/newshome"
+                    element={
+                        <Layout>
+                            <NewsHome />
                         </Layout>
                     }
                 />

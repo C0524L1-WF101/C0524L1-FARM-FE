@@ -1,0 +1,25 @@
+.text-orange {
+  color: #ff8c00;
+}
+
+.active-link {
+  color: #ff8c00;
+  font-weight: bold;
+  background-color: #ffe5cc;
+  padding: 8px 12px;
+  border-radius: 5px;
+  display: block;
+}
+
+.inactive-link {
+  color: #5a5a5a;
+  padding: 8px 12px;
+  display: block;
+}
+
+.active-link:hover,
+.inactive-link:hover {
+  background-color: #fff5e6;
+  color: #ff8c00;
+  transition: background-color 0.2s;
+}
