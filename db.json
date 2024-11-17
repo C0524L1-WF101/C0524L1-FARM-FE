@@ -33,8 +33,12 @@
       "dob": "1999-02-02",
       "gender": "Nam",
       "idNumber": "123456789",
+
       "password": "admin123",
-      "wage": "50000",
+
+    
+      "wage": "80000",
+
       "role": "employee"
     },
     {
@@ -144,8 +148,10 @@
       "closeAt":"",
       "feel": "Healthy",
       "weight": 2323
+
     },
     {
+
       "name": "L001",
       "nameBarn": "C01",
       "createdAt": "2024-11-15",
@@ -237,6 +243,7 @@
       "quantity": 0
     },
     {
+
       "id": "134b4410-187c-452e-be0b-e4c7abccb87a",
       "name": "C06",
       "empoly": "NV002",
@@ -259,8 +266,11 @@
       "createdAt": "2024-11-02",
       "closeAt": "2024-12-01",
       "quantity": 7689
+
     },
     {
+
+
       "id": "2099a0b8-1cf1-4a93-8c64-3f57d0bd10b2",
       "name": "C01",
       "empoly": "NV001",
@@ -275,6 +285,7 @@
       "createdAt": "2024-11-16",
       "closeAt": "",
       "quantity": 0
+
 
     }
   ],
@@ -293,6 +304,7 @@
       "id": "78b4",
       "content": "Triển khai tiêm vắc xin đợt 2 cho vật nuôi từ ngày 30/08/2024.",
       "date": "2024-11-17T13:23:41.585Z"
+
     }
   ]
 }
