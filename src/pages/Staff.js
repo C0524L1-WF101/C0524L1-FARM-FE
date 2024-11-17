@@ -211,7 +211,7 @@ const Staff = () => {
 
           <div
             style={{
-              display: "grid", // Sử dụng grid layout
+              display: 'flex', // Sử dụng grid layout
               gridTemplateColumns: "repeat(3, 1fr)", // Chia thành 3 cột bằng nhau
               gap: "20px", // Khoảng cách giữa các thẻ nhân viên
               marginTop: "20px",
@@ -247,6 +247,7 @@ const Staff = () => {
                       borderRadius: "50%",
                       marginBottom: "10px",
                       marginRight: "10px",
+                      
                     }}
                   />
 
@@ -268,7 +269,7 @@ const Staff = () => {
                       marginTop: "10px",
                     }}
                   >
-                    Vai Trò : {item.role}
+                  <b style={{ color:'black'}}> Vai Trò:</b>  {item.role}
                   </h1>
                   <h1
                     style={{
@@ -278,7 +279,7 @@ const Staff = () => {
                       marginTop: "10px",
                     }}
                   >
-                    Mã NV: {item.id}
+                   <b style={{ color:'black'}}> Mã NV:</b>  {item.id}
                   </h1>
                 </div>
                 <div style={{ flex: "1" }}>
@@ -290,26 +291,7 @@ const Staff = () => {
                       width: "240px",
                     }}
                   >
-                    UserName: {item.username}
-                  </h2>
-
-                  <h2
-                    style={{
-                      fontSize: "14px",
-                      color: "#666",
-                      margin: "8px 0 ",
-                    }}
-                  >
-                    Email: {item.email}
-                  </h2>
-                  <h2
-                    style={{
-                      fontSize: "14px",
-                      color: "#666",
-                      margin: "8px 0  ",
-                    }}
-                  >
-                    DoB: {item.dob}
+                  <b style={{ color:'black'}}> UserName:</b> {item.username}
                   </h2>
                   <h2
                     style={{
@@ -318,7 +300,7 @@ const Staff = () => {
                       margin: "8px 0 ",
                     }}
                   >
-                    Giới tính: {item.gender}
+                    <b style={{ color:'black'}}>Email:</b> {item.email}
                   </h2>
                   <h2
                     style={{
@@ -327,19 +309,28 @@ const Staff = () => {
                       margin: "8px 0  ",
                     }}
                   >
-                    CMND: {item.idNumber}
+                  <b style={{ color:'black'}}> DoB:</b>    {item.dob}
+                  </h2>
+                  <h2
+                    style={{
+                      fontSize: "14px",
+                      color: "#666",
+                      margin: "8px 0 ",
+                    }}
+                  >
+                 <b style={{ color:'black'}}>Giới tính:</b>  {item.gender}
+                  </h2>
+                  <h2
+                    style={{
+                      fontSize: "14px",
+                      color: "#666",
+                      margin: "8px 0  ",
+                    }}
+                  >
+              <b style={{ color:'black'}}>   CMND:</b>       {item.idNumber}
                   </h2>
 
-                  <h2
-                    style={{
-                      fontSize: "14px",
-                      color: "#666",
-                      margin: "8px 0  ",
-                    }}
-                  >
-                    UserName: {item.username}
-                  </h2>
-                  <h2
+                  {/* <h2
                     style={{
                       fontSize: "14px",
                       color: "#666",
@@ -347,7 +338,7 @@ const Staff = () => {
                     }}
                   >
                     password: {item.password}
-                  </h2>
+                  </h2> */}
 
                   <h2
                     style={{
@@ -356,7 +347,7 @@ const Staff = () => {
                       margin: "8px 0  20px",
                     }}
                   >
-                    Lương: {item.wage} VNĐ
+                  <b style={{ color:'black'}}> Lương:</b>     {item.wage} VNĐ
                   </h2>
                   <div style={{ marginTop: "10px" }}>
                     <button
