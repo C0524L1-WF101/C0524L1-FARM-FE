@@ -46,7 +46,7 @@
       "dob": "2024-11-01",
       "gender": "Male",
       "idNumber": "123123456456",
-      "password": "admin123",
+      "password": "123",
       "wage": "6000000",
       "role": "employee"
     }
