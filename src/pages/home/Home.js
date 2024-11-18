@@ -41,7 +41,7 @@ const Home = () => {
     }
 
     return (
-        <div className="container mt-4">
+        <div className="home-container mt-4">
             <h1 className="mb-4 text-center">Tin tức Mới Nhất</h1>
 
             {/* Hiển thị Tin tức Hot */}

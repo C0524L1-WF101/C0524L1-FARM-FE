@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import './NewsDetail.css'
+import './NewsDetail.css'; // Import CSS
 
 const NewsDetail = () => {
     const { id } = useParams(); // Lấy ID từ URL
@@ -23,13 +23,11 @@ const NewsDetail = () => {
         fetchNews();
     }, [id]);
 
-    // Hàm xử lý xuống dòng hoặc chia thành đoạn văn
+    // Hàm xử lý nội dung bài viết, chia thành các đoạn văn
     const parseContent = (content) => {
         return content.split('\n').map((item, index) => {
             return (
-                <p key={index} style={{ lineHeight: '1.6', marginBottom: '1rem' }}>
-                    {item}
-                </p>
+                <p key={index} className="news-detail__paragraph">{item}</p>
             );
         });
     };
@@ -42,7 +40,7 @@ const NewsDetail = () => {
         return <div>Bài viết không tồn tại!</div>;
     }
 
-    // Định dạng ngày đăng sử dụng toLocaleDateString
+    // Định dạng ngày đăng
     const formattedDate = new Date(news.date).toLocaleDateString('vi-VN', {
         day: '2-digit',
         month: '2-digit',
@@ -50,14 +48,13 @@ const NewsDetail = () => {
     });
 
     return (
-        <div className="container mt-4">
-            <h1>{news.title}</h1>
-            {/* Hiển thị hình ảnh của bài viết */}
+        <div className="news-detail__container">
+            <h1 className="news-detail__title">{news.title}</h1>
             {news.imageUrl && (
                 <img 
                     src={news.imageUrl} 
                     alt={news.title} 
-                    style={{ width: '100%', height: 'auto', objectFit: 'cover', marginBottom: '20px' }} 
+                    className="news-detail__image" 
                 />
             )}
             <p><strong>Ngày đăng:</strong> {formattedDate || 'Chưa có thông tin ngày đăng'}</p>
