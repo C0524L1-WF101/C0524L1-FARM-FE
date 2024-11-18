@@ -166,55 +166,60 @@ const News = () => {
         ))}
       </div>
       <Modal show={showAddModal} onHide={() => setShowAddModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Xác nhận Thêm Thông báo</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Bạn có chắc chắn muốn thêm thông báo này không?</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowAddModal(false)}>
-            Hủy
-          </Button>
-          <Button variant="primary" onClick={() => handleModalConfirm("add")}>
-            Thêm Thông báo
-          </Button>
-        </Modal.Footer>
-      </Modal>
+  <Modal.Header className="modal-header-custom" closeButton>
+    <Modal.Title>Xác nhận Thêm Thông báo</Modal.Title>
+  </Modal.Header>
+  <Modal.Body className="modal-body-custom">
+    Bạn có chắc chắn muốn thêm thông báo này không?
+  </Modal.Body>
+  <Modal.Footer className="modal-footer-custom">
+    <Button className="button-secondary" onClick={() => setShowAddModal(false)}>
+      Hủy
+    </Button>
+    <Button className="button-primary" onClick={() => handleModalConfirm("add")}>
+      Thêm Thông báo
+    </Button>
+  </Modal.Footer>
+</Modal>
 
-      <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Xác nhận chỉnh sửa thông báo</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <textarea
-            className="news-home-textarea"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-          />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowEditModal(false)}>
-            Hủy
-          </Button>
-          <Button variant="primary" onClick={() => handleModalConfirm("edit")}>
-            Cập Nhật Thông Báo
-          </Button>
-        </Modal.Footer>
-      </Modal>
+<Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
+  <Modal.Header className="modal-header-custom" closeButton>
+    <Modal.Title>Xác nhận chỉnh sửa thông báo</Modal.Title>
+  </Modal.Header>
+  <Modal.Body className="modal-body-custom">
+    <textarea
+      className="news-home-textarea"
+      value={content}
+      onChange={(e) => setContent(e.target.value)}
+    />
+  </Modal.Body>
+  <Modal.Footer className="modal-footer-custom">
+    <Button className="button-secondary" onClick={() => setShowEditModal(false)}>
+      Hủy
+    </Button>
+    <Button className="button-primary" onClick={() => handleModalConfirm("edit")}>
+      Cập Nhật Thông Báo
+    </Button>
+  </Modal.Footer>
+</Modal>
 
-      <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Xác nhận xóa thông báo</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Bạn có chắc chắn muốn xóa thông báo này không?</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
-            Hủy
-          </Button>
-          <Button variant="danger" onClick={() => handleModalConfirm("delete")}>
-            Xóa Thông Báo
-          </Button>
-        </Modal.Footer>
-      </Modal>
+<Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
+  <Modal.Header className="modal-header-custom" closeButton>
+    <Modal.Title>Xác nhận xóa thông báo</Modal.Title>
+  </Modal.Header>
+  <Modal.Body className="modal-body-custom">
+    Bạn có chắc chắn muốn xóa thông báo này không?
+  </Modal.Body>
+  <Modal.Footer className="modal-footer-custom">
+    <Button className="button-secondary" onClick={() => setShowDeleteModal(false)}>
+      Hủy
+    </Button>
+    <Button className="button-danger" onClick={() => handleModalConfirm("delete")}>
+      Xóa Thông Báo
+    </Button>
+  </Modal.Footer>
+</Modal>
+
 
       <ToastNotification
         message={toast.message}

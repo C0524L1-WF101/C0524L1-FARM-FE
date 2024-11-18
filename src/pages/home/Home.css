@@ -1,0 +1,40 @@
+
+.home-container .home-custom-title {
+    font-size: 1.2rem;
+    font-weight: bold; 
+    transition: color 0.3s ease, transform 0.3s ease;  
+    color: inherit;
+}
+
+/* .home-container .home-custom-title:hover {
+    color: rgb(255, 166, 0); 
+    transform: scale(1.05); 
+} */
+
+.home-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.home-container h1 {
+    font-size: 2.5rem;
+    color: #333;
+}
+
+.home-container h4 {
+    font-size: 1.5rem;
+    color: #444;
+}
+
+.home-container p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    text-align: justify;
+}
+
+.home-container img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
