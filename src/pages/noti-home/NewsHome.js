@@ -1,36 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import './NewsHome.css';
-import { postAPI } from '../../services/api';
+import { newsAPI } from '../../services/api';
 
 const NewsHome = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [showModal, setShowModal] = useState(false);
-    const [posts, setPosts] = useState([]);
+    const [news, setNews] = useState([]); // Đổi từ posts thành news để phù hợp
     const [images, setImages] = useState([]);  // Lưu nhiều ảnh
     const [imagePreviews, setImagePreviews] = useState([]);  // Lưu ảnh preview
     const [isEditing, setIsEditing] = useState(false);
-    const [editingPostId, setEditingPostId] = useState(null);
-    
+    const [editingNewsId, setEditingNewsId] = useState(null);
+
     // Modal xác nhận xóa
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [postToDelete, setPostToDelete] = useState(null);
+    const [newsToDelete, setNewsToDelete] = useState(null);
 
     // Tìm kiếm bài viết
     const [searchTerm, setSearchTerm] = useState('');
 
     // Hàm lấy danh sách bài viết từ API
-    const fetchPosts = async () => {
+    const fetchNews = async () => {
         try {
-            const data = await postAPI.getAllPosts();
-            setPosts(data);
+            const data = await newsAPI.getAllNews();
+            setNews(data);
         } catch (error) {
-            console.error('Lỗi khi lấy bài viết:', error);
+            console.error('Lỗi khi lấy tin tức:', error);
         }
     };
 
     useEffect(() => {
-        fetchPosts();
+        fetchNews();
     }, []);
 
     // Hàm xử lý khi người dùng chọn nhiều ảnh
@@ -54,22 +54,22 @@ const NewsHome = () => {
         const imageBase64Promises = images.map((image) => convertImageToBase64(image));
         const imageBase64 = await Promise.all(imageBase64Promises);  // Chờ tất cả ảnh chuyển đổi xong
 
-        const newPost = { 
-            title, 
-            content, 
+        const newPost = {
+            title,
+            content,
             images: imageBase64,  // Lưu danh sách ảnh dưới dạng base64
             createdAt: new Date().toLocaleString()  // Thêm thời gian đăng bài
         };
 
         try {
             if (isEditing) {
-                const updatedPost = await postAPI.updatePost(editingPostId, newPost);
-                setPosts(posts.map((post) => (post.id === editingPostId ? updatedPost : post)));
+                const updatedNews = await newsAPI.updateNews(editingNewsId, newPost);
+                setNews(news.map((item) => (item.id === editingNewsId ? updatedNews : item)));
                 setIsEditing(false);
-                setEditingPostId(null);
+                setEditingNewsId(null);
             } else {
-                const savedPost = await postAPI.createPost(newPost);
-                setPosts([...posts, savedPost]);
+                const savedNews = await newsAPI.createNews(newPost);
+                setNews([...news, savedNews]);
             }
 
             setTitle('');
@@ -93,27 +93,28 @@ const NewsHome = () => {
         });
     };
 
-    const handleEditPost = (post) => {
-        setTitle(post.title);
-        setContent(post.content);
-        setImagePreviews(post.images);  // Hiển thị preview của nhiều ảnh
+    const handleEditNews = (item) => {
+        console.log(item)
+        setTitle(item.title || "");
+        setContent(item.content || "");
+        setImagePreviews(item.images);  
         setIsEditing(true);
-        setEditingPostId(post.id);
+        setEditingNewsId(item.id);
         setShowModal(true);
     };
 
     // Mở modal xác nhận xóa
-    const handleDeletePost = (post) => {
-        setPostToDelete(post);
+    const handleDeleteNews = (item) => {
+        setNewsToDelete(item);
         setShowDeleteModal(true);
     };
 
     // Xác nhận xóa bài viết
-    const confirmDeletePost = async () => {
-        if (postToDelete) {
+    const confirmDeleteNews = async () => {
+        if (newsToDelete) {
             try {
-                await postAPI.deletePost(postToDelete.id);
-                setPosts(posts.filter((post) => post.id !== postToDelete.id));
+                await newsAPI.deleteNews(newsToDelete.id);
+                setNews(news.filter((item) => item.id !== newsToDelete.id));
                 alert('Đã xóa bài viết thành công');
                 setShowDeleteModal(false); // Đóng modal sau khi xóa
             } catch (error) {
@@ -124,31 +125,34 @@ const NewsHome = () => {
     };
 
     // Lọc bài viết theo từ khóa tìm kiếm
-    const filteredPosts = posts.filter(post => {
+    const filteredNews = news.filter(item => {
         return (
-            post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            post.content.toLowerCase().includes(searchTerm.toLowerCase())
+            item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            item.content.toLowerCase().includes(searchTerm.toLowerCase())
         );
     });
 
     return (
         <div className="news-home">
-            <h2>Đăng bài viết mới</h2>
-
-            {/* Ô tìm kiếm */}
-            <div className="search-container">
-                <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Tìm kiếm bài viết"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
+            <div className='d-flex align-items-center justify-content-between'>
+                <h2 className='title-news'>Đăng tin tức mới</h2>
+    
+                <div className='d-flex align-content-center justify-content-center'>
+                    <div className="search-container ">
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Tìm kiếm bài viết"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                    </div>
+        
+                    <button className="btn btn-primary" onClick={() => setShowModal(true)}>
+                        {isEditing ? 'Chỉnh sửa bài viết' : 'Đăng bài mới'}
+                    </button>
+                </div>
             </div>
-
-            <button className="btn btn-primary" onClick={() => setShowModal(true)}>
-                {isEditing ? 'Chỉnh sửa bài viết' : 'Đăng bài mới'}
-            </button>
 
             {/* Modal đăng bài */}
             <div className={`modal fade ${showModal ? 'show' : ''}`} style={{ display: showModal ? 'block' : 'none' }}>
@@ -184,12 +188,12 @@ const NewsHome = () => {
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="images">Chọn ảnh:</label>
-                                    <input 
-                                        type="file" 
-                                        id="images" 
-                                        accept="image/*" 
-                                        onChange={handleImageChange} 
-                                        className="form-control" 
+                                    <input
+                                        type="file"
+                                        id="images"
+                                        accept="image/*"
+                                        onChange={handleImageChange}
+                                        className="form-control"
                                         multiple  // Cho phép chọn nhiều ảnh
                                     />
                                 </div>
@@ -213,7 +217,8 @@ const NewsHome = () => {
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title">Xác nhận xóa</h5>
+                            <h5 className="modal-title">
+                                Xác nhận xóa</h5>
                             <button type="button" className="btn-close" onClick={() => setShowDeleteModal(false)}></button>
                         </div>
                         <div className="modal-body">
@@ -221,36 +226,35 @@ const NewsHome = () => {
                         </div>
                         <div className="modal-footer">
                             <button className="btn btn-secondary" onClick={() => setShowDeleteModal(false)}>Hủy</button>
-                            <button className="btn btn-danger" onClick={confirmDeletePost}>Xóa</button>
+                            <button className="btn btn-danger" onClick={confirmDeleteNews}>Xóa</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="posts-list mt-4">
+            <div className="news-list mt-4">
                 <h3>Các bài viết đã đăng:</h3>
-                {filteredPosts.length === 0 ? (
+                {filteredNews.length === 0 ? (
                     <p>Chưa có bài viết nào.</p>
                 ) : (
                     <ul className="list-group">
-                        {filteredPosts.map((post, index) => (
-                            <li key={post.id} className="list-group-item">
-                                <h5>{post.title}</h5>
-                                <p>{post.content}</p>
-                                {/* Hiển thị tất cả ảnh của bài viết */}
-                                {post.images && post.images.map((image, idx) => (
+                        {filteredNews.map((item) => (
+                            <li key={item.id} className="list-group-item">
+                                <h5>{item.title}</h5>
+                                <p>{item.content}</p>
+                                {item.images && item.images.map((image, idx) => (
                                     <img key={idx} src={image} alt={`post-image-${idx}`} className="img-fluid mt-2" />
                                 ))}
-                                <p className="post-time text-muted">{post.createdAt}</p> {/* Hiển thị thời gian đăng bài */}
+                                <p className="post-time text-muted">{item.createdAt}</p>
                                 <button
                                     className="btn btn-warning btn-sm mt-2"
-                                    onClick={() => handleEditPost(post)}
+                                    onClick={() => handleEditNews(item)}
                                 >
                                     Chỉnh sửa
                                 </button>
                                 <button
                                     className="btn btn-danger btn-sm mt-2 ms-2"
-                                    onClick={() => handleDeletePost(post)}
+                                    onClick={() => handleDeleteNews(item)}
                                 >
                                     Xóa
                                 </button>
