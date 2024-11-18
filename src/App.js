@@ -7,7 +7,8 @@ import Layout from './component/Layout';
 import News from './pages/News';
 import Barn from './pages/barn/Barn';
 import Staff from './pages/Staff';
-import Individual from './pages/individual/Individual';
+import Individual from './pages/Individual';
+import NewsDetail from './pages/home/NewsDetail';
 import NewsHome from './pages/noti-home/NewsHome'
 
 const App = () => {
@@ -28,6 +29,14 @@ const App = () => {
                     element={
                         <Layout>
                             <Profile />
+                        </Layout>
+                    }
+                />
+                <Route
+                    path="//news/:id"
+                    element={
+                        <Layout>
+                            <NewsDetail />
                         </Layout>
                     }
                 />

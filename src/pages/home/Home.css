@@ -1,0 +1,15 @@
+/* Home.css (hoặc một file CSS riêng cho Home.js) */
+
+/* Tiêu đề của tin tức trong Home */
+.home-custom-title {
+    font-size: 1.2rem;  /* Kích thước tiêu đề ban đầu */
+    font-weight: bold;  /* Làm cho tiêu đề đậm */
+    transition: color 0.3s ease, transform 0.3s ease;  /* Thêm hiệu ứng chuyển màu và thay đổi kích thước */
+    color: inherit;  /* Giữ màu chữ mặc định */
+}
+
+/* Khi hover chuột vào tiêu đề */
+.home-custom-title:hover {
+    color: rgb(255, 166, 0);  /* Màu chữ khi hover */
+    transform: scale(1.05);  /* Phóng to một chút khi hover */
+}
