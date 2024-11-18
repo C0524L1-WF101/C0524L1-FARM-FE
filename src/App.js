@@ -8,7 +8,7 @@ import News from './pages/News';
 import Barn from './pages/barn/Barn';
 import Staff from './pages/Staff';
 import Individual from './pages/Individual';
-
+import NewsDetail from './pages/home/NewsDetail';
 
 const App = () => {
     return (
@@ -28,6 +28,14 @@ const App = () => {
                     element={
                         <Layout>
                             <Profile />
+                        </Layout>
+                    }
+                />
+                <Route
+                    path="//news/:id"
+                    element={
+                        <Layout>
+                            <NewsDetail />
                         </Layout>
                     }
                 />

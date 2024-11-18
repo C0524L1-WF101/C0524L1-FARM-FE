@@ -50,3 +50,15 @@
   color: #666;
   text-align: center;
 }
+@media (max-width: 768px) {
+  .footer {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .left-section, .right-section {
+    flex: none;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}

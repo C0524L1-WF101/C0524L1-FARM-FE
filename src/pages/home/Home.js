@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import ToastNotification from '../../component/ToastNotification.js';
+import './Home.css'
 
 const Home = () => {
     const [showToast, setShowToast] = useState(false);
@@ -9,101 +11,114 @@ const Home = () => {
     const [loading, setLoading] = useState(true); // Biến trạng thái cho việc tải tin tức
     const [error, setError] = useState(null); // Biến trạng thái để lưu lỗi nếu có
 
-    // Lấy tin tức từ API hoặc json-server mà không cần xác thực
+    // Fetch tin tức từ API
     useEffect(() => {
         const fetchNews = async () => {
             try {
-                const response = await fetch('http://localhost:3000/news'); // Đảm bảo URL chính xác
+                const response = await fetch('http://localhost:3000/news');
                 if (!response.ok) {
-                    throw new Error('Không thể tải tin tức'); // Kiểm tra xem có lỗi không
+                    throw new Error('Không thể tải tin tức');
                 }
                 const newsData = await response.json();
-                setNews(newsData);  // Lưu tin tức vào state
-                setLoading(false); // Đặt trạng thái là không còn loading
+                setNews(newsData);
+                setLoading(false);
             } catch (error) {
                 console.error("Lỗi tải tin tức:", error);
-                setError(error.message); // Lưu lỗi vào state
-                setLoading(false); // Đặt trạng thái là không còn loading
+                setError(error.message);
+                setLoading(false);
             }
         };
 
         fetchNews();
-    }, []);  // Fetch khi component mount (không cần đăng nhập)
+    }, []);
 
-    const showToastMessage = (message, type) => {
-        setToastMessage(message);
-        setToastType(type);
-        setShowToast(true);
-    };
-
-    // Nếu đang tải dữ liệu
     if (loading) {
         return <div>Đang tải tin tức...</div>;
     }
 
-    // Nếu có lỗi
     if (error) {
         return <div>Lỗi: {error}</div>;
     }
 
     return (
-        <div className="container mt-2">
-            <h1>Tin tức</h1>
-            <div className="row">
-                <div className="col-md-8">
-                    {/* Tin tức đáng chú ý */}
-                    <div className="mb-4">
-                        <h4>Tin tức đáng chú ý</h4>
-                        {news.filter(item => item.id.startsWith('News')).map((item) => (
-                            <div className="card mb-3" key={item.id}>
+        <div className="container mt-4">
+            <h1 className="mb-4 text-center">Tin tức Mới Nhất</h1>
+
+            {/* Hiển thị Tin tức Hot */}
+            <div className="mb-4">
+                <h2 className="text-center">Tin tức Hot</h2>
+                <div className="row">
+                    {news.filter(item => item.isHot).map(item => (
+                        <div className="col-md-4 mb-3" key={item.id}>
+                            <div className="card" style={{ height: '100%' }}>
                                 <div className="row g-0">
+                                    {/* Hình ảnh nằm phía trái */}
                                     <div className="col-md-4">
                                         {item.imageUrl ? (
-                                            <img src={item.imageUrl} className="img-fluid rounded-start" alt={item.title} style={{ height: '300px', objectFit: 'cover' }} />
+                                            <img src={item.imageUrl} alt={item.title} className="img-fluid rounded-start" style={{ height: '150px', objectFit: 'cover' }} />
                                         ) : (
-                                            <div className="d-flex justify-content-center align-items-center" style={{ height: '300px', backgroundColor: '#f8f9fa' }}>
+                                            <div className="d-flex justify-content-center align-items-center" style={{ height: '150px', backgroundColor: '#f0f0f0' }}>
                                                 <span className="text-muted">Không có ảnh</span>
                                             </div>
                                         )}
                                     </div>
+
+                                    {/* Nội dung tin tức (Tiêu đề, Mô tả) nằm phía phải */}
                                     <div className="col-md-8">
                                         <div className="card-body">
-                                            <h5 className="card-title">{item.title}</h5>
-                                            <p className="card-text">{item.description}</p>
+                                            <Link to={`/news/${item.id}`} className="home-custom-title" style={{ fontSize: '1.2rem', textDecoration: 'none', color: 'inherit' }}>
+                                                {item.title}
+                                            </Link>
+                                            <p className="card-text" style={{ fontSize: '0.9rem' }}>{item.description}</p>
+                                            <small className="text-muted" style={{ fontSize: '0.8rem' }}>Nguồn: {item.source}</small>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        ))}
-                    </div>
-
-                    {/* Các chủ đề tin tức */}
-                    <div className="row">
-                        {['Tin tức & Sự kiện', 'Thị trường', 'Hoạt động doanh nghiệp', 'Khoa học kĩ thuật', 'Nhà nông làm giàu'].map((category) => (
-                            <div className="col-md-12 mb-4" key={category}>
-                                <h4>{category}</h4>
-                                <div className="list-group">
-                                    {news.filter(item => item.category === category && item.id.startsWith('new')).map(item => (
-                                        <a href="#" className="list-group-item list-group-item-action" key={item.id}>
-                                            <h5>{item.title}</h5>
-                                            <p>{item.description}</p>
-                                        </a>
-                                    ))}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                        </div>
+                    ))}
                 </div>
+            </div>
 
-                <div className="col-md-4">
-                    <div className="card mb-3">
-                        <div className="card-body">
-                            <h5 className="card-title">Quảng cáo</h5>
-                            <p className="card-text">Đây là không gian quảng cáo.</p>
-                            <img src="https://via.placeholder.com/300x500" alt="ads" className="img-fluid" />
+            {/* Hiển thị các chủ đề tin tức */}
+            <div className="row">
+                {['Tin tức & Sự kiện', 'Thị trường', 'Hoạt động doanh nghiệp', 'Khoa học kĩ thuật', 'Nhà nông làm giàu'].map((category) => (
+                    <div className="col-md-12 mb-3" key={category}>
+                        <h5>{category}</h5>
+                        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-2">
+                            {/* Lấy 4 bài viết đầu tiên trong mỗi chủ đề */}
+                            {news.filter(item => item.category === category && !item.isHot).slice(0, 4).map(item => (
+                                <div className="col mb-3" key={item.id}>
+                                    <div className="card" style={{ height: '100%' }}>
+                                        <div className="row g-0">
+                                            {/* Hình ảnh nằm phía trái */}
+                                            <div className="col-md-4">
+                                                {item.imageUrl ? (
+                                                    <img src={item.imageUrl} alt={item.title} className="img-fluid rounded-start" style={{ height: '120px', objectFit: 'cover' }} />
+                                                ) : (
+                                                    <div className="d-flex justify-content-center align-items-center" style={{ height: '120px', backgroundColor: '#f0f0f0' }}>
+                                                        <span className="text-muted">Không có ảnh</span>
+                                                    </div>
+                                                )}
+                                            </div>
+
+                                            {/* Nội dung tin tức (Tiêu đề, Mô tả) nằm phía phải */}
+                                            <div className="col-md-8">
+                                                <div className="card-body">
+                                                    <Link to={`/news/${item.id}`} className="home-custom-title" style={{ fontSize: '1.1rem', textDecoration: 'none', color: 'inherit' }}>
+                                                        {item.title}
+                                                    </Link>
+                                                    <p className="card-text" style={{ fontSize: '0.85rem' }}>{item.description}</p>
+                                                    <small className="text-muted" style={{ fontSize: '0.8rem' }}>Nguồn: {item.source}</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
-                </div>
+                ))}
             </div>
 
             {/* Toast Notification */}

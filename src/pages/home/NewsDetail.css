@@ -1,0 +1,39 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: #333;
+}
+
+h4 {
+    font-size: 1.5rem;
+    color: #444;
+}
+
+p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    text-align: justify;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+/* NewsDetail.css */
+.news-detail p {
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    color: #333;
+}
+.news-detail h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
