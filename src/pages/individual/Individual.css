@@ -13,7 +13,7 @@
 }
 
 .custom-table th {
-    background-color: #ffb266; 
+    background-color: #FFB266; 
     color: #333; 
     font-weight: bold;
 }
@@ -47,9 +47,5 @@ h2 {
 
 .custom-table {
     margin-bottom: 0px
-}
-
-.input-group {
-    margin-bottom: 3px
 }
 

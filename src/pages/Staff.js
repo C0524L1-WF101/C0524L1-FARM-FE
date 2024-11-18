@@ -3,18 +3,24 @@ import { userAPI } from "../services/api.js";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import ToastNotification from "../component/ToastNotification.js";
+import { Modal, Button } from "react-bootstrap";
+
 const Staff = () => {
+  const [newAvatar, setNewAvatar] = useState(null);
   const [staff, setStaff] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedStaff, setSelectedStaff] = useState(null);
-  const [isAdding, setIsAdding] = useState(false);
   const [toast, setToast] = useState({ message: "", type: "", show: false });
+  const [showModal, setShowModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState({ show: false, id: null });
   const showToast = (message, type) => {
     setToast({ message, type, show: true });
   };
+
   const handleCloseToast = () => {
     setToast({ ...toast, show: false });
   };
+
   useEffect(() => {
     fetchStaff();
   }, []);
@@ -29,8 +35,8 @@ const Staff = () => {
   };
 
   const handleAdd = () => {
-    setIsAdding(true);
     setSelectedStaff(null);
+    setShowModal(true);
   };
 
   const handleSearch = (event) => {
@@ -74,7 +80,7 @@ const Staff = () => {
             (!selectedStaff || staffMember.id !== selectedStaff.id)
         );
       }),
-    avatar: Yup.string().required("Ảnh đại diện là bắt buộc."),
+
     username: Yup.string().required("Tên tài khoản là bắt buộc."),
     email: Yup.string()
       .email("Email không hợp lệ.")
@@ -88,255 +94,296 @@ const Staff = () => {
 
   const handleSubmit = async (values) => {
     try {
+      const formData = new FormData();
+      formData.append("id", values.id);
+      formData.append("name", values.name);
+      if (newAvatar) {
+        formData.append("avatar", newAvatar);
+      }
+      formData.append("username", values.username);
+      formData.append("email", values.email);
+      formData.append("dob", values.dob);
+      formData.append("gender", values.gender);
+      formData.append("idNumber", values.idNumber);
+      formData.append("password", values.password);
+      formData.append("wage", values.wage);
+      formData.append("role", values.role);
+
       if (selectedStaff) {
-        await userAPI.updateUser(selectedStaff.id, values);
+        await userAPI.updateUser(selectedStaff.id, formData);
         showToast("Cập Nhật Thành Công", "success");
       } else {
-        await userAPI.createUser(values);
+        await userAPI.createUser(formData);
         showToast("Khởi tạo Thành Công", "success");
       }
-      fetchStaff();
-      setIsAdding(false);
-      setSelectedStaff(null);
+      fetchStaff(); // Reload the staff list
+      setSelectedStaff(null); // Reset selected staff
+      setNewAvatar(null); // Reset avatar
+      setShowModal(false);
     } catch (error) {
       showToast("Lỗi khi lưu người dùng", "error");
     }
   };
 
   const handleCancel = () => {
-    setIsAdding(false);
     setSelectedStaff(null);
+    setNewAvatar(null);
+    setShowModal(false);
+  };
+  const handleDeleteConfirm = (id) => {
+    setDeleteModal({ show: true, id });
   };
 
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm(
-      "Bạn có chắc chắn muốn xóa nhân viên này?"
-    );
-    if (confirmDelete) {
-      try {
-        await userAPI.deleteUser(id);
-        showToast("Xóa Thành Công", "success");
-        fetchStaff();
-      } catch (error) {
-        console.error("Lỗi khi xóa người dùng:", error);
-      }
+    try {
+      await userAPI.deleteUser(id);
+      showToast("Xóa Thành Công", "success");
+      fetchStaff(); // Reload danh sách nhân viên
+    } catch (error) {
+      console.error("Lỗi khi xóa người dùng:", error);
+      showToast("Lỗi khi xóa nhân viên", "error");
+    } finally {
+      setDeleteModal({ show: false, id: null }); // Đóng modal sau khi xử lý xong
     }
   };
 
   const handleEdit = (data) => {
     setSelectedStaff(data);
-    setIsAdding(true);
+    setNewAvatar(data.avatar);
+    setShowModal(true);
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setNewAvatar(reader.result); // Lưu URL của ảnh để hiển thị
+      };
+      reader.readAsDataURL(file); // Đọc file dưới dạng URL
+    } else {
+      setNewAvatar(null); // Đảm bảo reset avatar nếu không có file nào được chọn
+    }
   };
 
   return (
-    <div>
-      <h1
+    <div className="container">
+      <div
         style={{
           color: "#ff8c00",
-          fontSize: "42px",
           textShadow: "0px 4px 8px rgba(0,0,0,0.2)",
-          marginBottom: "30px",
+          marginBottom: "10px",
         }}
       >
-        Quản Lý Nhân Viên
-      </h1>
-      {!isAdding ? (
-        <>
-          <div>
-            <input
-              type="text"
-              placeholder="Tìm Kiếm"
-              value={searchTerm}
-              onChange={handleSearch}
-              style={{
-                padding: "8px",
-                width: "70%",
-                marginBottom: "10px",
-                borderRadius: "4px",
-                border: "1px solid #ddd",
-              }}
-            />
-            <button
-              className="btn-add-staff"
-              onClick={handleAdd}
-              style={{
-                width: "200px",
-                padding: "8px 12px",
-                marginLeft: "10px",
-                backgroundColor: "#ff8c00",
-                color: "white",
-                border: "none",
-                borderRadius: "4px",
-                cursor: "pointer",
-              }}
-            >
-              Thêm Nhân Viên Mới
-            </button>
+       <b style={{fontSize:'35px',marginRight:'50%'}}> Quản Lý Nhân Viên</b>
+       <input
+            type="text"
+            placeholder="Tìm Kiếm"
+            value={searchTerm}
+            onChange={handleSearch}
+            style={{
+              padding: "8px",
+              width: "23%",
+              color:"black",
+              borderRadius: "4px",
+              border: "1px solid #ddd",
+              height:'35px'
+            }}
+          />
+      </div>
+      
+      <>
+        <div>
+         
+          <button
+            className="btn-add-staff"
+            onClick={handleAdd}
+            style={{
+              width: "200px",
+              padding: "8px 10px",
+              backgroundColor: "#ff8c00",
+              color: "white",
+              border: "none",
+              borderRadius: "4px",
+              cursor: "pointer",
+            }}
+          >
+            Thêm Nhân Viên Mới
+          </button>
 
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "20px",
-                marginTop: "20px",
-                marginLeft: "5px",
-              }}
-            >
-              {filteredUsers.map((item) => (
+          <div
+            style={{
+              display: "grid", // Sử dụng grid layout
+              gridTemplateColumns: "repeat(3, 1fr)", // Chia thành 3 cột bằng nhau
+              gap: "20px", // Khoảng cách giữa các thẻ nhân viên
+              marginTop: "20px",
+              marginLeft: "5px",
+            }}
+          >
+            {filteredUsers.map((item) => (
+              <div
+                key={item.id}
+                style={{
+                  border: "1px solid #ddd",
+                  borderRadius: "8px",
+                  padding: "20px",
+                  boxShadow: "0px 4px 8px rgba(0,0,0,0.5)",
+                  backgroundColor: "#ffffff",
+                  marginBottom: "20px",
+                  display: "flex", // Dùng flex để chia thành hai cột
+                  gap: "15px", // Khoảng cách giữa hai cột
+                }}
+              >
                 <div
-                  key={item.id}
                   style={{
-                    width: "300px",
-                    border: "1px solid #ddd",
-                    borderRadius: "8px",
-                    padding: "20px",
-                    boxShadow: "0px 4px 8px rgba(0,0,0,0.4)",
-                    textAlign: "center",
-                    backgroundColor: "#ffffff",
-                    marginRight: "20px",
+                    flex: "0 0 25%", // Chiếm 30% chiều rộng của thẻ
+                    textAlign: "center", // Căn giữa ảnh và tên
                   }}
                 >
                   <img
                     src={item.avatar}
                     alt={`${item.name}'s Avatar`}
                     style={{
-                      width: "150px",
-                      height: "150px",
+                      width: "100px",
+                      height: "100px",
                       borderRadius: "50%",
-                      marginBottom: "15px",
+                      marginBottom: "10px",
+                      marginRight: "10px",
                     }}
                   />
-                  <h1 style={{ fontSize: "18px", margin: "10px 0 10px" }}>
+
+                  <h1
+                    style={{
+                      fontSize: "18px",
+                      marginRight: "10px",
+                      width: "150px",
+                      marginTop: "5px",
+                    }}
+                  >
                     {item.name}
                   </h1>
+                  <h1
+                    style={{
+                      fontSize: "16px",
+                      marginRight: "10px",
+                      width: "150px",
+                      marginTop: "10px",
+                    }}
+                  >
+                    <b style={{ color: "black" }}> Vai Trò: </b> {item.role}
+                  </h1>
+                  <h1
+                    style={{
+                      fontSize: "15px",
+                      marginRight: "10px",
+                      width: "150px",
+                      marginTop: "10px",
+                    }}
+                  >
+                    <b style={{ color: "black" }}> Mã NV: </b> {item.id}
+                  </h1>
+                </div>
+                <div style={{ flex: "1" }}>
                   <h2
                     style={{
                       fontSize: "14px",
                       color: "#666",
-                      margin: "8px 0 20px ",
+                      margin: "8px 0  ",
+                      width: "240px",
                     }}
                   >
-                    Vai Trò : {item.role}
-                  </h2>
-                  <h2
-                    style={{
-                      fontSize: "14px",
-                      color: "#666",
-                      margin: "8px 0  20px",
-                    }}
-                  >
-                    Mã NV: {item.id}
-                  </h2>
-                  <h2
-                    style={{
-                      fontSize: "14px",
-                      color: "#666",
-                      margin: "8px 0 20px",
-                    }}
-                  >
-                    Email: {item.email}
-                  </h2>
-                  <h2
-                    style={{
-                      fontSize: "14px",
-                      color: "#666",
-                      margin: "8px 0  20px",
-                    }}
-                  >
-                    Ngày sinh: {new Date(item.dob).toLocaleDateString('vi-VN')}
-                  </h2>
-                  <h2
-                    style={{
-                      fontSize: "14px",
-                      color: "#666",
-                      margin: "8px 0  20px",
-                    }}
-                  >
-                    Giới tính: {item.gender}
-                  </h2>
-                  <h2
-                    style={{
-                      fontSize: "14px",
-                      color: "#666",
-                      margin: "8px 0  20px",
-                    }}
-                  >
-                    CMND: {item.idNumber}
-                  </h2>
-                  <h2
-                    style={{
-                      fontSize: "14px",
-                      color: "#666",
-                      margin: "8px 0  20px",
-                    }}
-                  >
-                    Tên đăng nhập: {item.username}
-                  </h2>
-                  <h2
-                    style={{
-                      fontSize: "14px",
-                      color: "#666",
-                      margin: "8px 0  20px",
-                    }}
-                  >
-                    Mật khẩu: {item.password}
-                  </h2>
-                  <h2
-                    style={{
-                      fontSize: "14px",
-                      color: "#666",
-                      margin: "8px 0  20px",
-                    }}
-                  >
-                    Lương: {item.wage} VNĐ
+                    <b style={{ color: "black" }}> Username: </b>{" "}
+                    {item.username}
                   </h2>
 
-                  <button
-                    onClick={() => handleEdit(item)}
+                  <h2
                     style={{
-                      padding: "5px 15px",
-                      marginRight: "10px",
-                      backgroundColor: "#ff8c00",
-                      color: "white",
-                      border: "none",
-                      borderRadius: "4px",
-                      cursor: "pointer",
+                      fontSize: "14px",
+                      color: "#666",
+                      margin: "8px 0 ",
                     }}
                   >
-                    Chỉnh sửa
-                  </button>
-                  <button
-                    onClick={() => handleDelete(item.id)}
+                    <b style={{ color: "black" }}> Email: </b> {item.email}
+                  </h2>
+                  <h2
                     style={{
-                      padding: "5px 15px",
-                      backgroundColor: "#f44336",
-                      color: "white",
-                      border: "none",
-                      borderRadius: "4px",
-                      cursor: "pointer",
+                      fontSize: "14px",
+                      color: "#666",
+                      margin: "8px 0  ",
                     }}
                   >
-                    Xóa
-                  </button>
+                    <b style={{ color: "black" }}> Dob: </b> {item.dob}
+                  </h2>
+                  <h2
+                    style={{
+                      fontSize: "14px",
+                      color: "#666",
+                      margin: "8px 0 ",
+                    }}
+                  >
+                    <b style={{ color: "black" }}> Giới Tính: </b> {item.gender}
+                  </h2>
+                  <h2
+                    style={{
+                      fontSize: "14px",
+                      color: "#666",
+                      margin: "8px 0  ",
+                    }}
+                  >
+                    <b style={{ color: "black" }}> CMND: </b> {item.idNumber}
+                  </h2>
+                  <h2
+                    style={{
+                      fontSize: "14px",
+                      color: "#666",
+                      margin: "8px 0  20px",
+                    }}
+                  >
+                    <b style={{ color: "black" }}> Lương: </b> {item.wage} VNĐ
+                  </h2>
+                  <div style={{ marginTop: "10px" }}>
+                    <button
+                      onClick={() => handleEdit(item)}
+                      style={{
+                        padding: "5px 15px",
+                        marginRight: "20px",
+                        backgroundColor: "#ff8c00",
+                        color: "white",
+                        border: "none",
+                        borderRadius: "4px",
+                        cursor: "pointer",
+                        marginTop: "15px",
+                      }}
+                    >
+                      Chỉnh sửa
+                    </button>
+                    <button
+                      onClick={() => handleDeleteConfirm(item.id)}
+                      style={{
+                        padding: "5px 15px",
+                        backgroundColor: "#f44336",
+                        color: "white",
+                        border: "none",
+                        borderRadius: "4px",
+                        cursor: "pointer",
+                      }}
+                    >
+                      Xóa
+                    </button>
+                  </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
-        </>
-      ) : (
-        <div
-          style={{
-            marginTop: "20px",
-            padding: "20px",
-            border: "1px solid #ddd",
-            borderRadius: "15px",
-            backgroundColor: "#dcdcdc",
-            width: "970px",
-          }}
-        >
-          <h3 style={{ marginBottom: "20px", color: "#ff8c00" }}>
-            {selectedStaff ? "Chỉnh sửa Nhân Viên" : "Thêm Nhân Viên Mới"}
-          </h3>
+        </div>
+      </>
+      <Modal show={showModal} onHide={handleCancel}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            {selectedStaff ? "Chỉnh sửa nhân viên" : "Thêm nhân viên"}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
           <Formik
             initialValues={{
               id: selectedStaff?.id || "",
@@ -355,239 +402,188 @@ const Staff = () => {
             onSubmit={handleSubmit}
           >
             <Form>
-              <div>
-                <label style={{ marginBottom: "5px" }}>Mã nhân viên</label>
-                <Field
-                  type="text"
-                  name="id"
-                  placeholder="Mã"
-                  style={{
-                    padding: "8px",
-                    width: "900px",
-                    marginBottom: "15px",
-                    borderRadius: "5px",
-                    border: "1px solid #ddd",
-                  }}
-                />
-                <ErrorMessage
-                  name="id"
-                  component="div"
-                  style={{ color: "red" }}
-                />
-              </div>
-              <div>
-                <label style={{ marginBottom: "5px", marginTop: "15px" }}>
-                  Tên nhân viên
-                </label>
-                <Field
-                  type="text"
-                  name="name"
-                  placeholder="Tên"
-                  style={{
-                    padding: "8px",
-                    width: "900px",
-                    marginBottom: "15px",
-                    borderRadius: "5px",
-                    border: "1px solid #ddd",
-                  }}
-                />
-                <ErrorMessage
-                  name="name"
-                  component="div"
-                  style={{ color: "red" }}
-                />
-              </div>
-              <div>
-                <label style={{ marginBottom: "5px", marginTop: "15px" }}>
-                  Ảnh đại diện
-                </label>
-                <Field
-                  type="text"
-                  name="avatar"
-                  placeholder="URL Ảnh"
-                  style={{
-                    padding: "8px",
-                    width: "900px",
-                    marginBottom: "15px",
-                    borderRadius: "5px",
-                    border: "1px solid #ddd",
-                  }}
-                />
-                <ErrorMessage
-                  name="avatar"
-                  component="div"
-                  style={{ color: "red" }}
-                />
-              </div>
-              <div>
-                <label style={{ marginBottom: "5px", marginTop: "15px" }}>
-                  Tên tài khoản
-                </label>
-                <Field
-                  type="text"
-                  name="username"
-                  placeholder="Tên tài khoản"
-                  style={{
-                    padding: "8px",
-                    width: "900px",
-                    marginBottom: "15px",
-                    borderRadius: "5px",
-                    border: "1px solid #ddd",
-                  }}
-                />
-                <ErrorMessage
-                  name="username"
-                  component="div"
-                  style={{ color: "red" }}
-                />
-              </div>
-              <div>
-                <label style={{ marginBottom: "5px", marginTop: "15px" }}>
-                  Email
-                </label>
-                <Field
-                  type="text"
-                  name="email"
-                  placeholder="Email"
-                  style={{
-                    padding: "8px",
-                    width: "900px",
-                    marginBottom: "15px",
-                    borderRadius: "5px",
-                    border: "1px solid #ddd",
-                  }}
-                />
-                <ErrorMessage
-                  name="email"
-                  component="div"
-                  style={{ color: "red" }}
-                />
-              </div>
-              <div>
-                <label style={{ marginBottom: "5px", marginTop: "15px" }}>
-                  Ngày sinh
-                </label>
-                <Field
-                  type="date"
-                  name="dob"
-                  style={{
-                    padding: "8px",
-                    width: "900px",
-                    marginBottom: "15px",
-                    borderRadius: "5px",
-                    border: "1px solid #ddd",
-                  }}
-                />
-                <ErrorMessage
-                  name="dob"
-                  component="div"
-                  style={{ color: "red" }}
-                />
-              </div>
-              <div>
-                <label style={{ marginBottom: "5px", marginTop: "15px" }}>
-                  Giới tính
-                </label>
-                <Field
-                  as="select"
-                  name="gender"
-                  style={{
-                    padding: "8px",
-                    width: "900px",
-                    marginBottom: "15px",
-                    borderRadius: "5px",
-                    border: "1px solid #ddd",
-                  }}
-                >
-                  <option value="">Chọn giới tính</option>
-                  <option value="Nam">Nam</option>
-                  <option value="Nữ">Nữ</option>
-                </Field>
+              <Field
+                type="text"
+                name="id"
+                placeholder="Mã nhân viên"
+                style={{
+                  padding: "10px",
+                  width: "100%",
+                  borderRadius: "5px",
+                  border: "1px solid #ddd",
+                  marginBottom: "10px",
+                }}
+              />
+              <ErrorMessage
+                name="id"
+                component="div"
+                style={{ color: "red" }}
+              />
 
-                <ErrorMessage
-                  name="gender"
-                  component="div"
-                  style={{ color: "red" }}
-                />
-              </div>
-              <div>
-                <label style={{ marginBottom: "5px", marginTop: "15px" }}>
-                  Số CMND
-                </label>
-                <Field
-                  type="text"
-                  name="idNumber"
-                  placeholder="Số CMND"
-                  style={{
-                    padding: "8px",
-                    width: "900px",
-                    marginBottom: "15px",
-                    borderRadius: "5px",
-                    border: "1px solid #ddd",
-                  }}
-                />
-                <ErrorMessage
-                  name="idNumber"
-                  component="div"
-                  style={{ color: "red" }}
-                />
-              </div>
-              <div>
-                <label style={{ marginBottom: "5px", marginTop: "15px" }}>
-                  Mật khẩu
-                </label>
-                <Field
-                  type="password"
-                  name="password"
-                  placeholder="Mật khẩu"
-                  style={{
-                    padding: "8px",
-                    width: "900px",
-                    marginBottom: "15px",
-                    borderRadius: "5px",
-                    border: "1px solid #ddd",
-                  }}
-                />
-                <ErrorMessage
-                  name="password"
-                  component="div"
-                  style={{ color: "red" }}
-                />
-              </div>
+              <Field
+                type="text"
+                name="name"
+                placeholder="Tên"
+                style={{
+                  padding: "10px",
+                  width: "100%",
+                  borderRadius: "5px",
+                  border: "1px solid #ddd",
+                  marginBottom: "10px",
+                }}
+              />
+              <ErrorMessage
+                name="name"
+                component="div"
+                style={{ color: "red" }}
+              />
 
-              <div>
-                <label style={{ marginBottom: "5px", marginTop: "15px" }}>
-                  Lương
-                </label>
-                <Field
-                  type="wage"
-                  name="wage"
-                  placeholder="Lương"
-                  style={{
-                    padding: "8px",
-                    width: "900px",
-                    marginBottom: "15px",
-                    borderRadius: "5px",
-                    border: "1px solid #ddd",
-                  }}
-                />
-                <ErrorMessage
-                  name="wage"
-                  component="div"
-                  style={{ color: "red" }}
-                />
-              </div>
+              <Field
+                type="text"
+                name="username"
+                placeholder="Tên tài khoản"
+                style={{
+                  padding: "10px",
+                  width: "100%",
+                  borderRadius: "5px",
+                  border: "1px solid #ddd",
+                  marginBottom: "10px",
+                }}
+              />
+              <ErrorMessage
+                name="username"
+                component="div"
+                style={{ color: "red" }}
+              />
 
+              <Field
+                type="email"
+                name="email"
+                placeholder="Email"
+                style={{
+                  padding: "10px",
+                  width: "100%",
+                  borderRadius: "5px",
+                  border: "1px solid #ddd",
+                  marginBottom: "10px",
+                }}
+              />
+              <ErrorMessage
+                name="email"
+                component="div"
+                style={{ color: "red" }}
+              />
+
+              <Field
+                type="date"
+                name="dob"
+                placeholder="Ngày sinh"
+                style={{
+                  padding: "10px",
+                  width: "100%",
+                  borderRadius: "5px",
+                  border: "1px solid #ddd",
+                  marginBottom: "10px",
+                }}
+              />
+              <ErrorMessage
+                name="dob"
+                component="div"
+                style={{ color: "red" }}
+              />
+
+              <Field
+                as="select"
+                name="gender"
+                style={{
+                  padding: "10px",
+                  width: "100%",
+                  borderRadius: "5px",
+                  border: "1px solid #ddd",
+                  marginBottom: "10px",
+                }}
+              >
+                <option value="">Giới tính</option>
+                <option value="Nam">Nam</option>
+                <option value="Nữ">Nữ</option>
+              </Field>
+              <ErrorMessage
+                name="gender"
+                component="div"
+                style={{ color: "red" }}
+              />
+
+              <Field
+                type="text"
+                name="idNumber"
+                placeholder="Số CMND"
+                style={{
+                  padding: "10px",
+                  width: "100%",
+                  borderRadius: "5px",
+                  border: "1px solid #ddd",
+                  marginBottom: "10px",
+                }}
+              />
+              <ErrorMessage
+                name="idNumber"
+                component="div"
+                style={{ color: "red" }}
+              />
+
+              <Field
+                type="password"
+                name="password"
+                placeholder="Mật khẩu"
+                style={{
+                  padding: "10px",
+                  width: "100%",
+                  borderRadius: "5px",
+                  border: "1px solid #ddd",
+                  marginBottom: "10px",
+                }}
+              />
+              <ErrorMessage
+                name="password"
+                component="div"
+                style={{ color: "red" }}
+              />
+
+              <Field
+                type="text"
+                name="wage"
+                placeholder="Lương"
+                style={{
+                  padding: "10px",
+                  width: "100%",
+                  borderRadius: "5px",
+                  border: "1px solid #ddd",
+                  marginBottom: "10px",
+                }}
+              />
+              <ErrorMessage
+                name="wage"
+                component="div"
+                style={{ color: "red" }}
+              />
+
+              <div className="avatar-input">
+                <input type="file" name="avatar" onChange={handleFileChange} />
+                {newAvatar && (
+                  <img
+                    src={newAvatar}
+                    alt="Avatar Preview"
+                    style={{ width: "100px", height: "100px" }}
+                  />
+                )}
+              </div>
               <div>
-                <label style={{ marginBottom: "5px", marginTop: "15px" }}>
-                  Vai trò
-                </label>
                 <Field
                   as="select"
                   name="role"
                   style={{
                     padding: "8px",
-                    width: "900px",
+                    width: "100%",
                     marginBottom: "15px",
                     borderRadius: "5px",
                     border: "1px solid #ddd",
@@ -598,34 +594,31 @@ const Staff = () => {
                 </Field>
                 <ErrorMessage name="role" component="div" />
               </div>
+
               <div>
                 <button
                   type="submit"
                   style={{
-                    padding: "8px 15px",
-                    marginTop: "10px",
                     backgroundColor: "#ff8c00",
                     color: "white",
+                    padding: "10px 20px",
+                    marginRight: "10px",
+                    marginTop: "10px",
                     border: "none",
-                    borderRadius: "5px",
-                    cursor: "pointer",
+                    borderRadius: "4px",
                   }}
                 >
-                  {selectedStaff ? "Cập nhật" : "Thêm mới"}
+                  Thêm
                 </button>
-
                 <button
                   type="button"
                   onClick={handleCancel}
                   style={{
-                    padding: "8px 15px",
-                    marginTop: "10px",
-                    marginLeft: "10px",
                     backgroundColor: "#f44336",
                     color: "white",
+                    padding: "10px 20px",
                     border: "none",
-                    borderRadius: "5px",
-                    cursor: "pointer",
+                    borderRadius: "4px",
                   }}
                 >
                   Hủy
@@ -633,8 +626,31 @@ const Staff = () => {
               </div>
             </Form>
           </Formik>
-        </div>
-      )}
+        </Modal.Body>
+      </Modal>
+
+      <Modal
+        show={deleteModal.show}
+        onHide={() => setDeleteModal({ show: false, id: null })}
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Xác nhận xóa</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Bạn có chắc chắn muốn xóa nhân viên này?</Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={() => setDeleteModal({ show: false, id: null })}
+          >
+            Hủy
+          </Button>
+          <Button variant="danger" onClick={() => handleDelete(deleteModal.id)}>
+            Xóa
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       <ToastNotification
         message={toast.message}
         type={toast.type}

@@ -9,6 +9,7 @@ import Barn from './pages/barn/Barn';
 import Staff from './pages/Staff';
 import Individual from './pages/Individual';
 import NewsDetail from './pages/home/NewsDetail';
+import NewsHome from './pages/noti-home/NewsHome'
 
 const App = () => {
     return (
@@ -60,6 +61,14 @@ const App = () => {
                     element={
                         <Layout>
                             <Staff />
+                        </Layout>
+                    }
+                />
+                 <Route
+                    path="/newshome"
+                    element={
+                        <Layout>
+                            <NewsHome />
                         </Layout>
                     }
                 />

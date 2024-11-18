@@ -3,7 +3,7 @@ import './Footer.css';
 
 const Footer = () => {
   return (
-    <footer className="footer">
+    <footer className="footer shadow">
       {/* Phần bên trái (chiếm 30%) */}
       <div className="left-section">
         <div className="top-left">

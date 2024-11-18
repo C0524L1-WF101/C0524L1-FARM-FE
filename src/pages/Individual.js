@@ -1,301 +1,304 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Table from 'react-bootstrap/Table';
-import { Modal, Button, Form, Alert, Toast, ToastContainer } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { pigAPI } from '../services/api';
+import { Modal, Button, Form } from 'react-bootstrap';
+import ToastNotification from '../component/ToastNotification';
+//\import '../barn/Barn.css';
+import { v4 as uuidv4 } from 'uuid';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
-function BasicExample() {
-  const [pigs, setPigs] = useState([]);
-  const [show, setShow] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [error, setError] = useState('');
-  const [formData, setFormData] = useState({
-    id: '',
-    name: '',
-    date1: '',
-    date2: '',
-    feel: '',
-    weight: '',
-  });
-  const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
+const Pig = () => {
+    const [pigs, setPigs] = useState([]);
+    const [filteredPigs, setFilteredPigs] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [showModal, setShowModal] = useState(false);
+    const [editMode, setEditMode] = useState(false);
+    const [toast, setToast] = useState({ message: '', type: '', show: false });
+    const [deleteModal, setDeleteModal] = useState({ show: false, id: null });
+    const [selectedPig, setSelectedPig] = useState(null);
 
-  useEffect(() => {
-    fetchPigs();
-  }, []);
+    useEffect(() => {
+        fetchPigs();
+    }, []);
 
-  const fetchPigs = () => {
-    axios.get('http://localhost:3000/pigs')
-      .then((response) => setPigs(response.data))
-      .catch((error) => console.error('Lỗi khi lấy dữ liệu!', error));
-  };
+    const fetchPigs = async () => {
+        try {
+            const data = await pigAPI.getAllPigs();
+            setPigs(data);
+            setFilteredPigs(data);
+        } catch (error) {
+            showToast("Lỗi khi lấy danh sách lợn", "error");
+        }
+    };
 
-  const handleClose = () => {
-    setShow(false);
-    setFormData({
-      id: '',
-      name: '',
-      date1: '',
-      date2: '',
-      feel: '',
-      weight: '',
+    useEffect(() => {
+        handleSearch();
+    }, [searchTerm, pigs]);
+
+    const handleSearch = () => {
+        const filtered = pigs.filter(pig =>
+            (pig.id && pig.id.toLowerCase().includes(searchTerm.toLowerCase())) ||
+            (pig.name && pig.name.toLowerCase().includes(searchTerm.toLowerCase()))
+        );
+        setFilteredPigs(filtered);
+    };
+
+
+    const handleSearchInputChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
+    const showToast = (message, type) => {
+        setToast({ message, type, show: true });
+    };
+
+    const handleCloseToast = () => {
+        setToast({ ...toast, show: false });
+    };
+
+    const handleShowModal = (pig = null) => {
+        if (pig) {
+            setEditMode(true);
+            formik.setValues(pig);
+        } else {
+            setEditMode(false);
+            formik.resetForm();
+        }
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+        formik.resetForm();
+        setSelectedPig(null);
+    };
+
+    const handleRowClick = (pig) => {
+        setSelectedPig(pig);
+    };
+
+    const handleShowDeleteModal = () => {
+        if (!selectedPig) {
+            showToast("Bạn chưa chọn cá thế", "error");
+            return;
+        }
+        setDeleteModal({ show: true, id: selectedPig.id });
+    };
+
+    const handleCloseDeleteModal = () => {
+        setDeleteModal({ show: false, id: null });
+    };
+
+    const handleConfirmDelete = async () => {
+        try {
+            await pigAPI.deletePig(deleteModal.id);
+            fetchPigs();
+            showToast("Xóa cá thể thành công", "success");
+            setSelectedPig(null);
+        } catch (error) {
+            showToast("Lỗi khi xóa cá thể", "error");
+        } finally {
+            handleCloseDeleteModal();
+        }
+    };
+
+    const validationSchema = Yup.object({
+        id: Yup.string()
+            .required("Mã Cá thể là bắt buộc")
+            .matches(/^L\d{2}$/, "Mã Nhân Viên phải có dạng L01, L02,..."),
+        name: Yup.string()
+            .required("Mã Chuồng Nuôi là bắt buộc")
+            .matches(/^C\d{2}$/, "Mã Chuồng Nuôi phải có dạng C01, C02,...")
+            .test(
+                "unique-name",
+                "Mã chuồng nuôi đã bị trùng !",
+                (value) => editMode || !pigs.some((pig) => pig.name === value)
+            ),
+
+        createdAt: Yup.date().required("Ngày Tạo Chuồng là bắt buộc"),
+        Weight: Yup.number()
+            .required("Cân Nặng Cá Thể là bắt buộc")
+            .positive("Cân Nặng Cá Thể phải lớn hơn 0")
+            .integer("Cân Nặng Cá Thể phải là số nguyên"),
     });
-    setIsEdit(false);
-    setError('');
-  };
 
-  const handleShow = () => setShow(true);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
+    const formik = useFormik({
+        initialValues: {
+            id: '',
+            name: '',
+            createdAt: '',
+            closeAt: '',
+            feel: '',
+            weight: ''
+        },
+        
+        validationSchema: validationSchema,
+        onSubmit: async (values) => {
+            try {
+                if (editMode) {
+                    await pigAPI.updatePig(values.id, values);
+                    showToast("Chỉnh sửa thành công", "success");
+                } else {
+                    const newPig = { id: uuidv4(), ...values };
+                    await pigAPI.createPig(newPig);
+                    showToast("Khởi tạo thành công", "success");
+                }
+                fetchPigs();
+                handleCloseModal();
+            } catch (error) {
+                showToast("Lỗi khi lưu chuồng nuôi", "error");
+            }
+        }
     });
-  };
+    
+    return (
+        <div className="container my-4">
+            <h2 className="mb-3 title-container">Quản Lý Chuồng Nuôi</h2>
 
-  // Hàm kiểm tra form
-  const validateForm = () => {
-    const { id, name, date1, date2, feel, weight } = formData;
+            <div className="input-group mb-3">
+                <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Tìm kiếm theo Mã Chuồng Nuôi hoặc Mã Nhân Viên"
+                    value={searchTerm}
+                    onChange={handleSearchInputChange}
+                />
+            </div>
 
-    if (!id || !name || !date1 || !date2 || !feel || !weight) {
-      return 'Vui lòng điền đầy đủ thông tin!';
-    }
+            <div className="table-responsive shadow">
+                <table className="table table-bordered table-hover custom-table">
+                    <thead>
+                        <tr>
+                            <th>mã lợn </th>
+                            <th>Mã chuồng nuôi</th>
+                            <th>Ngày Tạo Chuồng</th>
+                            <th>Ngày Đóng Chuồng</th>
+                            <th> tình trạng </th>
+                            <th> cân nặng </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {filteredPigs.map((pig) => (
+                            <tr
+                                key={pig.id}
+                                className={`table-row ${selectedPig?.id === pig.id ? 'table-active' : ''}`}
+                                onClick={() => handleRowClick(pig)}
+                                style={{ cursor: 'pointer' }}
+                            >
+                                <td>{pig.id}</td>
+                                <td>{pig.name}</td>
+                                <td>{pig.createdAt}</td>
+                                <td>{pig.closeAt}</td>
+                                <td>{pig.feel}</td>
 
-    if (isNaN(id)) {
-      return 'ID phải là một số!';
-    }
+                                <td>{pig.weight}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
 
-    if (isNaN(weight) || Number(weight) <= 0) {
-      return 'Cân nặng phải là một số dương!';
-    }
+            <div className="d-flex justify-content-center mt-4">
+                <Button variant="primary" className="mx-2 shadow" onClick={() => handleShowModal()}>Khởi tạo</Button>
+                <Button
+                    variant="warning"
+                    className="mx-2 shadow"
+                    onClick={() => selectedPig ? handleShowModal(selectedPig) : showToast("Bạn chưa chọn cá thể nào", "error")}
+                >
+                    Chỉnh sửa
+                </Button>
+                <Button variant="danger" className="mx-2 shadow" onClick={handleShowDeleteModal}>Xóa</Button>
+            </div>
 
-    if (new Date(date1) > new Date(date2)) {
-      return 'Ngày nhập chuồng phải nhỏ hơn hoặc bằng ngày xuất chuồng!';
-    }
+            <Modal show={showModal} onHide={handleCloseModal} centered className="no-border-header">
+                <Modal.Header closeButton>
+                    <Modal.Title>{editMode ? "Chỉnh sửa thông tin cá thể" : "Khởi tạo cá thể"}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={formik.handleSubmit}>
+                        <Form.Group controlId="formName">
+                            <Form.Label>Mã lợn </Form.Label>
+                            <Form.Control
+                                type="text"
+                                name="id"
+                                value={formik.values.id}
+                                onChange={formik.handleChange}
+                                isInvalid={formik.touched.id && formik.errors.id}
+                            />
+                            <Form.Control.Feedback type="invalid">{formik.errors.id}</Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group controlId="formEmpoly">
+                            <Form.Label>Mã Nhân Viên</Form.Label>
+                            <Form.Control
+                                type="text"
+                                name="name"
+                                value={formik.values.name}
+                                onChange={formik.handleChange}
+                                isInvalid={formik.touched.name && formik.errors.name}
+                            />
+                            <Form.Control.Feedback type="invalid">{formik.errors.name}</Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group controlId="formCreatedAt">
+                            <Form.Label>Ngày Tạo Chuồng</Form.Label>
+                            <Form.Control
+                                type="date"
+                                name="createdAt"
+                                value={formik.values.createdAt}
+                                onChange={formik.handleChange}
+                                isInvalid={formik.touched.createdAt && formik.errors.createdAt}
+                            />
+                            <Form.Control.Feedback type="invalid">{formik.errors.createdAt}</Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group controlId="formCloseAt">
+                            <Form.Label>Ngày Đóng Chuồng</Form.Label>
+                            <Form.Control
+                                type="date"
+                                name="closeAt"
+                                value={formik.values.closeAt}
+                                onChange={formik.handleChange}
+                            />
+                        </Form.Group>
 
-    return null;
-  };
+                        <Form.Group controlId="formQuantity">
+                            <Form.Label>cân nặng </Form.Label>
+                            <Form.Control
+                                type="number"
+                                name="weight"
+                                value={formik.values.weight}
+                                onChange={formik.handleChange}
+                                isInvalid={formik.touched.weight && formik.errors.weight}
+                            />
+                            <Form.Control.Feedback type="invalid">{formik.errors.weight}</Form.Control.Feedback>
+                        </Form.Group>
+                        <Modal.Footer>
+                            <Button variant="secondary" className="shadow" onClick={handleCloseModal}>Hủy bỏ</Button>
+                            <Button variant="primary" className="shadow" type="submit">{editMode ? "Cập nhật" : "Thêm mới"}</Button>
+                        </Modal.Footer>
+                    </Form>
+                </Modal.Body>
+            </Modal>
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const errorMsg = validateForm();
-    if (errorMsg) {
-      setError(errorMsg);
-      return;
-    }
+            <Modal show={deleteModal.show} onHide={handleCloseDeleteModal} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Xác nhận xóa</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Bạn có chắc chắn muốn xóa chuồng nuôi <strong>{selectedPig?.name}</strong> không?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseDeleteModal}>Hủy</Button>
+                    <Button variant="danger" onClick={handleConfirmDelete}>Xóa</Button>
+                </Modal.Footer>
+            </Modal>
 
-    if (isEdit) {
-      axios.put(`http://localhost:3000/pigs/${formData.id}`, formData)
-        .then(() => {
-          fetchPigs();
-          handleClose();
-          setToastMessage('Cập nhật thành công!');
-          setShowToast(true);
-        })
-        .catch((error) => console.error('Lỗi khi cập nhật dữ liệu!', error));
-    } else {
-      axios.post('http://localhost:3000/pigs', formData)
-        .then(() => {
-          fetchPigs();
-          handleClose();
-          setToastMessage('Thêm mới thành công!');
-          setShowToast(true);
-        })
-        .catch((error) => console.error('Lỗi khi thêm dữ liệu!', error));
-    }
-  };
-
-  const handleDelete = (id) => {
-    if (window.confirm('Bạn có chắc chắn muốn xóa không?')) {
-      axios.delete(`http://localhost:3000/pigs/${id}`)
-        .then(() => {
-          fetchPigs();
-          setToastMessage('Xóa thành công!');
-          setShowToast(true);
-        })
-        .catch((error) => console.error('Lỗi khi xóa dữ liệu!', error));
-    }
-  };
-
-  const handleEdit = (pig) => {
-    setFormData(pig);
-    setIsEdit(true);
-    handleShow();
-  };
-
-  // Hàm tìm kiếm
-  const handleSearch = () => {
-    const filteredPigs = pigs.filter((pig) =>
-      pig.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      pig.feel.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      pig.weight.toLowerCase().includes(searchTerm.toLowerCase())
+            <ToastNotification
+                message={toast.message}
+                type={toast.type}
+                show={toast.show}
+                onClose={handleCloseToast}
+            />
+        </div>
     );
-    setPigs(filteredPigs);
-  };
+};
 
-  return (
-    <>
-      <h2 className="text-center mb-4">Quản Lý Cá Thể</h2>
-
-      {/* Search Input and Button */}
-      <div className="input-group mb-3">
-  <Form.Control
-    type="text"
-    placeholder="Tìm kiếm..."
-    value={searchTerm}
-    onChange={(e) => setSearchTerm(e.target.value)}
-    className="form-control" // Adds Bootstrap styling
-  />
-  <Button 
-    variant="primary"  // Makes the button blue
-    onClick={handleSearch} 
-    className="input-group-text" // Matches the input group style
-  >
-    Tìm kiếm
-  </Button>
-</div>
-
-
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Mã chuồng nuôi</th>
-            <th>Ngày nhập chuồng</th>
-            <th>Ngày xuất chuồng</th>
-            <th>Tình trạng</th>
-            <th>Cân nặng</th>
-            <th>Hành động</th>
-          </tr>
-        </thead>
-        <tbody>
-          {pigs.map((pig) => (
-            <tr key={pig.id}>
-              <td>{pig.id}</td>
-              <td>{pig.name}</td>
-              <td>{pig.date1}</td>
-              <td>{pig.date2}</td>
-              <td>{pig.feel}</td>
-              <td>{pig.weight}</td>
-              <td>
-                <Button variant="warning" onClick={() => handleEdit(pig)}>Sửa</Button>{' '}
-                <Button variant="danger" onClick={() => handleDelete(pig.id)}>Xóa</Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-
-      <Button variant="primary" onClick={handleShow}>
-        Thêm Mới
-      </Button>
-
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>{isEdit ? 'Chỉnh Sửa' : 'Thêm Mới'} Thông Tin Heo</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {error && <Alert variant="danger">{error}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3">
-              <Form.Label>ID</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Nhập ID"
-                name="id"
-                value={formData.id}
-                onChange={handleChange}
-                disabled={isEdit}
-                required
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Mã chuồng nuôi</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Nhập mã chuồng nuôi"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Ngày nhập chuồng</Form.Label>
-              <Form.Control
-                type="date"
-                name="date1"
-                value={formData.date1}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Ngày xuất chuồng</Form.Label>
-              <Form.Control
-                type="date"
-                name="date2"
-                value={formData.date2}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Tình trạng</Form.Label>
-              <Form.Control
-                as="select"
-                name="feel"
-                value={formData.feel}
-                onChange={handleChange}
-                required
-              >
-                <option value="Tình trạng">Khỏe mạnh</option>
-                <option value="Khỏe mạnh">Khỏe mạnh</option>
-                <option value="Bệnh tật">Bệnh tật</option>
-                <option value="Cần chăm sóc">Cần chăm sóc</option>
-              </Form.Control>
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Form.Label>Cân nặng</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Nhập cân nặng"
-                name="weight"
-                value={formData.weight}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-              {isEdit ? 'Cập Nhật' : 'Thêm Mới'}
-            </Button>
-          </Form>
-        </Modal.Body>
-      </Modal>
-
-      <ToastContainer className="toast-container">
-  <Toast
-    show={showToast}
-    onClose={() => setShowToast(false)}
-    delay={3000}
-    autohide
-    className="toast"
-  >
-    <Toast.Header>
-      <strong className="me-auto">Thông báo</strong>
-    </Toast.Header>
-    <Toast.Body 
-      className={toastMessage.includes('thành công') ? 'bg-success text-white' : 'bg-danger text-white'}
-    >
-      {toastMessage}
-    </Toast.Body>
-  </Toast>
-</ToastContainer>
-
-    </>
-  );
-}
-
-export default BasicExample;
+export default Pig;
