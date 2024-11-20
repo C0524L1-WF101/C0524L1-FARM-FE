@@ -1,15 +1,97 @@
-
-.home-container .home-custom-title {
-    font-size: 1.2rem;
-    font-weight: bold; 
-    transition: color 0.3s ease, transform 0.3s ease;  
-    color: inherit;
+/* Phần hình ảnh lớn và các hình ảnh nhỏ */
+.large-image-container {
+    position: relative;
+    margin-bottom: 30px;
 }
 
-/* .home-container .home-custom-title:hover {
-    color: rgb(255, 166, 0); 
-    transform: scale(1.05); 
-} */
+.large-image {
+    width: 100%;
+    height: 500px; /* Đặt chiều cao cố định cho ảnh */
+    overflow: hidden;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.large-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 1s ease-in-out; /* Thêm hiệu ứng chuyển đổi mượt mà cho opacity */
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Khi ảnh chuyển đi, opacity sẽ giảm dần */
+.large-image img.hidden {
+    opacity: 0;
+}
+
+.small-images {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.small-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Điều chỉnh kích thước các ảnh nhỏ */
+.small-image {
+    height: 200px; /* Có thể điều chỉnh theo nhu cầu */
+}
+
+/* Các phần còn lại của CSS */
+.home-container .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.home-container .card-img {
+    position: relative;
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+}
+
+.home-container .card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.home-container .card-body {
+    padding: 3px 5px; /* Giảm padding để nội dung gọn gàng hơn */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.875rem; /* Giảm kích thước font trong card */
+
+}
+
+.home-container .home-custom-title {
+    font-size: 1rem;
+    font-weight: bold;
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.home-container .home-custom-title:hover {
+    color: rgb(255, 166, 0);
+    transform: scale(1.05);
+}
+
+.home-container .card-text {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin-bottom: 8px; /* Giảm khoảng cách giữa các dòng mô tả */
+
+}
 
 .home-container {
 
@@ -23,11 +105,6 @@
 .home-container h1 {
     font-size: 2.5rem;
     color: #333;
-}
-
-.home-container h4 {
-    font-size: 1.5rem;
-    color: #444;
 }
 
 .home-container p {
