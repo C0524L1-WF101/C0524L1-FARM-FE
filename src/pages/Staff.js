@@ -124,7 +124,6 @@ const Staff = () => {
       showToast("Lỗi khi lưu người dùng", "error");
     }
   };
-
   const handleCancel = () => {
     setSelectedStaff(null);
     setNewAvatar(null);
@@ -165,7 +164,13 @@ const Staff = () => {
       setNewAvatar(null); // Đảm bảo reset avatar nếu không có file nào được chọn
     }
   };
-
+  const formatDate = (date) => {
+    const d = new Date(date);
+    const day = String(d.getDate()).padStart(2, "0");
+    const month = String(d.getMonth() + 1).padStart(2, "0"); // Tháng bắt đầu từ 0
+    const year = d.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
   return (
     <div className="container">
       <div
@@ -175,26 +180,28 @@ const Staff = () => {
           marginBottom: "10px",
         }}
       >
-       <b style={{fontSize:'35px',marginRight:'50%'}}> Quản Lý Nhân Viên</b>
-       <input
-            type="text"
-            placeholder="Tìm Kiếm"
-            value={searchTerm}
-            onChange={handleSearch}
-            style={{
-              padding: "8px",
-              width: "23%",
-              color:"black",
-              borderRadius: "4px",
-              border: "1px solid #ddd",
-              height:'35px'
-            }}
-          />
+        <b style={{ fontSize: "35px", marginRight: "50%" }}>
+          {" "}
+          Quản Lý Nhân Viên
+        </b>
+        <input
+          type="text"
+          placeholder="Tìm Kiếm"
+          value={searchTerm}
+          onChange={handleSearch}
+          style={{
+            padding: "8px",
+            width: "23%",
+            color: "black",
+            borderRadius: "4px",
+            border: "1px solid #ddd",
+            height: "35px",
+          }}
+        />
       </div>
-      
+
       <>
         <div>
-         
           <button
             className="btn-add-staff"
             onClick={handleAdd}
@@ -305,6 +312,7 @@ const Staff = () => {
                   >
                     <b style={{ color: "black" }}> Email: </b> {item.email}
                   </h2>
+
                   <h2
                     style={{
                       fontSize: "14px",
@@ -312,8 +320,10 @@ const Staff = () => {
                       margin: "8px 0  ",
                     }}
                   >
-                    <b style={{ color: "black" }}> Dob: </b> {item.dob}
+                    <b style={{ color: "black" }}> Dob: </b>{" "}
+                    {formatDate(item.dob)}
                   </h2>
+
                   <h2
                     style={{
                       fontSize: "14px",

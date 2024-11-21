@@ -12,6 +12,9 @@ const Sidebar = () => {
   const [openHerd, setOpenHerd] = useState(() => {
     return JSON.parse(localStorage.getItem('openHerd')) || false;
   });
+  const [openFood, setOpenFood] = useState(() => {
+    return JSON.parse(localStorage.getItem('openVaccine')) || false;
+  });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [role, setRole] = useState(null);
 
@@ -34,6 +37,14 @@ const Sidebar = () => {
     setOpenHerd((prev) => {
       const newState = !prev;
       localStorage.setItem('openHerd', JSON.stringify(newState));
+      return newState;
+    });
+  };
+
+  const handleToggleFood = () => {
+    setOpenFood((prev) => {
+      const newState = !prev;
+      localStorage.setItem('openVaccine', JSON.stringify(newState));
       return newState;
     });
   };
@@ -133,6 +144,46 @@ const Sidebar = () => {
                   style={{ textDecoration: 'none' }}
                 >
                   <FaHome className="me-2" /> Quản lý chuồng nuôi
+                </NavLink>
+              </li>
+            </ul>
+          </Collapse>
+        </li>
+
+         
+        <li>
+          <button
+            className="btn btn-link text-start w-100 d-flex align-items-center justify-content-between text-decoration-none"
+            style={{ color: '#5a5a5a', fontSize: '16px' }}
+            onClick={handleToggleFood}
+            aria-controls="herd-management"
+            aria-expanded={openFood}
+          >
+            <span><FaPiggyBank className="me-2 text-orange" /> Quản lý bệnh lý</span>
+            <span className="text-orange fs-4 fw-bold">{openFood ? '-' : '+'}</span>
+          </button>
+          <Collapse in={openFood}>
+            <ul id="herd-management" className="list-unstyled ps-3 mt-2">
+              <li className="mb-2">
+                <NavLink
+                  to="/vaccine"
+                  className={({ isActive }) =>
+                    isActive ? 'active-link' : 'inactive-link'
+                  }
+                  style={{ textDecoration: 'none' }}
+                >
+                  <FaTh className="me-2" /> Quản lý Tiêm Phòng
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/warehouse"
+                  className={({ isActive }) =>
+                    isActive ? 'active-link' : 'inactive-link'
+                  }
+                  style={{ textDecoration: 'none' }}
+                >
+                  <FaHome className="me-2" /> Quản lý kho
                 </NavLink>
               </li>
             </ul>
