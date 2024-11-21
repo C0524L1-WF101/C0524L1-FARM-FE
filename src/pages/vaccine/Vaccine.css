@@ -1,0 +1,190 @@
+/* Các kiểu chung cho toàn bộ vaccine-management */
+.vaccine-management {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.vaccine-management h1, 
+.vaccine-management h2, 
+.vaccine-management h3 {
+  text-align: center;
+}
+
+.vaccine-management .search-container {
+  margin-bottom: 40px;
+}
+.text-vaccine{
+  color: #ff8c00;
+  text-shadow: 0px 4px 8px rgba(0,0,0,0.3);
+  margin-right: 380px;
+  padding: 0;
+}
+/* Các input và button trong vaccine-management */
+.vaccine-management input[type="text"],
+.vaccine-management input[type="date"],
+.vaccine-management input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
+  /* border: 1px solid #ffb266; Đặt màu viền cam cho tất cả các input */
+  border-radius: 4px;
+}
+
+.vaccine-management button {
+  padding: 10px 15px;
+  margin: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ff8000; /* Màu cam chung cho các nút */
+  color: white;
+  cursor: pointer;
+}
+
+.vaccine-management button:hover {
+  background-color: #e67e22; /* Màu cam đậm hơn khi hover */
+}
+
+/* Các kiểu cho bảng */
+.vaccine-management table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+.vaccine-management table th,
+.vaccine-management table td {
+  padding: 8px 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.vaccine-management table th {
+  background-color: #FFB266;
+}
+
+.vaccine-management table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Các kiểu cho modal */
+.modal-body {
+  font-size: 14px;
+}
+
+.modal-footer button {
+  font-size: 14px;
+  padding: 6px 15px;
+  border-radius: 5px;
+}
+
+/* Nút trong modal */
+.modal-footer .btn-danger {
+  background-color: #e74c3c;
+  border-color: #e74c3c;
+}
+
+.modal-footer .btn-danger:hover {
+  background-color: #c0392b;
+}
+
+.modal-footer .btn-secondary {
+  background-color: #bdc3c7;
+  border-color: #bdc3c7;
+}
+
+.modal-footer .btn-secondary:hover {
+  background-color: #95a5a6;
+}
+
+/* Các kiểu cho bảng và các nút trong bảng */
+.custom-table tbody tr {
+  transition: background-color 0.3s ease;
+}
+
+.custom-table tbody tr:hover {
+  background-color: #ffe5cc;
+  color: #333;
+}
+
+.custom-table th {
+  background-color: #ffb266;
+  color: #333;
+  font-weight: bold;
+}
+
+.custom-table th,
+.custom-table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.custom-table td button {
+  background-color: #ff8000;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.custom-table td button:hover {
+  background-color: #e67e22;
+}
+
+/* Các phần container và title */
+.title-container {
+  text-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px;
+  color: rgb(255, 140, 0);
+}
+
+.add-button-container button {
+  background-color: #ff8000; /* Nút màu cam */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.add-button-container button:hover {
+  background-color: #e67e22;
+}
+
+/* Các kiểu cho phần form */
+.input-group {
+  margin-bottom: 3px;
+}
+
+input[type="date"], input[type="text"], input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  /* border: 1px solid #ffb266; */
+  margin-bottom: 10px;
+}
+
+button[type="submit"], .modal-footer button {
+  /* background-color: #ff8000; Màu cam chung cho nút */
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover, .modal-footer button:hover {
+  background-color: #e67e22;
+}
+.table-header {
+  background-color: #FFB266;
+  color: black; /* Màu chữ trắng */
+  font-weight: bold; /* Đậm chữ */
+  padding: 10px;
+  text-align: center;
+}

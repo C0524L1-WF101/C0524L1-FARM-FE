@@ -27,6 +27,7 @@ button {
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    border-radius: '10px';
 }
 
 .btn-primary:hover {

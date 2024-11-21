@@ -10,6 +10,8 @@ import Staff from './pages/Staff';
 import Individual from './pages/individual/Individual';
 import NewsDetail from './pages/home/NewsDetail';
 import NewsHome from './pages/noti-home/NewsHome'
+import Warehouse from './pages/warehouse/Warehouse';
+import Vaccine from './pages/vaccine/Vaccine';
 
 const App = () => {
     return (
@@ -86,6 +88,22 @@ const App = () => {
                     element={
                         <Layout>
                             <Home />
+                        </Layout>
+                    }
+                />
+                  <Route
+                    path="/vaccine"
+                    element={
+                        <Layout>
+                            <Vaccine />
+                        </Layout>
+                    }
+                />
+                 <Route
+                    path="/warehouse"
+                    element={
+                        <Layout>
+                            <Warehouse />
                         </Layout>
                     }
                 />
