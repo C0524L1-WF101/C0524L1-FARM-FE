@@ -282,15 +282,7 @@
       "status": "Cần chăm sóc",
       "weight": "11"
     },
-    {
-      "id": "15b7",
-      "name": "L009",
-      "nameBarn": "C03",
-      "createdAt": "2024-11-14",
-      "closeAt": "2024-11-15",
-      "status": "Cần chăm sóc",
-      "weight": "12"
-    },
+   
     {
       "id": "8c55",
       "name": "L008",
