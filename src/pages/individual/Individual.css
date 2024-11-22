@@ -33,9 +33,7 @@ h2 {
     background-color : #fff5e6;
 }
 
-.table-responsive {
-    boder-radius: 10px
-}
+
 
 .no-border-header .modal-header {
     border-bottom: none;
@@ -48,4 +46,8 @@ h2 {
 .custom-table {
     margin-bottom: 0px
 }
-
+.me-3-shadow{
+    font-size: 15px;
+    padding: 10px 20px;
+    margin: 10px;
+}

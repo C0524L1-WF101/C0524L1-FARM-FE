@@ -227,15 +227,15 @@ const Barn = () => {
             </div>
 
             <div className="d-flex justify-content-center mt-4">
-                <Button variant="primary" className="mx-2 shadow" onClick={() => handleShowModal()}>Khởi tạo</Button>
+                <Button variant="primary" className="mx-2-shadow" onClick={() => handleShowModal()}>Khởi tạo</Button>
                 <Button
                     variant="warning"
-                    className="mx-2 shadow"
+                    className="mx-2-shadow"
                     onClick={() => selectedBarn ? handleShowModal(selectedBarn) : showToast("Bạn chưa chọn chuồng nuôi nào", "error")}
                 >
                     Chỉnh sửa
                 </Button>
-                <Button variant="danger" className="mx-2 shadow" onClick={handleShowDeleteModal}>Xóa</Button>
+                <Button variant="danger" className="mx-2-shadow" onClick={handleShowDeleteModal}>Xóa</Button>
             </div>
 
             <Modal show={showModal} onHide={handleCloseModal} centered className="no-border-header">
