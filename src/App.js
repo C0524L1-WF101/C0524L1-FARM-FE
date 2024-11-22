@@ -12,6 +12,10 @@ import NewsDetail from './pages/home/NewsDetail';
 import NewsHome from './pages/noti-home/NewsHome'
 import Warehouse from './pages/warehouse/Warehouse';
 import Vaccine from './pages/vaccine/Vaccine';
+import Tiding from './component/tiding/Tiding';
+import Recruitment from './pages/recruitment/Recruitment';
+import Review from './pages/review/Review';
+import About from './pages/about/About';
 
 const App = () => {
     return (
@@ -23,6 +27,38 @@ const App = () => {
                     element={
                         <Layout>
                             <News />
+                        </Layout>
+                    }
+                />
+                <Route
+                    path="/news-events"
+                    element={
+                        <Layout>
+                            <Tiding />
+                        </Layout>
+                    }
+                />
+                <Route
+                    path="/about"
+                    element={
+                        <Layout>
+                            <About />
+                        </Layout>
+                    }
+                />
+                <Route
+                    path="/recruitment"
+                    element={
+                        <Layout>
+                            <Recruitment />
+                        </Layout>
+                    }
+                />
+                <Route
+                    path="/review"
+                    element={
+                        <Layout>
+                            <Review />
                         </Layout>
                     }
                 />

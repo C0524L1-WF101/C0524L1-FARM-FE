@@ -20,7 +20,7 @@ const Footer = () => {
       
       {/* Phần bên phải (chiếm 70%) */}
       <div className="right-section">
-        <h5>CÔNG TY CỔ PHẦN NÔNG 4 THÀNH VIÊN VIỆT NAM</h5>
+        <h5>CÔNG TY CỔ PHẦN NHỮNG CHÚ HEO VIỆT NAM</h5>
         <div className="additional-info">
         <p>Trụ sở chính: Tầng 69, tòa nhà Villa Tower, 6969C đường Vào Tim Em, Phường Băng Giá, Thành phố Hà Nội, Thành phố Hồ Chí Minh, Việt Nam</p>
           <p>Điện thoại: (024) 6659.7733 | Hotline: 0901.01.10.83</p>

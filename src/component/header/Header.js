@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Header.css';
@@ -79,8 +79,13 @@ const Header = () => {
     navigate('/login');
   };
 
+  // Cập nhật mảng navItems để thêm các mục mới
   const navItems = [
     { path: '/home', label: 'Trang chủ' },
+    { path: '/about', label: 'Giới thiệu' },
+    { path: '/news-events', label: 'Tin tức và sự kiện' },
+    { path: '/recruitment', label: 'Tuyển dụng' },
+    { path: '/review', label: 'Đánh giá' },
     { path: '/contact', label: 'Liên hệ' }
   ];
 
@@ -144,7 +149,6 @@ const Header = () => {
         )}
       </div>
 
-     
       {/* Modal xác nhận đăng xuất */}
       {isLogoutModalOpen && (
         <div className="logout-modal">

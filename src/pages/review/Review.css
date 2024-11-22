@@ -1,0 +1,142 @@
+
+/* ------------------ Phần Banner ------------------ */
+.review-page .review-banner {
+    position: relative;
+    background-image: url('https://nationaltoday.com/wp-content/uploads/2022/05/133-Barn-Day-1200x834.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+  }
+  
+  .review-page .review-banner-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+  }
+  
+  .review-page .review-banner h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .review-page .review-banner p {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+  
+  /* ------------------ Phần Chia sẻ ý kiến và Đánh giá ------------------ */
+  .review-page .review-container {
+    padding: 50px;
+    background-color: #f9f9f9;
+  }
+  
+  .review-page .review-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+  }
+  
+  .review-page .review-form {
+    width: 48%;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .review-page .reviews {
+    width: 48%;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .review-page .review-form h2, .review-page .reviews h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .review-page .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .review-page .form-group label {
+    font-size: 1.2rem;
+    color: #333;
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  .review-page .form-group input,
+  .review-page .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .review-page .form-group textarea {
+    resize: vertical;
+    height: 150px;
+  }
+  
+  .review-page .submit-btn {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  
+  .review-page .submit-btn:hover {
+    background-color: #2980b9;
+  }
+  
+.review-page .reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 10px; 
+  }
+  
+  
+  .review-page .review-item {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .review-page .review-item h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 10px;
+  }
+  
+  .review-page .review-item .rating {
+    color: #f39c12;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .review-page .review-item p {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.8;
+  }
+
+  
