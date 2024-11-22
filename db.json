@@ -15,10 +15,10 @@
       "avatar": "data:image/jpeg;base64,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",
       "username": "Nononame",
       "email": "tungnguyen21@gmai.com",
-      "dob": "2000-02-02",
+      "dob": "1999-02-02",
       "gender": "Nam",
       "idNumber": "123456789",
-      "password": "admin123",
+      "password": "123",
       "wage": "80000",
       "role": "employee"
     },
@@ -225,6 +225,28 @@
       "content": "Tôi đã từng nghe tên anh ấy đâu. Khi được random những thành viên sẽ sát cánh với mình trong moudle 4 này mình đã chưa quen biết 1 ai trong lớp, nhưng khi tới bây giờ đã trải qua 2-3 tuần được làm việc với anh Kiên ở trong nhóm 3 này tôi đã thật sự cảm thấy mình thật may mắn. Anh đóng vai trò như 1 Leader trong team, 1 người anh yêu thương, dẫn dắt 3 đứa em bé bỏng chưa có 1 kinh nghiệm nào vào 1 dự án. Anh ấy biết được gì, có những kinh nghiệm ra sao anh ấy cũng chia sẽ, chỉ dậy tận tình để những đứa em có thể lao đầu vào cái ngành nghề đầy tính cạnh tranh này. Không chỉ thế anh ấy còn là nguồn động lực và là nguồn ý tưởng để giúp phần nào đó sự tự tin trong 3 đứa em ấy không bị mất đi. Chẳng hạn trong những lời khuyên mà anh ấy nói cho chúng tôi, riêng bản thân tôi tâm đắc nhất lời khuyên này : 'Trong cái ngành này các em chỉ cần học hỏi nhiều, mày mò thật nhiều và có trách nhiệm với nhiệm vụ của mấy đứa thì sẽ chắc chắn thành công trong con đường việc làm và cuộc sống sau này.' Tới bây giờ ngày 18-11-2024, anh ấy đã chính thức không còn được đồng hành với 3 đứa em chúng tôi trong con đường moudle 4 sắp tới nữa, thú thật rằng tôi đã rất sốc và rất buồn khi được nghe tin này. Như câu truyện tôi nói ở trên anh ấy đóng vai trò rất to lớn với chúng tôi trong moudle cuối cùng này, nhưng tiết thay anh ấy chỉ đăng khí học khóa Reactjs chứ không đóng tiền moudle 4 này cho nên anh ấy đã bị đuổi ra khỏi khóa học đầy sự cạnh tranh này. Nhưng bây giờ chúng tôi không có thời gian để tiếc nuối sự ra đi của anh ấy thay vào đó tôi đã lên bài viết này để có thể tri ân những gì anh ấy đã làm cho chúng tôi và cũng như chia sẽ câu chuyện này cho tới mọi người, có thể mọi người không biết anh Kiên là ai nhưng mà mong mọi người khi mọi người đọc được bài viết này không chê cười bài viết văn này của tôi cũng chính là đứa em đã gây rắc rối ít nhiều gì cho anh ấy khi chưa hoàn thành xong 1 trong những trang quan trọng nhất, vâng đó chính là tôi: 'Đặng 'minleo' Minh Long' mà hãy thay vào đó là lời chúc cho người bạn, người anh mà 3 đứa chúng tôi yêu thương và tôn trọng  sẽ có con đường thành công trong cuộc sống, sức khỏe và công việc. Riêng em 'minleo' xin chúc anh có được cuộc sống mà anh mong muốn cũng như chúc mừng anh vì a đã có được bằng chứng nhận sau gần hơn 10 năm chiến đấu trong cái ngành này mặc dù ngành này là ngành tay trái của anh, em cũng cảm ơn vợ của anh đã đưa anh tới với bọn em vì khi không có vợ anh thì chắc chắn 3 đứa chúng em sẽ không có được cơ hội được gặp và đồng hành với anh như này. Và lời cuối cùng em xin chúc anh hạnh phúc với gia đình, có thật nhiều sức khỏe, thành công trong công việc và mong anh sẽ hãy luôn nhớ tới tụi em, nhớ tới nhóm 3 làm về trang tin tức chăn nuôi này mặc dù cũng đã gây khó dễ cho anh nhưng mà mong a không bao giờ quên tụi em nhen. Love and Peace! ",
       "source": "Đặng Minh Long",
       "isHot": false
+    },
+    {
+      "id": "new4",
+      "title": "Tin tức chủ đề 4",
+      "description": "Mô tả tin tức chủ đề 4",
+      "imageUrl": "https://via.placeholder.com/800x400",
+      "category": "Hoạt động doanh nghiệp",
+      "date": "2024/11/18",
+      "content": "Tôi đã từng nghe tên anh ấy đâu. Khi được random những thành viên sẽ sát cánh với mình trong moudle 4 này mình đã chưa quen biết 1 ai trong lớp, nhưng khi tới bây giờ đã trải qua 2-3 tuần được làm việc với anh Kiên ở trong nhóm 3 này tôi đã thật sự cảm thấy mình thật may mắn. Anh đóng vai trò như 1 Leader trong team, 1 người anh yêu thương, dẫn dắt 3 đứa em bé bỏng chưa có 1 kinh nghiệm nào vào 1 dự án. Anh ấy biết được gì, có những kinh nghiệm ra sao anh ấy cũng chia sẽ, chỉ dậy tận tình để những đứa em có thể lao đầu vào cái ngành nghề đầy tính cạnh tranh này. Không chỉ thế anh ấy còn là nguồn động lực và là nguồn ý tưởng để giúp phần nào đó sự tự tin trong 3 đứa em ấy không bị mất đi. Chẳng hạn trong những lời khuyên mà anh ấy nói cho chúng tôi, riêng bản thân tôi tâm đắc nhất lời khuyên này : 'Trong cái ngành này các em chỉ cần học hỏi nhiều, mày mò thật nhiều và có trách nhiệm với nhiệm vụ của mấy đứa thì sẽ chắc chắn thành công trong con đường việc làm và cuộc sống sau này.' Tới bây giờ ngày 18-11-2024, anh ấy đã chính thức không còn được đồng hành với 3 đứa em chúng tôi trong con đường moudle 4 sắp tới nữa, thú thật rằng tôi đã rất sốc và rất buồn khi được nghe tin này. Như câu truyện tôi nói ở trên anh ấy đóng vai trò rất to lớn với chúng tôi trong moudle cuối cùng này, nhưng tiết thay anh ấy chỉ đăng khí học khóa Reactjs chứ không đóng tiền moudle 4 này cho nên anh ấy đã bị đuổi ra khỏi khóa học đầy sự cạnh tranh này. Nhưng bây giờ chúng tôi không có thời gian để tiếc nuối sự ra đi của anh ấy thay vào đó tôi đã lên bài viết này để có thể tri ân những gì anh ấy đã làm cho chúng tôi và cũng như chia sẽ câu chuyện này cho tới mọi người, có thể mọi người không biết anh Kiên là ai nhưng mà mong mọi người khi mọi người đọc được bài viết này không chê cười bài viết văn này của tôi cũng chính là đứa em đã gây rắc rối ít nhiều gì cho anh ấy khi chưa hoàn thành xong 1 trong những trang quan trọng nhất, vâng đó chính là tôi: 'Đặng 'minleo' Minh Long' mà hãy thay vào đó là lời chúc cho người bạn, người anh mà 3 đứa chúng tôi yêu thương và tôn trọng  sẽ có con đường thành công trong cuộc sống, sức khỏe và công việc. Riêng em 'minleo' xin chúc anh có được cuộc sống mà anh mong muốn cũng như chúc mừng anh vì a đã có được bằng chứng nhận sau gần hơn 10 năm chiến đấu trong cái ngành này mặc dù ngành này là ngành tay trái của anh, em cũng cảm ơn vợ của anh đã đưa anh tới với bọn em vì khi không có vợ anh thì chắc chắn 3 đứa chúng em sẽ không có được cơ hội được gặp và đồng hành với anh như này. Và lời cuối cùng em xin chúc anh hạnh phúc với gia đình, có thật nhiều sức khỏe, thành công trong công việc và mong anh sẽ hãy luôn nhớ tới tụi em, nhớ tới nhóm 3 làm về trang tin tức chăn nuôi này mặc dù cũng đã gây khó dễ cho anh nhưng mà mong a không bao giờ quên tụi em nhen. Love and Peace! ",
+      "source": "Đặng Minh Long",
+      "isHot": false
+    },
+    {
+      "id": "new5",
+      "title": "Tin tức chủ đề 5",
+      "description": "Mô tả tin tức chủ đề 5",
+      "imageUrl": "https://via.placeholder.com/800x400",
+      "category": "Nhà nông làm giàu",
+      "date": "2024/11/18",
+      "content": "Tôi đã từng nghe tên anh ấy đâu. Khi được random những thành viên sẽ sát cánh với mình trong moudle 4 này mình đã chưa quen biết 1 ai trong lớp, nhưng khi tới bây giờ đã trải qua 2-3 tuần được làm việc với anh Kiên ở trong nhóm 3 này tôi đã thật sự cảm thấy mình thật may mắn. Anh đóng vai trò như 1 Leader trong team, 1 người anh yêu thương, dẫn dắt 3 đứa em bé bỏng chưa có 1 kinh nghiệm nào vào 1 dự án. Anh ấy biết được gì, có những kinh nghiệm ra sao anh ấy cũng chia sẽ, chỉ dậy tận tình để những đứa em có thể lao đầu vào cái ngành nghề đầy tính cạnh tranh này. Không chỉ thế anh ấy còn là nguồn động lực và là nguồn ý tưởng để giúp phần nào đó sự tự tin trong 3 đứa em ấy không bị mất đi. Chẳng hạn trong những lời khuyên mà anh ấy nói cho chúng tôi, riêng bản thân tôi tâm đắc nhất lời khuyên này : 'Trong cái ngành này các em chỉ cần học hỏi nhiều, mày mò thật nhiều và có trách nhiệm với nhiệm vụ của mấy đứa thì sẽ chắc chắn thành công trong con đường việc làm và cuộc sống sau này.' Tới bây giờ ngày 18-11-2024, anh ấy đã chính thức không còn được đồng hành với 3 đứa em chúng tôi trong con đường moudle 4 sắp tới nữa, thú thật rằng tôi đã rất sốc và rất buồn khi được nghe tin này. Như câu truyện tôi nói ở trên anh ấy đóng vai trò rất to lớn với chúng tôi trong moudle cuối cùng này, nhưng tiết thay anh ấy chỉ đăng khí học khóa Reactjs chứ không đóng tiền moudle 4 này cho nên anh ấy đã bị đuổi ra khỏi khóa học đầy sự cạnh tranh này. Nhưng bây giờ chúng tôi không có thời gian để tiếc nuối sự ra đi của anh ấy thay vào đó tôi đã lên bài viết này để có thể tri ân những gì anh ấy đã làm cho chúng tôi và cũng như chia sẽ câu chuyện này cho tới mọi người, có thể mọi người không biết anh Kiên là ai nhưng mà mong mọi người khi mọi người đọc được bài viết này không chê cười bài viết văn này của tôi cũng chính là đứa em đã gây rắc rối ít nhiều gì cho anh ấy khi chưa hoàn thành xong 1 trong những trang quan trọng nhất, vâng đó chính là tôi: 'Đặng 'minleo' Minh Long' mà hãy thay vào đó là lời chúc cho người bạn, người anh mà 3 đứa chúng tôi yêu thương và tôn trọng  sẽ có con đường thành công trong cuộc sống, sức khỏe và công việc. Riêng em 'minleo' xin chúc anh có được cuộc sống mà anh mong muốn cũng như chúc mừng anh vì a đã có được bằng chứng nhận sau gần hơn 10 năm chiến đấu trong cái ngành này mặc dù ngành này là ngành tay trái của anh, em cũng cảm ơn vợ của anh đã đưa anh tới với bọn em vì khi không có vợ anh thì chắc chắn 3 đứa chúng em sẽ không có được cơ hội được gặp và đồng hành với anh như này. Và lời cuối cùng em xin chúc anh hạnh phúc với gia đình, có thật nhiều sức khỏe, thành công trong công việc và mong anh sẽ hãy luôn nhớ tới tụi em, nhớ tới nhóm 3 làm về trang tin tức chăn nuôi này mặc dù cũng đã gây khó dễ cho anh nhưng mà mong a không bao giờ quên tụi em nhen. Love and Peace! ",
+      "source": "Đặng Minh Long",
+      "isHot": false
     }
   ],
   "pigs": [
@@ -282,7 +304,15 @@
       "status": "Cần chăm sóc",
       "weight": "11"
     },
-   
+    {
+      "id": "15b7",
+      "name": "L009",
+      "nameBarn": "C03",
+      "createdAt": "2024-11-14",
+      "closeAt": "2024-11-15",
+      "status": "Cần chăm sóc",
+      "weight": "12"
+    },
     {
       "id": "8c55",
       "name": "L008",
@@ -354,7 +384,7 @@
   "notifications": [
     {
       "content": "Triển khai tiêm vắc xin cho vật nuôi từ ngày 30/01/2024.",
-      "date": "2024-11-21T01:35:24.430Z",
+      "date": "2024-11-19T08:55:08.951Z",
       "id": "f093"
     },
     {
@@ -366,28 +396,6 @@
       "content": "Họp toàn bộ nhân viên vào lúc 8h sáng ngày 19/11/2024.",
       "date": "2024-11-19T08:55:12.078Z",
       "id": "2ff7"
-    }
-  ],
-  "vaccinationRecords": [
-    {
-      "date": "1980-03-02",
-      "pen": "P03",
-      "vaccineType": "Vaccine B",
-      "quantity": "1000",
-      "vaccineAdmin": "HUY",
-      "notes": "First",
-      "id": "dcd3",
-      "nameBarn": "C05"
-    },
-    {
-      "id": "ed18",
-      "date": "2023-02-02",
-      "pen": "P05",
-      "vaccineType": "Vaccine D",
-      "quantity": "12332",
-      "vaccineAdmin": "LY1",
-      "notes": "First",
-      "nameBarn": "C02"
     }
   ]
 }

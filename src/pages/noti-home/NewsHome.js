@@ -1,31 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import './NewsHome.css';
 import { newsAPI } from '../../services/api';
+import ToastNotification from '../../component/ToastNotification';
 
 const NewsHome = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [showModal, setShowModal] = useState(false);
-    const [news, setNews] = useState([]); // Đổi từ posts thành news để phù hợp
-    const [images, setImages] = useState([]);  // Lưu nhiều ảnh
-    const [imagePreviews, setImagePreviews] = useState([]);  // Lưu ảnh preview
+    const [news, setNews] = useState([]); 
+    const [images, setImages] = useState([]);  
+    const [imagePreviews, setImagePreviews] = useState([]);  
     const [isEditing, setIsEditing] = useState(false);
     const [editingNewsId, setEditingNewsId] = useState(null);
-
-    // Modal xác nhận xóa
+    const [toast, setToast] = useState({ message: '', type: '', show: false });
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [newsToDelete, setNewsToDelete] = useState(null);
 
-    // Tìm kiếm bài viết
     const [searchTerm, setSearchTerm] = useState('');
+    const [expandedPost, setExpandedPost] = useState(null); // Lưu bài viết đang mở rộng
 
-    // Hàm lấy danh sách bài viết từ API
     const fetchNews = async () => {
         try {
             const data = await newsAPI.getAllNews();
-            setNews(data);
+            setNews(Array.isArray(data) ? data : []);  
         } catch (error) {
             console.error('Lỗi khi lấy tin tức:', error);
+            setNews([]);  
         }
     };
 
@@ -33,32 +33,36 @@ const NewsHome = () => {
         fetchNews();
     }, []);
 
-    // Hàm xử lý khi người dùng chọn nhiều ảnh
     const handleImageChange = (e) => {
-        const files = Array.from(e.target.files);  // Chuyển đổi files thành mảng
+        const files = Array.from(e.target.files);
         setImages(files);
-        const previews = files.map((file) => URL.createObjectURL(file));  // Tạo preview cho tất cả ảnh
+        const previews = files.map((file) => URL.createObjectURL(file));
         setImagePreviews(previews);
     };
+    const showToast = (message, type) => {
+        setToast({ message, type, show: true });
+    };
 
-    // Hàm xử lý khi người dùng nhấn nút Đăng bài
+    const handleCloseToast = () => {
+        setToast({ ...toast, show: false });
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!title || !content) {
-            alert('Xin vui lòng nhập đầy đủ thông tin!');
+            showToast('Xin vui lòng nhập đầy đủ thông tin!');
             return;
         }
 
-        // Chuyển đổi các ảnh sang base64
         const imageBase64Promises = images.map((image) => convertImageToBase64(image));
-        const imageBase64 = await Promise.all(imageBase64Promises);  // Chờ tất cả ảnh chuyển đổi xong
+        const imageBase64 = await Promise.all(imageBase64Promises);
 
         const newPost = {
             title,
             content,
-            images: imageBase64,  // Lưu danh sách ảnh dưới dạng base64
-            createdAt: new Date().toLocaleString()  // Thêm thời gian đăng bài
+            images: imageBase64,
+            createdAt: new Date().toLocaleString()
         };
 
         try {
@@ -77,10 +81,10 @@ const NewsHome = () => {
             setImages([]);
             setImagePreviews([]);
             setShowModal(false);
-            alert('Đăng bài thành công!');
+            showToast('Đăng bài thành công!');
         } catch (error) {
             console.error('Lỗi khi đăng bài:', error);
-            alert('Đăng bài không thành công.');
+            showToast('Đăng bài không thành công.');
         }
     };
 
@@ -94,43 +98,55 @@ const NewsHome = () => {
     };
 
     const handleEditNews = (item) => {
-        console.log(item)
         setTitle(item.title || "");
         setContent(item.content || "");
-        setImagePreviews(item.images);  
+        setImagePreviews(item.images || []);  
         setIsEditing(true);
         setEditingNewsId(item.id);
         setShowModal(true);
     };
 
-    // Mở modal xác nhận xóa
     const handleDeleteNews = (item) => {
         setNewsToDelete(item);
         setShowDeleteModal(true);
     };
 
-    // Xác nhận xóa bài viết
     const confirmDeleteNews = async () => {
         if (newsToDelete) {
             try {
                 await newsAPI.deleteNews(newsToDelete.id);
                 setNews(news.filter((item) => item.id !== newsToDelete.id));
-                alert('Đã xóa bài viết thành công');
-                setShowDeleteModal(false); // Đóng modal sau khi xóa
+                showToast('Đã xóa bài viết thành công');
+                setShowDeleteModal(false);
             } catch (error) {
                 console.error('Lỗi khi xóa bài viết:', error);
-                alert('Không thể xóa bài viết');
+                showToast('Không thể xóa bài viết');
             }
         }
     };
 
-    // Lọc bài viết theo từ khóa tìm kiếm
-    const filteredNews = news.filter(item => {
+    const filteredNews = (news || []).filter(item => {
         return (
             item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
             item.content.toLowerCase().includes(searchTerm.toLowerCase())
         );
     });
+
+    const truncateContent = (content, length = 100) => {
+        if (content.length > length) {
+            return content.substring(0, length) + '...';
+        }
+        return content;
+    };
+
+    // Hiển thị chi tiết hoặc thu gọn bài viết
+    const handleToggleExpand = (item) => {
+        if (expandedPost === item.id) {
+            setExpandedPost(null); // Thu gọn nếu bài viết đang mở rộng
+        } else {
+            setExpandedPost(item.id); // Mở rộng bài viết
+        }
+    };
 
     return (
         <div className="news-home">
@@ -148,7 +164,7 @@ const NewsHome = () => {
                         />
                     </div>
         
-                    <button className="btn btn-primary" onClick={() => setShowModal(true)}>
+                    <button className="btn-primary" onClick={() => setShowModal(true)}>
                         {isEditing ? 'Chỉnh sửa bài viết' : 'Đăng bài mới'}
                     </button>
                 </div>
@@ -194,11 +210,10 @@ const NewsHome = () => {
                                         accept="image/*"
                                         onChange={handleImageChange}
                                         className="form-control"
-                                        multiple  // Cho phép chọn nhiều ảnh
+                                        multiple
                                     />
                                 </div>
 
-                                {/* Hiển thị tất cả ảnh preview */}
                                 {imagePreviews.map((preview, index) => (
                                     <img key={index} src={preview} alt={`preview-${index}`} className="img-fluid mt-3" />
                                 ))}
@@ -217,8 +232,7 @@ const NewsHome = () => {
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title">
-                                Xác nhận xóa</h5>
+                            <h5 className="modal-title">Xác nhận xóa</h5>
                             <button type="button" className="btn-close" onClick={() => setShowDeleteModal(false)}></button>
                         </div>
                         <div className="modal-body">
@@ -232,6 +246,7 @@ const NewsHome = () => {
                 </div>
             </div>
 
+            {/* Danh sách bài viết */}
             <div className="news-list mt-4">
                 <h3>Các bài viết đã đăng:</h3>
                 {filteredNews.length === 0 ? (
@@ -241,8 +256,14 @@ const NewsHome = () => {
                         {filteredNews.map((item) => (
                             <li key={item.id} className="list-group-item">
                                 <h5>{item.title}</h5>
-                                <p>{item.content}</p>
-                                {item.images && item.images.map((image, idx) => (
+                                <p>{expandedPost === item.id ? item.content : truncateContent(item.content)}</p>
+                                <button
+                                    className="btn btn-link"
+                                    onClick={() => handleToggleExpand(item)}  // Hiển thị chi tiết hoặc thu gọn
+                                >
+                                    {expandedPost === item.id ? 'Thu gọn' : 'Xem chi tiết'}
+                                </button>
+                                {item.images && Array.isArray(item.images) && item.images.map((image, idx) => (
                                     <img key={idx} src={image} alt={`post-image-${idx}`} className="img-fluid mt-2" />
                                 ))}
                                 <p className="post-time text-muted">{item.createdAt}</p>
@@ -262,9 +283,18 @@ const NewsHome = () => {
                         ))}
                     </ul>
                 )}
+                
             </div>
+            <ToastNotification
+                message={toast.message}
+                type={toast.type}
+                show={toast.show}
+                onClose={handleCloseToast}
+            />
         </div>
+            
     );
 };
+
 
 export default NewsHome;
