@@ -1,0 +1,179 @@
+.recruitment-container {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .recruitment-banner {
+    position: relative;
+    height: 400px;
+    background-image: url('https://png.pngtree.com/background/20230612/original/pngtree-red-barn-in-the-countryside-wallpaper-picture-image_3188341.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .recruitment-banner-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .recruitment-banner h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .recruitment-banner p {
+    font-size: 1.2rem;
+  }
+  
+  .company-introduction {
+    padding: 50px 20px;
+    background-color: #f7f7f7;
+    text-align: center;
+  }
+  
+  .company-intro-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .company-intro-text {
+    flex: 1;
+    padding-right: 30px;
+  }
+  
+  .company-intro-text h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .company-intro-text p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+  
+  .company-intro-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-height: 350px;
+  }
+  
+  .job-opportunities {
+    padding: 50px 20px;
+  }
+  
+  .job-opportunities h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .job-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+  }
+  
+  .job-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    width: 280px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .job-item h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .job-item p {
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  .benefits {
+    padding: 50px 20px;
+    background-color: #f7f7f7;
+  }
+  
+  .benefits h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .benefits p {
+    font-size: 1.1rem;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .benefits ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+  }
+  
+  .benefits ul li {
+    font-size: 1rem;
+    margin: 10px 0;
+    color: #333;
+  }
+  
+  .training {
+    padding: 50px 20px;
+  }
+  
+  .training h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .training p {
+    font-size: 1.1rem;
+    text-align: center;
+    line-height: 1.8;
+  }
+  
+  .contact {
+    padding: 50px 20px;
+    background-color: #f7f7f7;
+  }
+  
+  .contact h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .contact ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+  }
+  
+  .contact ul li {
+    font-size: 1.1rem;
+    color: #333;
+    margin: 10px 0;
+  }
+  
