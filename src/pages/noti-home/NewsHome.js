@@ -81,7 +81,7 @@ const NewsHome = () => {
             setImages([]);
             setImagePreviews([]);
             setShowModal(false);
-            showToast('Đăng bài thành công!');
+            showToast("Đăng bài thành công", "success");
         } catch (error) {
             console.error('Lỗi khi đăng bài:', error);
             showToast('Đăng bài không thành công.');
@@ -247,8 +247,8 @@ const NewsHome = () => {
             </div>
 
             {/* Danh sách bài viết */}
-            <div className="news-list mt-4">
-                <h3>Các bài viết đã đăng:</h3>
+            <div >
+                <h3 className='title-news'>Các bài viết đã đăng:</h3>
                 {filteredNews.length === 0 ? (
                     <p>Chưa có bài viết nào.</p>
                 ) : (
@@ -268,13 +268,13 @@ const NewsHome = () => {
                                 ))}
                                 <p className="post-time text-muted">{item.createdAt}</p>
                                 <button
-                                    className="btn btn-warning btn-sm mt-2"
+                                    className="btn-warning-1"
                                     onClick={() => handleEditNews(item)}
                                 >
                                     Chỉnh sửa
                                 </button>
                                 <button
-                                    className="btn btn-danger btn-sm mt-2 ms-2"
+                                    className="btn-warning-2"
                                     onClick={() => handleDeleteNews(item)}
                                 >
                                     Xóa

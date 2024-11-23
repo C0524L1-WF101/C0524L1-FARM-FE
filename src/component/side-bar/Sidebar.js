@@ -150,7 +150,7 @@ const Sidebar = () => {
           </Collapse>
         </li>
 
-         
+        {role === 'admin' && (
         <li>
           <button
             className="btn btn-link text-start w-100 d-flex align-items-center justify-content-between text-decoration-none"
@@ -189,7 +189,9 @@ const Sidebar = () => {
             </ul>
           </Collapse>
         </li>
+         )}
       </ul>
+    
     </div>
   );
 };

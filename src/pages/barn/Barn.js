@@ -227,15 +227,15 @@ const Barn = () => {
             </div>
 
             <div className="d-flex justify-content-center mt-4">
-                <Button variant="primary" className="mx-2 shadow" onClick={() => handleShowModal()}>Khởi tạo</Button>
+                <Button variant="primary" className="mx-2-shadow-1" onClick={() => handleShowModal()}>Khởi tạo</Button>
                 <Button
                     variant="warning"
-                    className="mx-2 shadow"
+                    className="mx-2-shadow-2"
                     onClick={() => selectedBarn ? handleShowModal(selectedBarn) : showToast("Bạn chưa chọn chuồng nuôi nào", "error")}
                 >
                     Chỉnh sửa
                 </Button>
-                <Button variant="danger" className="mx-2 shadow" onClick={handleShowDeleteModal}>Xóa</Button>
+                <Button variant="danger" className="mx-2-shadow-3" onClick={handleShowDeleteModal}>Xóa</Button>
             </div>
 
             <Modal show={showModal} onHide={handleCloseModal} centered className="no-border-header">
@@ -308,7 +308,7 @@ const Barn = () => {
                         </Form.Group>
                         <Modal.Footer>
                             <Button variant="secondary" className="shadow" onClick={handleCloseModal}>Hủy bỏ</Button>
-                            <Button variant="primary" className="shadow" type="submit">{editMode ? "Cập nhật" : "Thêm mới"}</Button>
+                            <Button variant="primary" className="mx-2-shadow-2" type="submit">{editMode ? "Cập nhật" : "Thêm mới"}</Button>
                         </Modal.Footer>
                     </Form>
                 </Modal.Body>

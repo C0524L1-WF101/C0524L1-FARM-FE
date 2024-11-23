@@ -76,7 +76,7 @@ const UserProfile = () => {
   return (
     <div className="user-profile-container">
       <div className="user-card">
-        <h2>Thông tin người dùng</h2>
+        <h2 className="title-header">Thông tin người dùng</h2>
         <div className="avatar-container">
           <img
             src={newAvatar || user.avatar || "https://www.svgrepo.com/show/343494/profile-user-account.svg"}

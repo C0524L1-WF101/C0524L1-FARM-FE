@@ -1,26 +1,42 @@
-.title-container{
-    text-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px;
-    color: rgb(255, 140, 0);
+/* Giao diện nút */
+.me-3-shadow {
+    font-size: 15px;
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: #007bff; /* Xanh dương */
+    color: #ffffff; /* Màu chữ trắng */
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border: none;
 }
 
+.me-3-shadow:hover {
+    background-color: #0056b3; /* Màu xanh dương đậm hơn khi hover */
+    color: #ffffff; /* Màu chữ trắng khi hover */
+}
+
+/* Tiêu đề */
+.title-container {
+    text-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Hiệu ứng bóng nhẹ */
+    color: #007bff; /* Màu xanh dương đậm */
+    font-weight: bold;
+}
+
+/* Bảng */
 .custom-table tbody tr {
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .custom-table tbody tr:hover {
-    background-color: #ffe5cc; 
-    color: #333; 
+    background-color: #e9ecef; /* Màu nền nhạt hơn khi hover */
+    color: #495057; /* Màu chữ đậm hơn */
 }
 
 .custom-table th {
-    background-color: #FFB266; 
-    color: #333; 
+    background-color: #007bff; /* Màu xanh dương */
+    color: #ffffff; /* Màu chữ trắng */
     font-weight: bold;
-}
-
-h2 {
-    color: #FF8000;
-    font-weight: bold;
+    text-transform: uppercase;
 }
 
 .custom-table th,
@@ -29,23 +45,27 @@ h2 {
     vertical-align: middle;
 }
 
+/* Tiêu đề bảng */
 .custom-table-header {
-    background-color : #fff5e6;
+    background-color: #f4f7fc; /* Màu nền nhạt */
+    color: #343a40; /* Màu chữ */
 }
 
-.table-responsive {
-    boder-radius: 10px
-}
-
+/* Modal */
 .no-border-header .modal-header {
     border-bottom: none;
+    background-color: #f8f9fa; /* Màu nền sáng */
 }
 
 .no-border-header .modal-body {
     border-bottom: none;
+    background-color: #ffffff;
 }
 
+/* Bảng */
 .custom-table {
-    margin-bottom: 0px
+    margin-bottom: 0px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); /* Hiệu ứng đổ bóng */
 }
-

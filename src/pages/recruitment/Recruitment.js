@@ -15,7 +15,7 @@ const Recruitment = () => {
             <section className="company-introduction">
                 <div className="company-intro-content">
                     <div className="company-intro-text">
-                        <h2>Giới thiệu về Những Chú Heo</h2>
+                        <h2 >Giới thiệu về Những Chú Heo</h2>
                         <p>
                             Những Chú Heo cam kết mang đến cho nhân viên một môi trường làm việc chuyên nghiệp, sáng tạo, và năng động. Với sứ mệnh cung cấp thức ăn chăn nuôi chất lượng cao, chúng tôi luôn tìm kiếm những tài năng phù hợp để cùng phát triển.
                         </p>

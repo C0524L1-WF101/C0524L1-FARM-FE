@@ -42,9 +42,9 @@ const Tiding = () => {
     return (
         <div className="home-container mt-4">
             {/* Tin tức Hot */}
-            <div className="hot-news mb-5">
-                <h2 className="text-center">Tin tức Hot</h2>
-                <div className="row">
+            <div className="hot-news mb-5" >
+                <h2 className="text-center" >Tin tức Hot</h2>
+                <div className="row" >
                     {news.filter(item => item.isHot).map(item => (
                         <div className="col-md-4 mb-3" key={item.id}>
                             <div className="card custom-card">
@@ -77,13 +77,13 @@ const Tiding = () => {
             </div>
 
             {/* Các chủ đề tin tức */}
-            <div className="categories mb-5">
+            <div className="categories mb-5" >
                 {['Tin tức & Sự kiện', 'Thị trường', 'Hoạt động doanh nghiệp', 'Khoa học kĩ thuật', 'Nhà nông làm giàu'].map((category) => (
-                    <div className="category-section" key={category}>
+                    <div className="category-section" key={category} >
                         <h3>{category}</h3>
                         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3">
                             {news.filter(item => item.category === category && !item.isHot).slice(0, 6).map(item => (
-                                <div className="col mb-2" key={item.id}>
+                                <div className="col mb-2" key={item.id} >
                                     <div className="card">
                                         <div className="row g-0">
                                             <div className="col-md-4">

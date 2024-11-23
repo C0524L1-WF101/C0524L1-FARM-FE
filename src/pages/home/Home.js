@@ -88,14 +88,14 @@ const Home = () => {
             </div>
 
             <div className="company-intro mb-4">
-                <h2 className="text-center">Giới Thiệu Về Chúng Tôi</h2>
-                <p className="text-center">
+                <h2 className="text-center" style={{color:'#007bff'}}>Giới Thiệu Về Chúng Tôi</h2>
+                <p className="text-center" >
                     Công ty chúng tôi chuyên cung cấp các sản phẩm nông nghiệp sạch và an toàn. Chúng tôi cam kết mang đến cho khách hàng những sản phẩm chất lượng cao nhất, bảo vệ sức khỏe người tiêu dùng.
                 </p>
             </div>
 
             <div className="mb-4">
-                <h2 className="text-center">Tin tức Hot</h2>
+                <h2 className="text-center" style={{color:' #007bff'}}>Tin tức Hot</h2>
                 <div className="row">
                     {news.filter(item => item.isHot).map(item => (
                         <div className="col-md-4 mb-3" key={item.id}>

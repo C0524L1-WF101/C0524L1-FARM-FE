@@ -1,55 +1,160 @@
-.title-container{
-    text-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px;
-    color: rgb(255, 140, 0);
+/* Cập nhật màu sắc toàn cục */
+body {
+  background-color: #f4f7fc; /* Màu nền tổng thể nhạt hơn */
+  color: #343a40; /* Màu chữ */
 }
 
-.custom-table tbody tr {
-    transition: background-color 0.3s ease;
+.container {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
-.custom-table tbody tr:hover {
-    background-color: #ffe5cc; 
-    color: #333; 
+/* Tiêu đề */
+.title-container {
+  color: #007bff; /* Màu xanh dương đậm */
+  font-weight: bold;
 }
 
-.custom-table th {
-    background-color: #ffb266; 
-    color: #333; 
-    font-weight: bold;
+/* Input và thanh tìm kiếm */
+input[type="text"] {
+  border: 1px solid #007bff; /* Đường viền xanh dương */
+  padding: 8px 12px;
+  border-radius: 5px;
 }
 
-h2 {
-    color: #FF8000;
-    font-weight: bold;
+input[type="text"]:focus {
+  border-color: #0056b3; /* Đậm hơn khi focus */
 }
 
-.custom-table th,
-.custom-table td {
-    text-align: center;
-    vertical-align: middle;
+/* Bảng dữ liệu */
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  background-color: #ffffff;
 }
 
-.custom-table-header {
-    background-color : #fff5e6;
+.table th {
+  background-color: #007bff; /* Header màu xanh dương */
+  color: white;
 }
 
-.table-responsive {
-    border-radius: 10px;
+.table tr:nth-child(even) {
+  background-color: #f8f9fa;
 }
 
-.no-border-header .modal-header {
-    border-bottom: none;
+.table tr:hover {
+  background-color: #e9ecef;
 }
 
-.no-border-header .modal-body {
-    border-bottom: none;
+.table-row.table-active {
+  background-color: #d1ecf1;
+  color: #004085;
+  font-weight: bold;
 }
 
-.custom-table {
-    margin-bottom: 0px
+/* Nút bấm */
+button.shadow {
+  border: none;
+  font-size: 16px;
 }
 
-.input-group {
-    margin-bottom: 3px
+/* Nút chính (Primary) */
+button.btn-primary {
+  background-color: #007bff; /* Xanh dương */
+  color: white;
 }
 
+button.btn-primary:hover {
+  background-color: #0056b3; /* Xanh dương đậm hơn khi hover */
+}
+
+/* Nút nguy hiểm (Danger) */
+button.btn-danger {
+  background-color: #dc3545; /* Đỏ */
+  color: white;
+}
+
+button.btn-danger:hover {
+  background-color: #c82333; /* Đỏ đậm hơn khi hover */
+}
+
+/* Nút thành công (Success) */
+button.btn-success {
+  background-color: #28a745; /* Xanh lá */
+  color: white;
+}
+
+button.btn-success:hover {
+  background-color: #218838; /* Xanh lá đậm hơn khi hover */
+}
+
+/* Nút thông tin (Info) */
+button.btn-info {
+  background-color: #17a2b8; /* Xanh da trời */
+  color: white;
+}
+
+button.btn-info:hover {
+  background-color: #138496; /* Xanh da trời đậm hơn khi hover */
+}
+
+/* Nút cảnh báo (Warning) */
+button.btn-warning {
+  background-color: #ffc107; /* Vàng */
+  color: white;
+}
+
+button.btn-warning:hover {
+  background-color: #e0a800; /* Vàng đậm hơn khi hover */
+}
+
+/* Nút mx-2-shadow đã được chỉnh lại màu sắc */
+.mx-2-shadow-1{
+  font-size: 15px;
+  padding: 10px 20px;
+  margin: 10px;
+  background-color: #28a745; /* Màu xanh lá tươi mới */
+  color: #ffffff; /* Trắng */
+  border-radius: 5px;
+  border: none;
+}
+.mx-2-shadow-2{
+  font-size: 15px;
+  padding: 10px 20px;
+  margin: 10px;
+  background-color: #28a745; /* Màu xanh lá tươi mới */
+  color: #ffffff; /* Trắng */
+  border-radius: 5px;
+  border: none;
+}
+.mx-2-shadow-3{
+  font-size: 15px;
+  padding: 10px 20px;
+  margin: 10px;
+  background-color: #28a745; /* Màu xanh lá tươi mới */
+  color: #ffffff; /* Trắng */
+  border-radius: 5px;
+  border: none;
+}
+
+
+
+.mx-2-shadow:hover {
+  background-color: #218838; /* Màu xanh lá đậm hơn khi hover */
+  transform: scale(1.05); /* Hiệu ứng phóng to khi hover */
+}
+
+/* Modal */
+.modal-content {
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.modal-header {
+  background-color: #f8f9fa;
+}
+
+.modal-footer {
+  border-top: 2px solid #e9ecef;
+}

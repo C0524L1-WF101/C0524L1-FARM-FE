@@ -4,6 +4,7 @@ import { Button, Modal, Form } from "react-bootstrap";
 import ToastNotification from '../../component/ToastNotification';
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import './Individual.css'
 
 
 const Individual = () => {
@@ -266,13 +267,13 @@ const Individual = () => {
       </div>
 
       <div className="d-flex justify-content-center mt-5">
-        <Button variant="primary" className="me-3 shadow" onClick={() => handleShowModal()}>
+        <Button variant="primary" className="me-3-shadow" onClick={() => handleShowModal()}>
           Thêm mới
         </Button>
-        <Button variant="warning" className="me-3 shadow" onClick={handleEdit}>
-          Sửa
+        <Button variant="warning" className="me-3-shadow" onClick={handleEdit}>
+          Chỉnh Sửa
         </Button>
-        <Button variant="danger" onClick={handleShowConfirmDelete}>
+        <Button variant="danger"   className="me-3-shadow" onClick={handleShowConfirmDelete}>
           Xóa
         </Button>
       </div>
