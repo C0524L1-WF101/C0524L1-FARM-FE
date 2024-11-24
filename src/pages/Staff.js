@@ -453,8 +453,8 @@ const Staff = () => {
                   <div className="form-group">
                     <label>Giới Tính</label>
                     <Field as="select" className="form-control" name="gender">
-                      <option value="male">Nam</option>
-                      <option value="female">Nữ</option>
+                      <option value="Nam">Nam</option>
+                      <option value="Nữ">Nữ</option>
                     </Field>
                     <ErrorMessage
                       name="gender"
@@ -508,8 +508,8 @@ const Staff = () => {
                   <div className="form-group">
                     <label>Chức Vụ</label>
                     <Field as="select" className="form-control" name="role">
-                      <option value="staff">Nhân viên</option>
-                      <option value="admin">Quản trị viên</option>
+                      <option value="Nhân Viên">Nhân viên</option>
+                      <option value="Quản trị Viên">Quản trị viên</option>
                     </Field>
                   </div>
                 </Modal.Body>

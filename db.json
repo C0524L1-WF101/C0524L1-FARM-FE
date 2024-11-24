@@ -16,11 +16,11 @@
       "username": "Nononame",
       "email": "tungnguyen21@gmai.com",
       "dob": "1999-02-02",
-      "gender": "Nam",
-      "idNumber": "001548954",
+      "gender": "Nữ",
+      "idNumber": "0000065654",
       "password": "admin123",
-      "wage": "80000",
-      "role": "employee"
+      "wage": "50000",
+      "role": "Nhân Viên"
     },
     {
       "id": "NV009",
@@ -29,11 +29,11 @@
       "username": "linda_ngo",
       "email": "tungnguyen213@gmai.com",
       "dob": "1999-01-01",
-      "gender": "Nam",
+      "gender": "Nữ",
       "idNumber": "001894341",
       "password": "admin123",
       "wage": "90000",
-      "role": "employee"
+      "role": "Nhân Viên"
     },
     {
       "id": "NV001",
@@ -42,19 +42,19 @@
       "username": "tung2",
       "email": "tung1@gmail.com",
       "dob": "2024-11-01",
-      "gender": "Male",
+      "gender": "Nữ",
       "idNumber": "123123456456",
       "password": "123",
       "wage": "60000",
-      "role": "employee"
+      "role": "Nhân Viên"
     }
   ],
   "news": [
     {
-      "title": "Tạm biệt anh Kiên",
+      "title": "Tạm biệt anh Kiên ",
       "content": "Tôi đã từng nghe tên anh ấy đâu. Khi được random những thành viên sẽ sát cánh với mình trong moudle 4 này mình đã chưa quen biết 1 ai trong lớp, nhưng khi tới bây giờ đã trải qua 2-3 tuần được làm việc với anh Kiên ở trong nhóm 3 này tôi đã thật sự cảm thấy mình thật may mắn. Anh đóng vai trò như 1 Leader trong team, 1 người anh yêu thương, dẫn dắt 3 đứa em bé bỏng chưa có 1 kinh nghiệm nào vào 1 dự án. Anh ấy biết được gì, có những kinh nghiệm ra sao anh ấy cũng chia sẽ, chỉ dậy tận tình để những đứa em có thể lao đầu vào cái ngành nghề đầy tính cạnh tranh này. Không chỉ thế anh ấy còn là nguồn động lực và là nguồn ý tưởng để giúp phần nào đó sự tự tin trong 3 đứa em ấy không bị mất đi. Chẳng hạn trong những lời khuyên mà anh ấy nói cho chúng tôi, riêng bản thân tôi tâm đắc nhất lời khuyên này : 'Trong cái ngành này các em chỉ cần học hỏi nhiều, mày mò thật nhiều và có trách nhiệm với nhiệm vụ của mấy đứa thì sẽ chắc chắn thành công trong con đường việc làm và cuộc sống sau này.' Tới bây giờ ngày 18-11-2024, anh ấy đã chính thức không còn được đồng hành với 3 đứa em chúng tôi trong con đường moudle 4 sắp tới nữa, thú thật rằng tôi đã rất sốc và rất buồn khi được nghe tin này. Như câu truyện tôi nói ở trên anh ấy đóng vai trò rất to lớn với chúng tôi trong moudle cuối cùng này, nhưng tiết thay anh ấy chỉ đăng khí học khóa Reactjs chứ không đóng tiền moudle 4 này cho nên anh ấy đã bị đuổi ra khỏi khóa học đầy sự cạnh tranh này. Nhưng bây giờ chúng tôi không có thời gian để tiếc nuối sự ra đi của anh ấy thay vào đó tôi đã lên bài viết này để có thể tri ân những gì anh ấy đã làm cho chúng tôi và cũng như chia sẽ câu chuyện này cho tới mọi người, có thể mọi người không biết anh Kiên là ai nhưng mà mong mọi người khi mọi người đọc được bài viết này không chê cười bài viết văn này của tôi cũng chính là đứa em đã gây rắc rối ít nhiều gì cho anh ấy khi chưa hoàn thành xong 1 trong những trang quan trọng nhất, vâng đó chính là tôi: 'Đặng 'minleo' Minh Long' mà hãy thay vào đó là lời chúc cho người bạn, người anh mà 3 đứa chúng tôi yêu thương và tôn trọng  sẽ có con đường thành công trong cuộc sống, sức khỏe và công việc. Riêng em 'minleo' xin chúc anh có được cuộc sống mà anh mong muốn cũng như chúc mừng anh vì a đã có được bằng chứng nhận sau gần hơn 10 năm chiến đấu trong cái ngành này mặc dù ngành này là ngành tay trái của anh, em cũng cảm ơn vợ của anh đã đưa anh tới với bọn em vì khi không có vợ anh thì chắc chắn 3 đứa chúng em sẽ không có được cơ hội được gặp và đồng hành với anh như này. Và lời cuối cùng em xin chúc anh hạnh phúc với gia đình, có thật nhiều sức khỏe, thành công trong công việc và mong anh sẽ hãy luôn nhớ tới tụi em, nhớ tới nhóm 3 làm về trang tin tức chăn nuôi này mặc dù cũng đã gây khó dễ cho anh nhưng mà mong a không bao giờ quên tụi em nhen. Love and Peace! ",
       "images": [],
-      "createdAt": "20:50:57 23/11/2024",
+      "createdAt": "10:16:56 24/11/2024",
       "id": "2135431"
     },
     {
@@ -182,7 +182,7 @@
   "pigs": [
     {
       "name": "L001",
-      "nameBarn": "C01",
+      "nameBarn": "C08",
       "createdAt": "2024-11-15",
       "closeAt": "",
       "status": "Khỏe mạnh",
@@ -197,15 +197,6 @@
       "status": "Khỏe mạnh",
       "weight": "123",
       "id": "0cd3"
-    },
-    {
-      "id": "39c0",
-      "name": "L003",
-      "nameBarn": "C03",
-      "createdAt": "2024-11-15",
-      "closeAt": "",
-      "status": "Yếu",
-      "weight": "1234"
     },
     {
       "id": "c4f2",
@@ -263,14 +254,6 @@
       "quantity": 4
     },
     {
-      "id": "1535ad04-6101-4626-852f-13a2fcf84a0c",
-      "name": "C04",
-      "empoly": "NV004",
-      "createdAt": "2024-11-09",
-      "closeAt": "",
-      "quantity": 0
-    },
-    {
       "id": "134b4410-187c-452e-be0b-e4c7abccb87a",
       "name": "C06",
       "empoly": "NV002",
@@ -308,13 +291,13 @@
       "empoly": "NV001",
       "createdAt": "2024-11-16",
       "closeAt": "",
-      "quantity": 0
+      "quantity": 123
     }
   ],
   "notifications": [
     {
-      "content": "Triển khai tiêm vắc xin cho vật nuôi từ ngày 30/01/2024.",
-      "date": "2024-11-23T13:50:53.721Z",
+      "content": "Triển khai tiêm vắc xin cho vật nuôi từ ngày 30/02/2024.",
+      "date": "2024-11-24T03:15:41.735Z",
       "id": "f093"
     },
     {
@@ -323,9 +306,9 @@
       "id": "78b4"
     },
     {
+      "id": "8032",
       "content": "Họp toàn bộ nhân viên vào lúc 8h sáng ngày 19/11/2024.",
-      "date": "2024-11-19T08:55:12.078Z",
-      "id": "2ff7"
+      "date": "2024-11-24T03:15:53.564Z"
     }
   ],
   "vaccinationRecords": [
@@ -335,7 +318,7 @@
       "vaccineType": "Vaccine B",
       "quantity": 10,
       "vaccineAdmin": "Huy",
-      "notes": "First",
+      "notes": "",
       "id": "dcd3",
       "nameBarn": "C05"
     },
