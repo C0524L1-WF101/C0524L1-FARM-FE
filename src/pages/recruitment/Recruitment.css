@@ -5,6 +5,7 @@
   background-image: url('https://png.pngtree.com/background/20230612/original/pngtree-red-barn-in-the-countryside-wallpaper-picture-image_3188341.jpg');
   background-size: cover;
   background-position: center;
+  border-radius: 10px;
 }
 
 .recruitment-banner-overlay {
