@@ -70,7 +70,7 @@ function Login() {
           <button onClick={handleClose} className="close-button">
             &times;
           </button>
-          <h2>Đăng nhập</h2>
+          <h2 style={{color:'#007bff',marginBottom:'10px'}}>Đăng nhập</h2>
           <form onSubmit={handleLogin}>
             <div className="input-group">
               <label htmlFor="username">Tên đăng nhập:</label>
