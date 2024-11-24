@@ -116,7 +116,7 @@ const NewsHome = () => {
             try {
                 await newsAPI.deleteNews(newsToDelete.id);
                 setNews(news.filter((item) => item.id !== newsToDelete.id));
-                showToast('Đã xóa bài viết thành công');
+                showToast('Đã xóa bài viết thành công','success');
                 setShowDeleteModal(false);
             } catch (error) {
                 console.error('Lỗi khi xóa bài viết:', error);

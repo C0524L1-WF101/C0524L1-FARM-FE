@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../warehouse/Warehouse.css';
-
+import ToastNotification from '../../component/ToastNotification';
 const Warehouse = () => {
   const [foodData, setFoodData] = useState(() => {
     const savedData = localStorage.getItem('foodData');
@@ -18,12 +18,18 @@ const Warehouse = () => {
   const [showModal, setShowModal] = useState(false);
   const [showStockOutModal, setShowStockOutModal] = useState(false);
   const [selectedFood, setSelectedFood] = useState(null);
-
+  const [toast, setToast] = useState({ message: '', type: '', show: false });
   const prevFoodDataRef = useRef();
   useEffect(() => {
     prevFoodDataRef.current = foodData;
   }, [foodData]);
+  const showToast = (message, type) => {
+    setToast({ message, type, show: true });
+};
 
+const handleCloseToast = () => {
+    setToast({ ...toast, show: false });
+};
   const handleStockIn = () => {
     if (newFoodType && newQuantity && newUnit) {
       const existingFood = foodData.find(item => item.foodType === newFoodType);
@@ -36,6 +42,7 @@ const Warehouse = () => {
           return item;
         });
         setFoodData(updatedFoodData);
+        showToast("Đã thêm số lượng thành công", "success");
       } else {
         const newFood = {
           id: foodData.length + 1,
@@ -44,6 +51,7 @@ const Warehouse = () => {
           unit: newUnit,
         };
         setFoodData([...foodData, newFood]);
+        showToast("Đã thêm thức ăn thành công", "success");
       }
 
       setNewFoodType('');
@@ -52,6 +60,7 @@ const Warehouse = () => {
       setShowModal(false);
     } else {
       alert('Vui lòng điền đầy đủ thông tin loại thức ăn');
+     
     }
   };
 
@@ -66,6 +75,7 @@ const Warehouse = () => {
 
       setFoodData(updatedFoodData);
       setShowStockOutModal(false);
+      showToast("Đã xuất kho thành công", "success");
       setNewQuantity('');
     } else {
       alert('Vui lòng nhập số lượng hợp lệ');
@@ -263,6 +273,12 @@ const Warehouse = () => {
           </div>
         </div>
       )}
+         <ToastNotification
+                message={toast.message}
+                type={toast.type}
+                show={toast.show}
+                onClose={handleCloseToast}
+            />
     </div>
   );
 };
