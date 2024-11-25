@@ -168,7 +168,7 @@
     {
       "name": "L001",
       "nameBarn": "C08",
-      "createdAt": "2024-11-15",
+      "createdAt": "2000-01-10",
       "closeAt": "",
       "status": "Khỏe mạnh",
       "weight": "123",
@@ -227,6 +227,15 @@
       "closeAt": "",
       "status": "Khỏe mạnh",
       "weight": "13"
+    },
+    {
+      "id": "5723",
+      "name": "L006",
+      "nameBarn": "C03",
+      "createdAt": "1999-10-02",
+      "closeAt": "",
+      "status": "Khỏe mạnh",
+      "weight": "123"
     }
   ],
   "barn": [
