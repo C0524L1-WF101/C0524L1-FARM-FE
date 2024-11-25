@@ -453,6 +453,7 @@ const Staff = () => {
                   <div className="form-group">
                     <label>Giới Tính</label>
                     <Field as="select" className="form-control" name="gender">
+                      <option value="" label="-- Chọn Giới Tính --" />
                       <option value="Nam">Nam</option>
                       <option value="Nữ">Nữ</option>
                     </Field>
@@ -508,6 +509,7 @@ const Staff = () => {
                   <div className="form-group">
                     <label>Chức Vụ</label>
                     <Field as="select" className="form-control" name="role">
+                    <option value="" label="-- Chọn Chức Vụ --" />
                       <option value="Nhân Viên">Nhân viên</option>
                       <option value="Quản trị Viên">Quản trị viên</option>
                     </Field>
