@@ -1,0 +1,155 @@
+/* Container chính */
+.news-home-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff; /* Nền trắng */
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); /* Đổ bóng nhẹ */
+}
+
+/* Tiêu đề */
+.title-container,
+.news-home-header {
+  text-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Hiệu ứng bóng nhẹ */
+  color: #007bff; /* Màu xanh dương đậm */
+  font-weight: bold;
+}
+
+/* Textarea */
+.news-home-textarea {
+  width: 100%;
+  height: 120px;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  border: 1px solid #dee2e6; /* Viền màu xám nhạt */
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition: border-color 0.1s ease;
+}
+
+.news-home-textarea:focus {
+  border-color: #007bff; /* Viền đổi sang màu xanh dương khi focus */
+  outline: none;
+}
+
+/* Nút bấm */
+.btn-add-notification,
+.btn-edit-notification,
+.btn-delete-notification {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.1s ease, color 0.1s ease;
+  margin-right: 10px;
+}
+
+.btn-add-notification,
+.btn-edit-notification {
+  background-color: #4CAF50; /* Xanh dương */
+  color: #ffffff; /* Trắng */
+}
+
+.btn-add-notification:hover,
+.btn-edit-notification:hover {
+  background-color:#2d702f; /* Xanh dương đậm hơn khi hover */
+}
+
+.btn-delete-notification {
+  background-color: #dc3545; /* Đỏ */
+  color: #ffffff; /* Trắng */
+}
+
+.btn-delete-notification:hover {
+  background-color: #b02a37; /* Đỏ đậm hơn khi hover */
+}
+
+/* Danh sách thông báo */
+.notification-list {
+  margin-top: 30px;
+}
+
+.notification-item {
+  background-color: #f8f9fa; /* Nền sáng */
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+  
+}
+
+.notification-item:hover {
+  background-color: #e9ecef; /* Nền đổi màu khi hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Đổ bóng mạnh hơn */
+}
+
+.notification-item p {
+  font-size: 18px;
+  margin-bottom: 5px;
+  color: #495057; /* Màu chữ đậm */
+}
+
+.notification-item small {
+  display: block;
+  color: #6c757d; /* Màu chữ nhạt */
+  font-size: 14px;
+}
+
+/* Modal */
+.modal-header-custom {
+  background-color: #f8f9fa; /* Nền sáng */
+  border-bottom: 1px solid #dee2e6; /* Viền nhẹ */
+}
+
+.modal-body-custom {
+  font-size: 16px;
+  color: #333; /* Màu chữ chính */
+}
+
+.modal-footer-custom {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Các nút trong modal */
+.button-primary {
+  background-color: #007bff; /* Xanh dương */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+ 
+}
+
+.button-primary:hover {
+  background-color: #0056b3; /* Xanh dương đậm hơn */
+}
+
+.button-secondary {
+  background-color: #0056b3; /* Xám đậm */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+
+}
+
+.button-secondary:hover {
+  background-color: #4579a0; /* Xám đậm hơn */
+}
+
+.button-danger {
+  background-color: #dc3545; /* Đỏ */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+
+}
+
+.button-danger:hover {
+  background-color: #b02a37; /* Đỏ đậm hơn */
+}

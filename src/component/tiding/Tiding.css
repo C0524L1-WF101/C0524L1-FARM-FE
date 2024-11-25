@@ -1,0 +1,142 @@
+/* CSS for Tiding Component */
+
+/* Overall Container */
+.home-container {
+    margin-top: 40px;
+    padding: 0 20px;
+  }
+  
+  /* Hot News Section */
+  .hot-news h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #007bff;
+    margin-bottom: 20px;
+  }
+  
+  .card.custom-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card.custom-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-right: 1px solid #ddd;
+  }
+  
+  .home-custom-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .home-custom-title:hover {
+    color: #0056b3;
+  }
+  
+  .card-body {
+    padding: 15px;
+  }
+  
+  .card-body p {
+    color: #666;
+    font-size: 1rem;
+  }
+  
+  .card-body small {
+    font-size: 0.9rem;
+    color: #999;
+  }
+  
+  /* Category Section */
+  .category-section h3 {
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 20px;
+  }
+  
+  .category-section .row-cols-1 .col {
+    margin-bottom: 20px;
+  }
+  
+  .card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card-img img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+  }
+  
+  .card-body {
+    padding: 15px;
+  }
+  
+  .card-body p {
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  .card-body small {
+    font-size: 0.9rem;
+    color: #999;
+  }
+  
+  .d-flex.justify-content-center.align-items-center {
+    height: 120px;
+    background-color: #f0f0f0;
+  }
+  
+  .text-muted {
+    color: #999;
+  }
+  
+  /* Toast Notification */
+  .toast-notification {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    z-index: 1000;
+  }
+  
+  /* Media Query for Responsive Design */
+  @media (max-width: 768px) {
+    .category-section .row-cols-md-2 .col {
+      margin-bottom: 15px;
+    }
+  
+    .category-section .row-cols-lg-3 .col {
+      margin-bottom: 15px;
+    }
+  }
+  

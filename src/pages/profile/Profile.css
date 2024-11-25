@@ -1,0 +1,133 @@
+/* Container thông tin người dùng */
+.user-profile-container {
+  display: flex;
+  justify-content: center;
+}
+
+.user-card {
+  width: 550px;
+  background-color: #ffffff; /* Nền trắng sáng */
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+  text-align: center;
+  padding: 20px;
+  height: auto;
+  transition: all 0.3s ease-in-out; /* Hiệu ứng mượt mà */
+}
+
+.user-card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Đổ bóng nổi bật hơn */
+  transform: translateY(-5px); /* Nhẹ nhàng nâng lên */
+}
+
+/* Container avatar */
+.avatar-container {
+  margin-bottom: 15px;
+}
+
+.avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%; /* Làm tròn hình ảnh */
+  object-fit: cover;
+  border: 2px solid #ddd; /* Viền avatar */
+  transition: all 0.3s ease-in-out; /* Hiệu ứng mượt mà */
+}
+
+.avatar-container:hover .avatar {
+  border-color: #0056b3; /* Viền xanh đậm hơn */
+  transform: scale(1.1); /* Phóng to nhẹ */
+}
+
+/* Chỉnh sửa avatar */
+.avatar-edit {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #007bff; /* Viền màu xanh dương */
+  cursor: pointer;
+  transition: border-color 0.3s ease, transform 0.3s ease; /* Hiệu ứng viền và chuyển động */
+}
+
+.avatar-edit:hover {
+  border-color: #0056b3; /* Xanh đậm hơn khi hover */
+  transform: scale(1.1) rotate(5deg); /* Phóng to và xoay nhẹ */
+}
+
+.avatar-edit:active {
+  transform: scale(0.95); /* Thu nhỏ khi click */
+}
+
+/* Thông tin người dùng */
+.user-info h2 {
+  margin: 10px 0;
+  font-size: 1.5rem;
+  color: #007bff; /* Màu xanh dương đậm */
+  font-weight: bold;
+}
+
+.user-info p {
+  font-size: 1rem;
+  margin: 5px 0;
+  color: #495057; /* Màu chữ chính */
+}
+
+.user-info p strong {
+  color: #333; /* Màu chữ đậm */
+}
+
+/* Nhập mật khẩu */
+.password-input-container {
+  display: flex;
+  align-items: center;
+}
+
+.password-input-container .form-control {
+  flex: 1;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #007bff; /* Đường viền xanh dương */
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out; /* Hiệu ứng mượt mà */
+}
+
+.password-input-container .form-control:focus {
+  border-color: #0056b3; /* Xanh đậm hơn khi focus */
+  box-shadow: 0px 4px 6px rgba(0, 123, 255, 0.3); /* Ánh sáng nhẹ */
+}
+
+.password-input-container .toggle-password {
+  margin-left: 10px;
+  font-size: 16px;
+  color: #007bff; /* Màu xanh dương */
+  cursor: pointer;
+  transition: all 0.3s ease-in-out; /* Hiệu ứng mượt mà */
+}
+
+.password-input-container .toggle-password:hover {
+  color: #0056b3; /* Xanh đậm hơn khi hover */
+  text-shadow: 0px 4px 6px rgba(0, 123, 255, 0.5); /* Hiệu ứng đổ bóng */
+  transform: scale(1.1); /* Phóng to nhẹ */
+}
+
+/* Tiêu đề */
+.title-header {
+  color: #007bff; /* Màu xanh dương đậm */
+  font-weight: bold;
+  text-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+  animation: fadeIn 1s ease-in-out; /* Hiệu ứng xuất hiện */
+}
+
+/* Keyframes cho hiệu ứng tiêu đề */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

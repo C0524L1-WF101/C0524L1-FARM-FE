@@ -1,0 +1,279 @@
+/* Phần hình ảnh lớn và các hình ảnh nhỏ */
+.large-image-container {
+    position: relative;
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+
+.large-image {
+    width: 100%;
+    height: 500px; /* Đặt chiều cao cố định cho ảnh */
+    overflow: hidden;
+    margin-bottom: 20px;
+    position: relative;
+    border-radius: 10px; /* Làm tròn góc ảnh lớn */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+    transition: transform 0.3s ease-in-out; /* Hiệu ứng chuyển động */
+}
+
+.large-image:hover {
+    transform: scale(1.02); /* Phóng to nhẹ khi hover */
+}
+
+.large-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease; 
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.large-image img.hidden {
+    opacity: 0;
+    transform: scale(1.05); /* Thêm hiệu ứng phóng to khi ảnh ẩn */
+}
+
+/* Lưới các ảnh nhỏ */
+.small-images {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.small-image {
+    height: 200px; /* Có thể điều chỉnh theo nhu cầu */
+    border-radius: 5px; /* Làm tròn góc các ảnh nhỏ */
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Hiệu ứng mượt mà */
+}
+
+.small-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out; /* Hiệu ứng khi hover ảnh */
+}
+
+.small-image:hover {
+    transform: scale(1.05); /* Phóng to ảnh nhẹ khi hover */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Tăng đổ bóng */
+}
+
+/* Các phần còn lại của CSS */
+.home-container .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-radius: 10px; /* Làm tròn góc cho card */
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.home-container .card:hover {
+    transform: translateY(-5px); /* Nâng nhẹ card khi hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Tăng đổ bóng khi hover */
+}
+
+.home-container .card-img {
+    position: relative;
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+}
+
+.home-container .card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+}
+
+.home-container .card-img img:hover {
+    transform: scale(1.1); /* Phóng to ảnh trong card khi hover */
+}
+
+.home-container .card-body {
+    padding: 3px 5px; /* Giảm padding để nội dung gọn gàng hơn */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.875rem; /* Giảm kích thước font trong card */
+}
+
+.home-container .home-custom-title {
+    font-size: 1rem;
+    font-weight: bold;
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.home-container .home-custom-title:hover {
+    color: rgb(255, 166, 0);
+    transform: scale(1.05); /* Tăng nhẹ kích thước chữ */
+}
+
+.home-container .card-text {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin-bottom: 8px; /* Giảm khoảng cách giữa các dòng mô tả */
+}
+
+.home-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 20px; /* Thêm padding để cách đều nội dung */
+}
+
+.home-container h1 {
+    font-size: 2.5rem;
+    color: #333;
+    text-align: center;
+    text-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ cho tiêu đề */
+}
+
+.home-container p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    text-align: justify;
+}
+
+.home-container img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.home-container img:hover {
+    transform: scale(1.05); /* Phóng to nhẹ ảnh khi hover */
+}
+/* Phần hình ảnh lớn và các hình ảnh nhỏ */
+.large-image-container {
+    position: relative;
+    margin-bottom: 30px;
+    overflow: hidden;
+    animation: fadeIn 1s ease-in-out; /* Hiệu ứng mờ dần khi xuất hiện */
+}
+
+.large-image {
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    position: relative;
+    border-radius: 10px; /* Làm tròn góc ảnh lớn */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+    transition: transform 0.3s ease-in-out; /* Hiệu ứng chuyển động */
+    animation: slideInUp 0.8s ease-in-out; /* Hiệu ứng trượt lên */
+}
+
+.large-image:hover {
+    transform: scale(1.02); /* Phóng to nhẹ khi hover */
+}
+
+.large-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 1s ease-in-out, transform 0.5s ease; /* Hiệu ứng chuyển đổi mượt mà */
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: fadeIn 1.5s ease-in-out; /* Hiệu ứng xuất hiện dần */
+}
+
+.large-image img.hidden {
+    opacity: 0;
+    transform: scale(1.05); /* Thêm hiệu ứng phóng to khi ảnh ẩn */
+}
+
+/* Lưới các ảnh nhỏ */
+.small-images {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.small-image {
+    height: 200px; /* Có thể điều chỉnh theo nhu cầu */
+    border-radius: 5px; /* Làm tròn góc các ảnh nhỏ */
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Hiệu ứng mượt mà */
+    animation: slideInUp 0.8s ease-in-out; /* Hiệu ứng trượt lên khi xuất hiện */
+}
+
+.small-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out; /* Hiệu ứng khi hover ảnh */
+}
+
+.small-image:hover {
+    transform: scale(1.05); /* Phóng to ảnh nhẹ khi hover */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Tăng đổ bóng */
+}
+
+/* Card */
+.home-container .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-radius: 10px; /* Làm tròn góc cho card */
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    animation: fadeIn 1s ease-in-out; /* Hiệu ứng mờ dần khi xuất hiện */
+}
+
+.home-container .card:hover {
+    transform: translateY(-5px); /* Nâng nhẹ card khi hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Tăng đổ bóng khi hover */
+}
+
+/* Tiêu đề */
+.home-container h1 {
+    font-size: 2.5rem;
+    color: #333;
+    text-align: center;
+    text-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ cho tiêu đề */
+    animation: fadeIn 1s ease-in-out; /* Hiệu ứng xuất hiện mượt */
+}
+
+.home-container img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease-in-out;
+    animation: fadeIn 1.5s ease-in-out; /* Hiệu ứng xuất hiện mờ dần */
+}
+
+.home-container img:hover {
+    transform: scale(1.05); /* Phóng to nhẹ ảnh khi hover */
+}
+
+/* Keyframes cho hiệu ứng mượt */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

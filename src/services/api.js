@@ -89,6 +89,52 @@ export const newsAPI = {
   },
 };
 
+// Các API liên quan đến bài viết (posts)
+export const postAPI = {
+  // Lấy tất cả bài viết
+  getAllPosts: async () => {
+    try {
+      const response = await api.get("/posts");
+      return response.data;
+    } catch (error) {
+      console.error("Lỗi khi lấy danh sách bài viết:", error);
+      throw error;
+    }
+  },
+
+  // Tạo bài viết mới
+  createPost: async (data) => {
+    try {
+      const response = await api.post("/posts", data);
+      return response.data;
+    } catch (error) {
+      console.error("Lỗi khi tạo bài viết:", error);
+      throw error;
+    }
+  },
+
+  // Cập nhật bài viết
+  updatePost: async (id, data) => {
+    try {
+      const response = await api.put(`/posts/${id}`, data);
+      return response.data;
+    } catch (error) {
+      console.error("Lỗi khi cập nhật bài viết:", error);
+      throw error;
+    }
+  },
+
+  // Xóa bài viết
+  deletePost: async (id) => {
+    try {
+      await api.delete(`/posts/${id}`);
+    } catch (error) {
+      console.error("Lỗi khi xóa bài viết:", error);
+      throw error;
+    }
+  },
+};
+
 // Các API liên quan đến đàn lợn
 export const pigAPI = {
   getAllPigs: async () => {
@@ -127,3 +173,44 @@ export const pigAPI = {
     }
   },
 };
+
+// Các API liên quan đến chuồng nuôi
+export const barnAPI = {
+  getAllBarns: async () => {
+    try {
+      const response = await api.get("/barn");
+      return response.data;
+    } catch (error) {
+      console.error("Lỗi khi lấy danh sách chuồng nuôi:", error);
+      throw error;
+    }
+  },
+  createBarn: async (data) => {
+    try {
+      const response = await api.post("/barn", data);
+      return response.data;
+    } catch (error) {
+      console.error("Lỗi khi thêm chuồng nuôi:", error);
+      throw error;
+    }
+  },
+  updateBarn: async (id, data) => {
+    try {
+      const response = await api.put(`/barn/${id}`, data);
+      return response.data;
+    } catch (error) {
+      console.error("Lỗi khi cập nhật thông tin chuồng nuôi:", error);
+      throw error;
+    }
+  },
+  deleteBarn: async (id) => {
+    try {
+      await api.delete(`/barn/${id}`);
+    } catch (error) {
+      console.error("Lỗi khi xóa chuồng nuôi:", error);
+      throw error;
+    }
+  },
+};
+
+
